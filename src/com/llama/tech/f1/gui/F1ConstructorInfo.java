@@ -42,52 +42,52 @@ public class F1ConstructorInfo extends JPanel {
 		
 		lblNewLabel = new JLabel("");
 		lblNewLabel.setBorder(new TitledBorder(null, "Logo", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		lblNewLabel.setBounds(23, 36, 144, 90);
+		lblNewLabel.setBounds(23, 36, 181, 100);
 		add(lblNewLabel);
 		
 		lblNewLabel_1 = new JLabel("Nombre:");
-		lblNewLabel_1.setBounds(185, 38, 70, 15);
+		lblNewLabel_1.setBounds(216, 40, 70, 15);
 		add(lblNewLabel_1);
 		
 		textField = new JTextField();
 		textField.setEditable(false);
-		textField.setBounds(309, 36, 197, 19);
+		textField.setBounds(341, 36, 265, 19);
 		add(textField);
 		textField.setColumns(10);
 		
 		lblPas = new JLabel("País:");
-		lblPas.setBounds(185, 65, 70, 15);
+		lblPas.setBounds(216, 67, 70, 15);
 		add(lblPas);
 		
 		textField_1 = new JTextField();
 		textField_1.setEditable(false);
-		textField_1.setBounds(309, 63, 197, 19);
+		textField_1.setBounds(341, 63, 265, 19);
 		add(textField_1);
 		textField_1.setColumns(10);
 		
 		lblNewLabel_2 = new JLabel("Posición final:");
-		lblNewLabel_2.setBounds(185, 92, 107, 15);
+		lblNewLabel_2.setBounds(216, 94, 107, 15);
 		add(lblNewLabel_2);
 		
 		textField_2 = new JTextField();
 		textField_2.setEditable(false);
 		textField_2.setColumns(10);
-		textField_2.setBounds(309, 90, 197, 19);
+		textField_2.setBounds(341, 90, 265, 19);
 		add(textField_2);
 		
 		lblPuntos = new JLabel("Puntos:");
-		lblPuntos.setBounds(185, 119, 107, 15);
+		lblPuntos.setBounds(216, 121, 107, 15);
 		add(lblPuntos);
 		
 		textField_3 = new JTextField();
 		textField_3.setEditable(false);
 		textField_3.setColumns(10);
-		textField_3.setBounds(309, 117, 197, 19);
+		textField_3.setBounds(341, 117, 265, 19);
 		add(textField_3);
 		
 		scrollPane = new JScrollPane();
 		scrollPane.setBorder(new TitledBorder(null, "Pilotos", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(51, 51, 51)));
-		scrollPane.setBounds(23, 155, 232, 90);
+		scrollPane.setBounds(23, 155, 232, 121);
 		add(scrollPane);
 		
 		table = new JTable();
@@ -95,7 +95,7 @@ public class F1ConstructorInfo extends JPanel {
 		
 		scrollPane_1 = new JScrollPane();
 		scrollPane_1.setBorder(new TitledBorder(null, "Carreras", TitledBorder.RIGHT, TitledBorder.TOP, null, null));
-		scrollPane_1.setBounds(274, 155, 232, 90);
+		scrollPane_1.setBounds(274, 155, 332, 121);
 		add(scrollPane_1);
 		
 		table_1 = new JTable();

@@ -46,6 +46,7 @@ import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.RowSpec;
 import com.jgoodies.forms.factories.FormFactory;
+import java.awt.Color;
 
 public class F1MainGUI extends JFrame 
 {
@@ -76,8 +77,8 @@ public class F1MainGUI extends JFrame
 	public F1MainGUI() 
 	{
 		setTitle("Llamatech's F1 Board");
-		setPreferredSize(new Dimension(674, 800));
-		setMinimumSize(new Dimension(674, 800));
+		setPreferredSize(new Dimension(1200, 800));
+		setMinimumSize(new Dimension(1200, 800));
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 520, 449);
@@ -116,19 +117,22 @@ public class F1MainGUI extends JFrame
 //		}
 		try {
 			flowPanel = new JFlowPanel(new Config(files));
+			flowPanel.setLocation(0, 0);
+			flowPanel.setForeground(Color.BLACK);
 			flowPanel.setMaximumSize(new Dimension(674, 300));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		contentPane.setLayout(new BorderLayout(3, 0));
-		flowPanel.setSize(new Dimension(600, 200));
+		contentPane.setLayout(null);
+		flowPanel.setSize(new Dimension(643, 200));
 		flowPanel.setPreferredSize(new Dimension(674, 200));
 		flowPanel.setMinimumSize(new Dimension(674, 200));
-		contentPane.add(flowPanel, BorderLayout.NORTH);
+		contentPane.add(flowPanel);
 		
 		JPanel racePanel = new JPanel();
-		contentPane.add(racePanel, BorderLayout.CENTER);
+		racePanel.setBounds(0, 200, 643, 542);
+		contentPane.add(racePanel);
 		racePanel.setLayout(null);
 		
 		f1CircuitInfoPanel = new F1CircuitInfoPanel();
@@ -140,11 +144,8 @@ public class F1MainGUI extends JFrame
 		racePanel.add(f1CircuitPositions);
 		
 		F1ConstructorInfo f1ConstructorInfo = new F1ConstructorInfo();
-		f1ConstructorInfo.setBounds(55, 239, 549, 260);
+		f1ConstructorInfo.setBounds(12, 232, 630, 298);
 		racePanel.add(f1ConstructorInfo);
-		
-		JPanel buttonPanel = new JPanel();
-		contentPane.add(buttonPanel, BorderLayout.SOUTH);
 		flowPanel.revalidate();
 	}
 	
