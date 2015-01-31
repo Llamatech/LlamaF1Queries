@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uml:Model xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmi:id="_Pl_ngKmDEeSSzajNglSdIg" name="model">
+  <packagedElement xmi:type="uml:Interface" xmi:id="_V2GToKmDEeSSzajNglSdIg" name="IF1"/>
+  <packagedElement xmi:type="uml:Class" xmi:id="_YGH1gKmDEeSSzajNglSdIg" name="F1">
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_sEzKcKmDEeSSzajNglSdIg" name="temporada" type="_bwU2YKmDEeSSzajNglSdIg" association="_sE0YkKmDEeSSzajNglSdIg">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_sEzKcamDEeSSzajNglSdIg"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_sEzKcqmDEeSSzajNglSdIg" value="64"/>
+    </ownedAttribute>
+    <interfaceRealization xmi:type="uml:InterfaceRealization" xmi:id="_rKWUYKmDEeSSzajNglSdIg" client="_YGH1gKmDEeSSzajNglSdIg" supplier="_V2GToKmDEeSSzajNglSdIg" contract="_V2GToKmDEeSSzajNglSdIg"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_bwU2YKmDEeSSzajNglSdIg" name="Temporada">
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_pL7GkKmIEeSSzajNglSdIg" name="carrera" type="_c-1Q4KmDEeSSzajNglSdIg" association="_pMfuUKmIEeSSzajNglSdIg">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_pL7GkamIEeSSzajNglSdIg"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_pL7GkqmIEeSSzajNglSdIg" value="*"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_qG-ZkKmIEeSSzajNglSdIg" name="escuderia" type="_frrRoKmDEeSSzajNglSdIg" association="_qG_AoKmIEeSSzajNglSdIg">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_qG-ZkamIEeSSzajNglSdIg"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_qG-ZkqmIEeSSzajNglSdIg" value="*"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_rTTp0KmIEeSSzajNglSdIg" name="piloto" type="_hAvnIKmDEeSSzajNglSdIg" association="_rTTp06mIEeSSzajNglSdIg">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_rTTp0amIEeSSzajNglSdIg"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_rTTp0qmIEeSSzajNglSdIg" value="*"/>
+    </ownedAttribute>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_c-1Q4KmDEeSSzajNglSdIg" name="Carrera">
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_qwc0YKmIEeSSzajNglSdIg" name="piloto" type="_hAvnIKmDEeSSzajNglSdIg" association="_qwdbcKmIEeSSzajNglSdIg">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_qwc0YamIEeSSzajNglSdIg"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_qwc0YqmIEeSSzajNglSdIg" value="*"/>
+    </ownedAttribute>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_frrRoKmDEeSSzajNglSdIg" name="Escuderia">
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_qbssYKmIEeSSzajNglSdIg" name="piloto" type="_hAvnIKmDEeSSzajNglSdIg" association="_qbtTcKmIEeSSzajNglSdIg">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_qbssYamIEeSSzajNglSdIg"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_qbssYqmIEeSSzajNglSdIg" value="*"/>
+    </ownedAttribute>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_hAvnIKmDEeSSzajNglSdIg" name="Piloto"/>
+  <packagedElement xmi:type="uml:Class" xmi:id="_j9UtAKmDEeSSzajNglSdIg" name="InfoCarrera"/>
+  <packagedElement xmi:type="uml:Association" xmi:id="_sE0YkKmDEeSSzajNglSdIg" name="temporadas" memberEnd="_sE0YkamDEeSSzajNglSdIg _sEzKcKmDEeSSzajNglSdIg">
+    <ownedEnd xmi:type="uml:Property" xmi:id="_sE0YkamDEeSSzajNglSdIg" name="f1" type="_YGH1gKmDEeSSzajNglSdIg" association="_sE0YkKmDEeSSzajNglSdIg">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_sE0YkqmDEeSSzajNglSdIg" value="1"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_sE0Yk6mDEeSSzajNglSdIg" value="1"/>
+    </ownedEnd>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_pMfuUKmIEeSSzajNglSdIg" name="carreras" memberEnd="_pMfuUamIEeSSzajNglSdIg _pL7GkKmIEeSSzajNglSdIg">
+    <ownedEnd xmi:type="uml:Property" xmi:id="_pMfuUamIEeSSzajNglSdIg" name="temporada" type="_bwU2YKmDEeSSzajNglSdIg" association="_pMfuUKmIEeSSzajNglSdIg">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_pMfuUqmIEeSSzajNglSdIg" value="1"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_pMfuU6mIEeSSzajNglSdIg" value="1"/>
+    </ownedEnd>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_qG_AoKmIEeSSzajNglSdIg" name="escuderías" memberEnd="_qG_AoamIEeSSzajNglSdIg _qG-ZkKmIEeSSzajNglSdIg">
+    <ownedEnd xmi:type="uml:Property" xmi:id="_qG_AoamIEeSSzajNglSdIg" name="temporada" type="_bwU2YKmDEeSSzajNglSdIg" association="_qG_AoKmIEeSSzajNglSdIg">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_qG_AoqmIEeSSzajNglSdIg" value="1"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_qG_Ao6mIEeSSzajNglSdIg" value="1"/>
+    </ownedEnd>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_qbtTcKmIEeSSzajNglSdIg" name="pilotos" memberEnd="_qbtTcamIEeSSzajNglSdIg _qbssYKmIEeSSzajNglSdIg">
+    <ownedEnd xmi:type="uml:Property" xmi:id="_qbtTcamIEeSSzajNglSdIg" name="escuderia" type="_frrRoKmDEeSSzajNglSdIg" association="_qbtTcKmIEeSSzajNglSdIg">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_qbtTcqmIEeSSzajNglSdIg" value="1"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_qbtTc6mIEeSSzajNglSdIg" value="1"/>
+    </ownedEnd>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_qwdbcKmIEeSSzajNglSdIg" name="pilotos" memberEnd="_qwdbcamIEeSSzajNglSdIg _qwc0YKmIEeSSzajNglSdIg">
+    <ownedEnd xmi:type="uml:Property" xmi:id="_qwdbcamIEeSSzajNglSdIg" name="carrera" type="_c-1Q4KmDEeSSzajNglSdIg" association="_qwdbcKmIEeSSzajNglSdIg">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_qwdbcqmIEeSSzajNglSdIg" value="1"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_qwdbc6mIEeSSzajNglSdIg" value="1"/>
+    </ownedEnd>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_rTTp06mIEeSSzajNglSdIg" name="pilotos" memberEnd="_rTTp1KmIEeSSzajNglSdIg _rTTp0KmIEeSSzajNglSdIg">
+    <ownedEnd xmi:type="uml:Property" xmi:id="_rTTp1KmIEeSSzajNglSdIg" name="temporada" type="_bwU2YKmDEeSSzajNglSdIg" association="_rTTp06mIEeSSzajNglSdIg">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_rTTp1amIEeSSzajNglSdIg" value="1"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_rTTp1qmIEeSSzajNglSdIg" value="1"/>
+    </ownedEnd>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_FGDPIKmJEeSSzajNglSdIg" name="infosCareras" memberEnd="_FGDPIamJEeSSzajNglSdIg _FGBZ8KmJEeSSzajNglSdIg" navigableOwnedEnd="_FGBZ8KmJEeSSzajNglSdIg">
+    <ownedEnd xmi:type="uml:Property" xmi:id="_FGDPIamJEeSSzajNglSdIg" name="piloto" type="_hAvnIKmDEeSSzajNglSdIg" association="_FGDPIKmJEeSSzajNglSdIg">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_FGDPIqmJEeSSzajNglSdIg" value="1"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_FGDPI6mJEeSSzajNglSdIg" value="1"/>
+    </ownedEnd>
+    <ownedEnd xmi:type="uml:Property" xmi:id="_FGBZ8KmJEeSSzajNglSdIg" name="infoCarrera" type="_j9UtAKmDEeSSzajNglSdIg" association="_FGDPIKmJEeSSzajNglSdIg">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_FGBZ8amJEeSSzajNglSdIg"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_FGBZ8qmJEeSSzajNglSdIg" value="*"/>
+    </ownedEnd>
+  </packagedElement>
+</uml:Model>
