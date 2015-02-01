@@ -63,6 +63,7 @@ public class F1MainGUI extends JFrame
 			public void run() {
 				try {
 					F1MainGUI frame = new F1MainGUI();
+					//frame.setExtendedState(MAXIMIZED_BOTH);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -146,6 +147,14 @@ public class F1MainGUI extends JFrame
 		F1ConstructorInfo f1ConstructorInfo = new F1ConstructorInfo();
 		f1ConstructorInfo.setBounds(12, 232, 630, 298);
 		racePanel.add(f1ConstructorInfo);
+		
+		F1DriverInfoPanel f1DriverInfoPanel = new F1DriverInfoPanel();
+		f1DriverInfoPanel.setBounds(655, 12, 513, 431);
+		contentPane.add(f1DriverInfoPanel);
+		
+		F1SearchPanel f1SearchPanel = new F1SearchPanel();
+		f1SearchPanel.setBounds(655, 455, 513, 273);
+		contentPane.add(f1SearchPanel);
 		flowPanel.revalidate();
 	}
 	
