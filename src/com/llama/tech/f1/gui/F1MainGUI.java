@@ -153,7 +153,7 @@ public class F1MainGUI extends JFrame
 		contentPane.add(f1DriverInfoPanel);
 		
 		F1SearchPanel f1SearchPanel = new F1SearchPanel();
-		f1SearchPanel.setBounds(655, 455, 513, 273);
+		f1SearchPanel.setBounds(655, 446, 513, 306);
 		contentPane.add(f1SearchPanel);
 		flowPanel.revalidate();
 	}
