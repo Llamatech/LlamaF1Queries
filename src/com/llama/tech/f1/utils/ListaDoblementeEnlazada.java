@@ -37,20 +37,20 @@ public class ListaDoblementeEnlazada<ClaseGenerica extends Comparable<ClaseGener
 		if(primero == null)
 		{
 			primero = new ElementoDoblementeEnlazado<ClaseGenerica>(elemento);
-			ultimo = primero.getSiguiente();
-			ultimo = new ElementoDoblementeEnlazado<ClaseGenerica>(null);
-			primero.setSiguiente(ultimo);
-			ultimo.setAnterior(primero);
+			ultimo = primero;
+			//primero.setSiguiente(ultimo);
+			//ultimo = primero.getSiguiente();
+			//ultimo = new ElementoDoblementeEnlazado<ClaseGenerica>(null);
+			//primero.setSiguiente(ultimo);
+			//ultimo.setAnterior(primero);
 			length++;
 		}
 		else
 		{
-			ultimo.setValor(elemento);
-			ElementoDoblementeEnlazado<ClaseGenerica> ultimo = this.ultimo.getSiguiente();
-			ultimo = new ElementoDoblementeEnlazado<ClaseGenerica>(null);
-			this.ultimo.setSiguiente(ultimo);
-			ultimo.setAnterior(this.ultimo);
-			this.ultimo = ultimo;
+			ElementoDoblementeEnlazado<ClaseGenerica> temp = new ElementoDoblementeEnlazado<ClaseGenerica>(elemento);
+			ultimo.setSiguiente(temp);
+			temp.setAnterior(ultimo);
+			ultimo = temp;
 			length++;
 
 		}
@@ -62,20 +62,29 @@ public class ListaDoblementeEnlazada<ClaseGenerica extends Comparable<ClaseGener
 	@Override
 	public boolean add(int pos, ClaseGenerica elemento) 
 	{
-		if(pos < 0 || pos > length-1)
+		if(pos == 0 && length == 0)
+		{
+			primero = new ElementoDoblementeEnlazado<ClaseGenerica>(elemento);
+			ultimo = primero;
+			length++;
+		}
+		else if(pos < 0 || pos > length-1)
 			throw new IndexOutOfBoundsException(String.format("El �ndice %d, es inv�lido", pos));
 		else if (pos == 0)
 		{
 			ElementoDoblementeEnlazado<ClaseGenerica> nuevo = new ElementoDoblementeEnlazado<ClaseGenerica>(elemento);
 			nuevo.setSiguiente(primero);
+			primero.setAnterior(nuevo);
 			primero = nuevo;
+			length++;
 			//primero.setValor(elemento);
 		}
 		else
 		{
 			ElementoDoblementeEnlazado<ClaseGenerica> actual = primero;
 			int posActual = 0;
-			while(actual.getValor() != null)
+			boolean agrego = false;
+			while(actual != null && !agrego)
 			{
 				if(posActual == pos)
 				{
@@ -86,6 +95,7 @@ public class ListaDoblementeEnlazada<ClaseGenerica extends Comparable<ClaseGener
 					actual.setAnterior(nuevo);
 					anterior.setSiguiente(nuevo);
 					length++;
+					agrego = true;
 				}
 
 				actual = actual.getSiguiente();
@@ -107,7 +117,7 @@ public class ListaDoblementeEnlazada<ClaseGenerica extends Comparable<ClaseGener
 		{
 			ElementoDoblementeEnlazado<ClaseGenerica> actual = primero;
 
-			while(actual.getValor() != null&&!agrego)
+			while(actual != null && !agrego)
 			{
 				if(actual.getValor().equals(elementoI))
 				{
@@ -141,7 +151,7 @@ public class ListaDoblementeEnlazada<ClaseGenerica extends Comparable<ClaseGener
 		if(length > 0)
 		{
 			ElementoDoblementeEnlazado<ClaseGenerica> actual = primero;
-			while(actual != null && actual.getValor() != null)
+			while(actual != null)
 			{
 				if(actual.getValor().equals(elemento))
 				{
@@ -167,14 +177,13 @@ public class ListaDoblementeEnlazada<ClaseGenerica extends Comparable<ClaseGener
 		}
 		else if(pos == length-1)
 		{
-
-			return ultimo.getAnterior().getValor();
+			return ultimo.getValor();
 		}
 		else
 		{
 			int posActual = 0;
 			ElementoDoblementeEnlazado<ClaseGenerica> actual = primero;
-			while(actual.getValor() != null)
+			while(actual != null)
 			{
 				if(posActual == pos)
 				{
@@ -191,7 +200,7 @@ public class ListaDoblementeEnlazada<ClaseGenerica extends Comparable<ClaseGener
 	@Override
 	public ClaseGenerica getLast() 
 	{
-		return ultimo.getAnterior().getValor();
+		return ultimo.getValor();
 	}
 
 	@Override
@@ -200,7 +209,7 @@ public class ListaDoblementeEnlazada<ClaseGenerica extends Comparable<ClaseGener
 		int pos = -1;
 		if (length > 0)
 		{
-			if(ultimo.getValor() != null)
+			if(ultimo != null)
 			{
 				if(ultimo.getValor().equals(elemento))
 				{
@@ -210,7 +219,7 @@ public class ListaDoblementeEnlazada<ClaseGenerica extends Comparable<ClaseGener
 
 			ElementoDoblementeEnlazado<ClaseGenerica> actual = primero;
 			int posActual = 0;
-			while(actual.getValor() != null)
+			while(actual != null)
 			{
 				if(actual.getValor().equals(elemento))
 				{
@@ -229,7 +238,7 @@ public class ListaDoblementeEnlazada<ClaseGenerica extends Comparable<ClaseGener
 		int pos = -1;
 		if (length > 0)
 		{
-			if(ultimo.getValor() != null)
+			if(ultimo != null)
 			{
 				if(ultimo.getValor().equals(elemento))
 				{
@@ -239,7 +248,7 @@ public class ListaDoblementeEnlazada<ClaseGenerica extends Comparable<ClaseGener
 
 			ElementoDoblementeEnlazado<ClaseGenerica> actual = primero;
 			int posActual = 0;
-			while(actual.getValor() != null)
+			while(actual != null)
 			{
 				if(actual.getValor().equals(elemento))
 				{
@@ -264,7 +273,8 @@ public class ListaDoblementeEnlazada<ClaseGenerica extends Comparable<ClaseGener
 	}
 
 	@Override
-	public Iterator<ClaseGenerica> iterator(int pos) {
+	public Iterator<ClaseGenerica> iterator(int pos) 
+	{
 		ElementoDoblementeEnlazado<ClaseGenerica> elementoPos=null;
 		
 		if(pos < 0 || pos > length-1 || length == 0)
@@ -278,12 +288,16 @@ public class ListaDoblementeEnlazada<ClaseGenerica extends Comparable<ClaseGener
 			{
 				elementoPos = primero;
 			}
+			else if(pos == length-1)
+			{
+				elementoPos = ultimo;
+			}
 			else
 			{
 				ElementoDoblementeEnlazado<ClaseGenerica> actual = primero;
 				int posActual = 0;
 				boolean encontrado = false;
-				while(actual.getValor() != null && !encontrado)
+				while(actual != null && !encontrado)
 				{
 					if(posActual == pos)
 					{
@@ -301,7 +315,7 @@ public class ListaDoblementeEnlazada<ClaseGenerica extends Comparable<ClaseGener
 
 	public Iterator<ClaseGenerica> reverseIterator() 
 	{
-		return new IteradorReversoListaDoblementeEnlazada<ClaseGenerica>(ultimo.getAnterior());
+		return new IteradorReversoListaDoblementeEnlazada<ClaseGenerica>(ultimo);
 	}
 
 	@Override
@@ -317,10 +331,8 @@ public class ListaDoblementeEnlazada<ClaseGenerica extends Comparable<ClaseGener
 		{
 			if(pos == 0)
 			{
-
 				obj = primero.getValor();
 				primero = primero.getSiguiente();
-
 				primero.reinicializarAnterior();
 				length--;
 			}
@@ -338,7 +350,7 @@ public class ListaDoblementeEnlazada<ClaseGenerica extends Comparable<ClaseGener
 				int posActual = 0;
 				boolean eliminado = false;
 
-				while(actual.getValor() != null && !eliminado)
+				while(actual != null && !eliminado)
 				{
 					if(posActual == pos)
 					{
@@ -373,19 +385,17 @@ public class ListaDoblementeEnlazada<ClaseGenerica extends Comparable<ClaseGener
 				length--;
 				eliminado = true;
 			}
-			else if(ultimo.getAnterior().getValor() != null)
+			else if(ultimo.getValor().equals(elemento))
 			{
-				if(ultimo.getAnterior().getValor().equals(elemento))
-				{
 					ultimo = ultimo.getAnterior();
 					ultimo.reinicializarSiguiente();
 					length--;
 					eliminado = true;
-				}
-				else
-				{
+			}
+			else
+			{
 					ElementoDoblementeEnlazado<ClaseGenerica> actual = primero;
-					while(actual.getValor() != null && !eliminado)
+					while(actual != null && !eliminado)
 					{
 						if(actual.getValor().equals(elemento))
 						{
@@ -399,7 +409,6 @@ public class ListaDoblementeEnlazada<ClaseGenerica extends Comparable<ClaseGener
 
 						actual = actual.getSiguiente();
 					}
-				}
 			}
 		}
 		if (eliminado)return elemento;
@@ -423,8 +432,8 @@ public class ListaDoblementeEnlazada<ClaseGenerica extends Comparable<ClaseGener
 		}
 		else if(pos == length-1)
 		{
-			obj = elemento;
-			ultimo.getAnterior().setValor(elemento);
+			obj = ultimo.getValor();
+			ultimo.setValor(elemento);
 		}
 		else
 		{
@@ -432,7 +441,7 @@ public class ListaDoblementeEnlazada<ClaseGenerica extends Comparable<ClaseGener
 			int posActual = 0;
 			boolean modificado = false;
 
-			while(actual != null && actual.getValor() != null && !modificado)
+			while(actual != null && !modificado)
 			{
 				if(posActual == pos)
 				{
@@ -490,7 +499,8 @@ public class ListaDoblementeEnlazada<ClaseGenerica extends Comparable<ClaseGener
 	}
 
 	@Override
-	public boolean addAlPrincipio(ClaseGenerica elemento) {
+	public boolean addAlPrincipio(ClaseGenerica elemento) 
+	{
 		return add(0, elemento);
 	}
 
@@ -498,16 +508,13 @@ public class ListaDoblementeEnlazada<ClaseGenerica extends Comparable<ClaseGener
 	public ClaseGenerica buscar(ClaseGenerica elemento) {
 		if (length > 0)
 		{
-			if(ultimo.getValor() != null)
+			if(ultimo.getValor().equals(elemento))
 			{
-				if(ultimo.getValor().equals(elemento))
-				{
-					return ultimo.getValor();
-				}
+				return ultimo.getValor();
 			}
 
 			ElementoDoblementeEnlazado<ClaseGenerica> actual = primero;
-			while(actual.getValor() != null)
+			while(actual != null)
 			{
 				if(actual.getValor().equals(elemento))
 				{
@@ -527,5 +534,15 @@ public class ListaDoblementeEnlazada<ClaseGenerica extends Comparable<ClaseGener
 	@Override
 	public ClaseGenerica removeLast() throws IndexOutOfBoundsException {
 		return remove(length-1);
+	}
+	
+	@Override
+	public String toString()
+	{
+		if(primero != null)
+		{
+			return "["+primero.toString()+"]";
+		}
+		return "[]";
 	}
 }

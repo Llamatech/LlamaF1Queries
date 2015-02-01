@@ -91,4 +91,21 @@ class ElementoDoblementeEnlazado<ClaseGenerica extends Comparable <? super Clase
 	{
 		siguiente = null;
 	}
+	
+	@Override
+	public String toString()
+	{
+		if(siguiente != null)
+		{
+			return valor.toString()+","+siguiente.toString();
+		}
+		else
+		{
+			if(valor != null)
+			{
+				return valor.toString();
+			}
+			return "";
+		}
+	}
 }

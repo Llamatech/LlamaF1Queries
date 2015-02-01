@@ -32,12 +32,11 @@ public class ListaDoblementeEnlazadaTest extends TestCase {
 	public void setUpEscenario2()
 	{
 		lista = new ListaDoblementeEnlazada<Integer>();
-		lista.addAlFinal(0);
-		lista.addAlFinal(1);
-		lista.addAlFinal(2);
-		lista.addAlFinal(3);
-		lista.addAlFinal(4);
-		lista.addAlFinal(5);
+		for(int i = 0; i < 6; i++)
+		{
+			lista.addAlFinal(i);
+		}
+		System.out.println(lista);
 	}
 
 	/**
@@ -215,7 +214,7 @@ public class ListaDoblementeEnlazadaTest extends TestCase {
 		
 		setUpEscenario2();
 		res= lista.buscar((Integer)12);
-		assertEquals("El metodo deberia retornar null porque el elemento no se encuentra en la lista", (Integer)12, res);
+		assertEquals("El metodo deberia retornar null porque el elemento no se encuentra en la lista", null, res);
 	}
 	
 	public void testBuscarPosicion()
