@@ -25,11 +25,9 @@ package com.llama.tech.f1.query;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
-import java.io.BufferedReader;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.URL;
 
@@ -86,16 +84,10 @@ public class ImageContent
         	 
         	 pointer = "./data/img/"+loc+"."+ext;
          }
-
      }
      
-     public static void main(String[] args) 
+     public String getPointer()
      {
-		try {
-			new ImageContent("http://en.wikipedia.org/wiki/Scuderia_Ferrari", "test");
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	 }
+    	 return pointer;
+     }
 }

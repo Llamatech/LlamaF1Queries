@@ -107,7 +107,7 @@ public class F1ConstructorInfo extends JPanel {
 		
 		scrollPane = new JScrollPane();
 		scrollPane.setBorder(new TitledBorder(null, "Pilotos", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(51, 51, 51)));
-		scrollPane.setBounds(23, 155, 232, 121);
+		scrollPane.setBounds(23, 155, 232, 100);
 		add(scrollPane);
 		
 		table = new JTable();
@@ -115,7 +115,7 @@ public class F1ConstructorInfo extends JPanel {
 		
 		scrollPane_1 = new JScrollPane();
 		scrollPane_1.setBorder(new TitledBorder(null, "Carreras", TitledBorder.RIGHT, TitledBorder.TOP, null, null));
-		scrollPane_1.setBounds(274, 155, 332, 121);
+		scrollPane_1.setBounds(274, 155, 332, 100);
 		add(scrollPane_1);
 		
 		table_1 = new JTable();

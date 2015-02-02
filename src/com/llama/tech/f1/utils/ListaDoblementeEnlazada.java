@@ -202,6 +202,11 @@ public class ListaDoblementeEnlazada<ClaseGenerica extends Comparable<ClaseGener
 	{
 		return ultimo.getValor();
 	}
+	
+	public ClaseGenerica getFirst()
+	{
+		return primero.getValor();
+	}
 
 	@Override
 	public int indexOf(ClaseGenerica elemento) 
@@ -467,7 +472,7 @@ public class ListaDoblementeEnlazada<ClaseGenerica extends Comparable<ClaseGener
 		return length;
 	}
 
-	public void verificarInvariante(){
+	private void verificarInvariante(){
 		assert ( elementosBienEncadenados( ) ) : "La lista no est� bien construida";
 	}
 	/**
@@ -493,10 +498,7 @@ public class ListaDoblementeEnlazada<ClaseGenerica extends Comparable<ClaseGener
 		return true;
 	}
 
-	public ElementoDoblementeEnlazado<ClaseGenerica> getPrimero()
-	{
-		return primero;
-	}
+
 
 	@Override
 	public boolean addAlPrincipio(ClaseGenerica elemento) 

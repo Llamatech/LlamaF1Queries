@@ -113,7 +113,7 @@ public class F1DriverInfoPanel extends JPanel {
 		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBorder(new TitledBorder(null, "Estad\u00EDsticas", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		scrollPane.setBounds(24, 261, 464, 156);
+		scrollPane.setBounds(24, 261, 464, 95);
 		add(scrollPane);
 		
 		table = new JTable();

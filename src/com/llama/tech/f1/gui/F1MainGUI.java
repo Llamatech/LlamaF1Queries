@@ -47,6 +47,8 @@ import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.RowSpec;
 import com.jgoodies.forms.factories.FormFactory;
 import java.awt.Color;
+import javax.swing.JButton;
+import javax.swing.JLabel;
 
 public class F1MainGUI extends JFrame 
 {
@@ -132,7 +134,7 @@ public class F1MainGUI extends JFrame
 		contentPane.add(flowPanel);
 		
 		JPanel racePanel = new JPanel();
-		racePanel.setBounds(0, 200, 643, 542);
+		racePanel.setBounds(0, 200, 643, 502);
 		contentPane.add(racePanel);
 		racePanel.setLayout(null);
 		
@@ -141,19 +143,23 @@ public class F1MainGUI extends JFrame
 		racePanel.add(f1CircuitInfoPanel);
 		
 		F1CircuitPositions f1CircuitPositions = new F1CircuitPositions();
-		f1CircuitPositions.setBounds(345, 12, 297, 215);
+		f1CircuitPositions.setBounds(345, 12, 297, 162);
 		racePanel.add(f1CircuitPositions);
 		
 		F1ConstructorInfo f1ConstructorInfo = new F1ConstructorInfo();
-		f1ConstructorInfo.setBounds(12, 232, 630, 298);
+		f1ConstructorInfo.setBounds(12, 232, 630, 271);
 		racePanel.add(f1ConstructorInfo);
 		
+		F1LongestRacePanel f1LongestRacePanel = new F1LongestRacePanel();
+		f1LongestRacePanel.setBounds(369, 186, 244, 41);
+		racePanel.add(f1LongestRacePanel);
+		
 		F1DriverInfoPanel f1DriverInfoPanel = new F1DriverInfoPanel();
-		f1DriverInfoPanel.setBounds(655, 12, 513, 431);
+		f1DriverInfoPanel.setBounds(655, 12, 513, 376);
 		contentPane.add(f1DriverInfoPanel);
 		
 		F1SearchPanel f1SearchPanel = new F1SearchPanel();
-		f1SearchPanel.setBounds(655, 446, 513, 306);
+		f1SearchPanel.setBounds(680, 398, 458, 306);
 		contentPane.add(f1SearchPanel);
 		flowPanel.revalidate();
 	}
