@@ -55,37 +55,60 @@ public class ListaDoblementeEnlazadaTest extends TestCase {
 	/**
 	 * Prueba de adición de elementos al principio de la lista
 	 * <b> M�todos a probar: </b> <br>
-     * addAlPrincipio. <br>
-     * <b> Objetivo: </b> Probar que el m�todo addAlPrincipio() agrega correctamente elementos a la lista. <br>
+	 * addAlPrincipio. <br>
+	 * <b> Objetivo: </b> Probar que el m�todo addAlPrincipio() agrega correctamente elementos a la lista. <br>
+	 * <b> Resultados esperados: </b> <br>
+	 * El elemento debería agregarse correctamente en la primera posición en todos los casos y retorna true
 	 */
 	public void testAddAlPrincipio()
 	{
+		//se prueba el metodo con una lista vacía
 		setUpEscenario1();
 		boolean agrego = lista.addAlPrincipio(98);
 		assertEquals("El método debería retornar true", true, agrego);
-		assertEquals("El elemento no se agregó en lap primera posición", 98, (int)lista.get(0));
+		assertEquals("El elemento no se agregó en la primera posición", 98, (int)lista.get(0));
 
+		//Se prueba el metodo con una lista no vacia
 		setUpEscenario2();
 		agrego = lista.addAlPrincipio(98);
 		assertEquals("El método debería retornar true", true, agrego);
-		assertEquals("El elemento no se agregó en lap primera posición", 98, (int)lista.get(0));
+		assertEquals("El elemento no se agregó en la primera posición", 98, (int)lista.get(0));
 	}
 
+	/**
+	 * Prueba de adición de elementos al final de la lista
+	 * <b> M�todos a probar: </b> <br>
+	 * addAlFinal. <br>
+	 * <b> Objetivo: </b> Probar que el m�todo addAlFinal() agrega correctamente elementos a la lista. <br>
+	 * <b> Resultados esperados: </b> <br>
+	 * El elemento debería agregarse correctamente en la ultima posición en todos los casos, y retorna true 
+	 */
 	public void testAddAlFinal()
 	{
+		//se prueba el metodo con una lista vacia
 		setUpEscenario1();
 		boolean agrego = lista.addAlFinal(98);
 		assertEquals("El método debería retornar true", true, agrego);
 		assertEquals("El elemento no se agregó en lap primera posición", 98, (int)lista.get(lista.size()-1));
 
+		//Se prueba el metodo con una lista no vacia
 		setUpEscenario2();
 		agrego = lista.addAlFinal(98);
 		assertEquals("El método debería retornar true", true, agrego);
 		assertEquals("El elemento no se agregó en lap primera posición", 98, (int)lista.get(lista.size()-1));
 	}
 
+	/**
+	 * Prueba de adición de elementos al despues de un elemento dado
+	 * <b> M�todos a probar: </b> <br>
+	 * add. <br>
+	 * <b> Objetivo: </b> Probar que el m�todo add(elementoI, elementoAgregar) agrega correctamente elementos a la lista. <br>
+	 * <b> Resultados esperados: </b> <br>
+	 * El elemento debería agregarse correctamente despues del elemento dado y retorna true, en caso de que no exista, retorna false.
+	 */
 	public void testAddDespuesDe()
 	{
+		//Se prueba el metodo con una lista que contiene el elemento dado
 		setUpEscenario2();
 		int tam = lista.size();
 		boolean agrego = lista.add((Integer)2,(Integer) 9);
@@ -93,6 +116,7 @@ public class ListaDoblementeEnlazadaTest extends TestCase {
 		assertEquals("El elemento no se agregó a la lista", tam+1, lista.size());
 		assertEquals("El metodo no agregó el elemento en la posición correcta", (Integer)9, lista.get(3));
 
+		//Se prueba el metodo con una lista que no contiene el elemento dado
 		setUpEscenario3();
 		tam = lista.size();
 		agrego = lista.add((Integer)2,(Integer) 9);
@@ -101,6 +125,15 @@ public class ListaDoblementeEnlazadaTest extends TestCase {
 
 	}
 
+	/**
+	 * Prueba de adición de elementos según una posición dada
+	 * <b> M�todos a probar: </b> <br>
+	 * add. <br>
+	 * <b> Objetivo: </b> Probar que el m�todo addAlFinal(pos, elemento) agrega correctamente elementos a la lista. <br>
+	 * <b> Resultados esperados: </b> <br>
+	 * El elemento debería agregarse correctamente en la posición dadasi esta no se sale de los límites y retornar true.
+	 * En caso contrario, dbeería lanzar una excepción
+	 */
 	public void testAddPosicion()
 	{
 		//Se prueba el caso de una lista no vacía donde existe la posición
@@ -132,6 +165,14 @@ public class ListaDoblementeEnlazadaTest extends TestCase {
 		}
 	}
 
+	/**
+	 * Prueba de borrar todos los elementos de una lista
+	 * <b> M�todos a probar: </b> <br>
+	 * clear. <br>
+	 * <b> Objetivo: </b> Probar que el m�todo clear() borra correctamente la lista. <br>
+	 * <b> Resultados esperados: </b> <br>
+	 * La lista no tiene elementos.
+	 */
 	public void testClear()
 	{
 		//Prueba el método con una lista vacía
@@ -147,6 +188,14 @@ public class ListaDoblementeEnlazadaTest extends TestCase {
 		assertEquals("El último elemento debería ser null", null, lista.getLast());
 	}
 
+	/**
+	 * Prueba de encontrar si hay o no un elemento en la lista
+	 * <b> M�todos a probar: </b> <br>
+	 * contains. <br>
+	 * <b> Objetivo: </b> Probar que el m�todo contains() contesta correctamente a si hay o no un elemento en la lista<br>
+	 * <b> Resultados esperados: </b> <br>
+	 * El metodo devuelve true si el metodo esta false de lo contrario
+	 */
 	public void testContains()
 	{
 		//Prueba el método con una lista vacía
@@ -165,6 +214,15 @@ public class ListaDoblementeEnlazadaTest extends TestCase {
 		assertEquals("El metodo deberia retornar false porque la lista esta vacía", false, esta);
 	}
 
+	/**
+	 * Prueba de conseguir un elemento en una posición dada
+	 * <b> M�todos a probar: </b> <br>
+	 * get. <br>
+	 * <b> Objetivo: </b> Probar que el m�todo get(pos) devuelve el elemento correcto. <br>
+	 * <b> Resultados esperados: </b> <br>
+	 * El metodo debe devolver el elemento correcto si la posición esta dentro de los límites.
+	 * De lo contrario, se lanza una excepcion.
+	 */
 	public void testGet()
 	{
 		//Prueba el método en una lista vacía
@@ -191,6 +249,15 @@ public class ListaDoblementeEnlazadaTest extends TestCase {
 		}
 	}
 
+	/**
+	 * Prueba de conseguir el primer elemento de la lista
+	 * <b> M�todos a probar: </b> <br>
+	 * getFirst. <br>
+	 * <b> Objetivo: </b> Probar que el m�todo getFirst() consigue correctamente el primer elemento  <br>
+	 * <b> Resultados esperados: </b> <br>
+	 * El metodo devuelve el primer elemento si este existe.
+	 * De lo contrario, retorna null
+	 */
 	public void testGetFirst()
 	{
 		//Se prueba el método con una lista vacía
@@ -204,6 +271,15 @@ public class ListaDoblementeEnlazadaTest extends TestCase {
 		assertEquals("El metodo beria retornar el primer elemento", (Integer)0	, el);
 	}
 
+	/**
+	 * Prueba de conseguir el ultimo elemento de la lista
+	 * <b> M�todos a probar: </b> <br>
+	 * getLast. <br>
+	 * <b> Objetivo: </b> Probar que el m�todo getLast() consigue correctamente el ultimo elemento de la lista  <br>
+	 * <b> Resultados esperados: </b> <br>
+	 * Si hay ultimo elemento, se devuelve.
+	 * De lo contrario, se lanza excepcion
+	 */
 	public void testGetLast()
 	{
 		//Se prueba el método con una lista vacía
@@ -217,8 +293,17 @@ public class ListaDoblementeEnlazadaTest extends TestCase {
 		assertEquals("El metodo beria retornar el primer elemento", (Integer)5	, el);
 	}
 
+	/**
+	 * Prueba de eliminar el primer elemento de la lista
+	 * <b> M�todos a probar: </b> <br>
+	 * removeFirst. <br>
+	 * <b> Objetivo: </b> Probar que el m�todo removeFirst() remueve correctamente el primer elemento de la lista  <br>
+	 * <b> Resultados esperados: </b> <br>
+	 * Se remueve el primer elemento. Si este no existe, se lanza excepción.
+	 */
 	public void testRemoveFirst()
 	{
+		//Se prueba con la lista vacía
 		setUpEscenario1();
 		Integer res = null;
 		try
@@ -229,12 +314,15 @@ public class ListaDoblementeEnlazadaTest extends TestCase {
 		}
 		catch(Exception e)
 		{
+
+			//Se prueba con unico elemento
 			setUpEscenario3();
 			try{
 				res = lista.removeFirst();
 				assertEquals("El método debería retornar el elemento eliminado", 8, (int)res);
 				assertEquals("La lista debería quedar vacía", 0, lista.size());
 
+				//se prueba con múltiples elementos
 				setUpEscenario2();
 				res = lista.removeFirst();
 				assertEquals("El método debería retornar el elemento eliminado", 0, (int)res);
@@ -246,6 +334,15 @@ public class ListaDoblementeEnlazadaTest extends TestCase {
 
 	}
 
+	/**
+	 * Prueba de conseguir el ultimo indice de un elemento dado
+	 * <b> M�todos a probar: </b> <br>
+	 * lastIndexOf. <br>
+	 * <b> Objetivo: </b> Probar que el m�todo lastIndexOf() da el último índice de un elemento dado  <br>
+	 * <b> Resultados esperados: </b> <br>
+	 * Se retorna el último indice de un elemento dado.
+	 * Si no se encuentra el elemento en la lista, se retorna -1
+	 */
 	public void testLastIndexOf()
 	{
 		//Se prueba el método con una lista vacía
@@ -265,6 +362,14 @@ public class ListaDoblementeEnlazadaTest extends TestCase {
 		assertEquals("El metodo devuelve la posición equivocada", 6, pos);
 	}
 
+	/**
+	 * Prueba de saber si la lista esta vacía
+	 * <b> M�todos a probar: </b> <br>
+	 * isEmpty. <br>
+	 * <b> Objetivo: </b> Probar que el m�todo isEmpty() contesta correctamente si una lista esta vacía o no  <br>
+	 * <b> Resultados esperados: </b> <br>
+	 * El metodo devuelve true si la lista esta vacía, false de lo contrario
+	 */
 	public void testIsEmpty()
 	{
 		//Se prueba en una lista vacía
@@ -279,9 +384,17 @@ public class ListaDoblementeEnlazadaTest extends TestCase {
 	}
 
 
-
+	/**
+	 * Prueba de eliminar el ultimo elemento
+	 * <b> M�todos a probar: </b> <br>
+	 * removeLast. <br>
+	 * <b> Objetivo: </b> Probar que el m�todo removeLast() elimina el ultimo elemento  <br>
+	 * <b> Resultados esperados: </b> <br>
+	 * Si la lista no esta vacía, elimina el elemento. De estarlo, lanza excepción.
+	 */
 	public void testRemoveLast()
 	{
+		//Se prueba con una lista vacía
 		setUpEscenario1();
 		Integer res = null;
 		try
@@ -292,12 +405,14 @@ public class ListaDoblementeEnlazadaTest extends TestCase {
 		}
 		catch(Exception e)
 		{
+			//se prueba con una lista de un único elemento
 			setUpEscenario3();
 			try{
 				res = lista.removeLast();
 				assertEquals("El método debería retornar el elemento eliminado", 8, (int)res);
 				assertEquals("La lista debería quedar vacía", 0, lista.size());
 
+				//Se prueba con una lista de múltiples elementos
 				setUpEscenario2();
 				res = lista.removeFirst();
 				assertEquals("El método debería retornar el elemento eliminado", 5, (int)res);
@@ -309,6 +424,15 @@ public class ListaDoblementeEnlazadaTest extends TestCase {
 
 	}
 
+	/**
+	 * Prueba de eliminar un elemento dado
+	 * <b> M�todos a probar: </b> <br>
+	 * remove. <br>
+	 * <b> Objetivo: </b> Probar que el m�todo remove(elemento) elimina correctamente el elemento dado  <br>
+	 * <b> Resultados esperados: </b> <br>
+	 * Si el elemento existe, se elimina y se retorna.
+	 * De lo contrario, se retorna null.
+	 */
 	public void testRemove()
 	{
 		//Se prueba el metodo con la lista vacía
@@ -359,6 +483,15 @@ public class ListaDoblementeEnlazadaTest extends TestCase {
 
 	}
 
+	/**
+	 * Prueba de remover un elemento por su posicion
+	 * <b> M�todos a probar: </b> <br>
+	 * remove. <br>
+	 * <b> Objetivo: </b> Probar que el m�todo remove(pos) remueve correctamente el elemento en la posición dada <br>
+	 * <b> Resultados esperados: </b> <br>
+	 * Si la posición esta dentro del límite, se elimina y retorna el elemento
+	 * De lo contrario, se lanza excepción
+	 */
 	public void testRemovePos()
 	{
 		//se prueba el método con una lista vacía
@@ -385,6 +518,15 @@ public class ListaDoblementeEnlazadaTest extends TestCase {
 
 	}
 
+	/**
+	 * Prueba de reemplazar un elemento en una posicion
+	 * <b> M�todos a probar: </b> <br>
+	 * set. <br>
+	 * <b> Objetivo: </b> Probar que el m�todo set() reemplaza correctamente un elemento en la posicion dada por el elemento dado  <br>
+	 * <b> Resultados esperados: </b> <br>
+	 * Si la posicion esta dentro del limite, reemplaza el elemento y retorna el elemento reemplazado
+	 * De lo contrario, lanza una excepcion
+	 */
 	public void testSet()
 	{
 		//Se prueba el método con una lista vacía
@@ -414,6 +556,14 @@ public class ListaDoblementeEnlazadaTest extends TestCase {
 		}
 	}
 
+	/**
+	 * Prueba de retornar el tamaño de la lista
+	 * <b> M�todos a probar: </b> <br>
+     * size. <br>
+     * <b> Objetivo: </b> Probar que el m�todo size() devuelve correctamente el tamño de la lista  <br>
+     * <b> Resultados esperados: </b> <br>
+     * El metodo devuelve el tamaño correcto
+	 */
 	public void testSize()
 	{
 		//Se prueba el método con la lista vacía
@@ -423,16 +573,25 @@ public class ListaDoblementeEnlazadaTest extends TestCase {
 
 		//Se prueba el método con la lista no vacía
 		setUpEscenario2();
-		 tam = lista.size();
+		tam = lista.size();
 		assertEquals("El tamaño esta equivocado", 6, tam); 
 
 		//Se prueba el método con la lista  d3 1 elemento
 		setUpEscenario3();
-		 tam = lista.size();
+		tam = lista.size();
 		assertEquals("El tamaño esta equivocado", 1, tam); 
 
 	}
 
+	/**
+	 * Prueba de buscar un elemento dado
+	 * <b> M�todos a probar: </b> <br>
+     * buscar. <br>
+     * <b> Objetivo: </b> Probar que el m�todo buscar() retorna correctamente el elemento buscado  <br>
+     * <b> Resultados esperados: </b> <br>
+     * Si el elemento está en la lista, se retorna
+     * De lo contrario, se retorna null
+	 */
 	public void testBuscar()
 	{
 		setUpEscenario1();
@@ -448,6 +607,15 @@ public class ListaDoblementeEnlazadaTest extends TestCase {
 		assertEquals("El metodo deberia retornar null porque el elemento no se encuentra en la lista", null, res);
 	}
 
+	/**
+	 * Prueba de conocer la posiciñon de un elemento
+	 * <b> M�todos a probar: </b> <br>
+     * indexOf. <br>
+     * <b> Objetivo: </b> Probar que el m�todo indexOf() retorna correctamente el indice de un elemento  <br>
+     * <b> Resultados esperados: </b> <br>
+     * Si el elemento esta en la lista se retorna su posicion
+     * De lo contrario, se retorna -1.
+	 */
 	public void testIndexOf()
 	{
 		//Se prueba el método con una lista vacía

@@ -120,7 +120,7 @@ public class F1DriverInfoPanel extends JPanel {
 		scrollPane.setViewportView(table);
 		
 		JPanel panel_1 = new JPanel();
-		panel_1.setBounds(24, 192, 465, 57);
+		panel_1.setBounds(24, 192, 465, 68);
 		add(panel_1);
 		panel_1.setLayout(new MigLayout("", "[64px][90.00px,grow][72.00][grow]", "[19px][grow]"));
 		
