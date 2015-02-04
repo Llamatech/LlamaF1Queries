@@ -72,11 +72,26 @@ public class Escuderia implements Serializable {
 	 */
 	private String[] carreras;
 	
+	/**
+	 * Este es el atributo que representa el id de la escuderia
+	 */
+	private String id;
     // -----------------------------------------------------------------
  	// Metodos Construcotres
  	// -----------------------------------------------------------------
     
-	public Escuderia(String pUrlLogo, String pNombre, String pPais, int pPosFinal, int pPuntos, String[] pPilotos, String[] pCarreras)
+	/**
+	 * 
+	 * @param pUrlLogo
+	 * @param pNombre
+	 * @param pPais
+	 * @param pPosFinal
+	 * @param pPuntos
+	 * @param pPilotos
+	 * @param pCarreras
+	 * @param pId
+	 */
+	public Escuderia(String pUrlLogo, String pNombre, String pPais, int pPosFinal, int pPuntos, String[] pPilotos, String[] pCarreras, String pId)
 	{
 		urlLogo=pUrlLogo;
 		nombre=pNombre;
@@ -85,6 +100,7 @@ public class Escuderia implements Serializable {
 		puntos=pPuntos;
 		pilotos = pPilotos;
 		carreras = pCarreras;
+		id = pId;
 	}
 	 // -----------------------------------------------------------------
  	// Metodos
@@ -92,13 +108,13 @@ public class Escuderia implements Serializable {
 
     /**
      * Este método transforma la informacion a una cadena de carácteres separada por ";" para enviarla en el siguiente orden:
-     * nombre;pais;posFinal;puntos;pilotos...;carreras...;urlLogo
+     * id;nombre;pais;posFinal;puntos;pilotos...;carreras...;urlLogo
      * @return cadena de caracteres con informacion
      */
     public String toString()
     {
     	StringBuilder s = new StringBuilder(512);
-    	s.append(nombre+";"+pais+";"+posFinal+";"+puntos+";");
+    	s.append(id+";"+nombre+";"+pais+";"+posFinal+";"+puntos+";");
     	for(String c:pilotos)
     	{
     		s.append(c+";");

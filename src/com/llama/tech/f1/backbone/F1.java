@@ -70,5 +70,19 @@ public class F1 implements IF1, Serializable
 		// TODO Auto-generated method stub
 		
 	}
-
+	
+	public void cargarCarrerasTemporada(int anho, String[]infoCarreras)
+	{
+		temporadas.get(anho-1950).cargarCarreras(infoCarreras);
+	}
+	
+	public void cargarPilotosTemporada(int anho, String[]infoPilotos)
+	{
+		temporadas.get(anho-1950).cargarPilotos(infoPilotos);
+	}
+	
+	public void cargarEscuderiasTemporada(int anho, String[]infoEscuderias)
+	{
+		temporadas.get(anho-1950).cargarEscuderias(infoEscuderias);
+	}
 }

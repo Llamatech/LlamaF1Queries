@@ -82,19 +82,29 @@ public class Piloto implements Serializable
 	 * Este es el atributo que representa la Estadística del piloto
 	 */
 	private String estadistica;
-	
+
 	/**
 	 * Este es el atributo donde se guarda el url de la imagen del piloto
 	 */
 	private String urlImagen;
-	
+
+	/**
+	 * Este es el atributo que representa el id del conductor
+	 */
 	private String driverId;
+
+	/**
+	 * Este es el atributo que representa el 
+	 */
+	private String escuderiaId;
+
 	
-	
-	
-	
-    /**
-     * Este es el metodo constructor de la clase
+	// -----------------------------------------------------------------
+	// Metodos Constructores
+	// -----------------------------------------------------------------
+
+	/**
+	 * Este es el metodo constructor de la clase
 	 * @param nombre
 	 * @param nacionalidad
 	 * @param fechaNac
@@ -105,10 +115,12 @@ public class Piloto implements Serializable
 	 * @param estado
 	 * @param estadistica
 	 * @param urlImagen
+	 * @param pIdDriver
+	 * @paran pIdEscuderia
 	 */
 	public Piloto(String nombre, String nacionalidad, String fechaNac,
 			String escuderia, int puntos, int posFinal, int posicion,
-			String estado, String estadistica, String urlImagen) 
+			String estado, String estadistica, String urlImagen, String pIdDriver, String pIdEscuderia) 
 	{
 		this.nombre = nombre;
 		this.nacionalidad = nacionalidad;
@@ -120,27 +132,29 @@ public class Piloto implements Serializable
 		this.estado = estado;
 		this.estadistica = estadistica;
 		this.urlImagen = urlImagen;
+		this.driverId = pIdDriver;
+		this.escuderiaId = pIdEscuderia;
 	}
 
 
 
 
 	// -----------------------------------------------------------------
- 	// Metodos
- 	// -----------------------------------------------------------------
+	// Metodos
+	// -----------------------------------------------------------------
 
-    /**
-     * Este método transforma la informacion a una cadena de carácteres separada por ";" para enviarla en el siguiente orden:
-     * nombre;nacionalidad;fechaNac;escuderia;puntos;posFinal;posicion;estado;estadistica;urlImagen
-     * @return cadena de caracteres con informacion
-     */
-    public String toString()
-    {
-    	StringBuilder s = new StringBuilder(512);
-    	s.append(driverId+";"+nombre+";"+nacionalidad+";"+fechaNac+";"+escuderia+";"+puntos+";"+posFinal+";"+posicion+";"+estado+";"+estadistica+";"+urlImagen);
-    	
-    	return s.toString();
-    }
+	/**
+	 * Este método transforma la informacion a una cadena de carácteres separada por ";" para enviarla en el siguiente orden:
+	 * nombre;nacionalidad;fechaNac;escuderia;puntos;posFinal;posicion;estado;estadistica;urlImagen
+	 * @return cadena de caracteres con informacion
+	 */
+	public String toString()
+	{
+		StringBuilder s = new StringBuilder(512);
+		s.append(driverId+";"+nombre+";"+nacionalidad+";"+fechaNac+";"+escuderiaId+";"+escuderia+";"+puntos+";"+posFinal+";"+posicion+";"+estado+";"+estadistica+";"+urlImagen);
+
+		return s.toString();
+	}
 
 
 }

@@ -56,7 +56,7 @@ public class ImageContent
         		 if(elem.select("td").get(0).attr("style").equals("text-align:center"))
         		 {
         			 objElem = elem.select("td").get(0);
-        		    found = true;
+        		     found = true;
         		 }
         	 }
          }
@@ -73,7 +73,7 @@ public class ImageContent
         	 try(InputStream in = new BufferedInputStream(imgURL.openStream()))
         	 {
         	 
-	        	 try(OutputStream out = new BufferedOutputStream(new FileOutputStream("./data/img/"+loc+"."+ext)))
+	        	 try(OutputStream out = new BufferedOutputStream(new FileOutputStream(loc+"."+ext)))
 	        	 {
 	        		 for ( int i; (i = in.read()) != -1; ) 
 	        		 {
@@ -82,7 +82,8 @@ public class ImageContent
 	        	 }
         	 }
         	 
-        	 pointer = "./data/img/"+loc+"."+ext;
+        	 pointer = loc+"."+ext;
+        	 return pointer;
          }
          
          return null;
