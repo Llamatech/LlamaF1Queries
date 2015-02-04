@@ -17,7 +17,6 @@ import com.jgoodies.forms.layout.RowSpec;
 import javax.swing.JButton;
 
 public class F1SearchPanel extends JPanel {
-	private JTextField textField;
 	private JTextField textField_1;
 	private JCalendar cal1;
 	
@@ -37,22 +36,18 @@ public class F1SearchPanel extends JPanel {
 		comboBox.setBounds(243, 35, 158, 24);
 		add(comboBox);
 		
-		JLabel lblNewLabel_1 = new JLabel("Piloto:");
-		lblNewLabel_1.setBounds(50, 78, 70, 15);
+		JLabel lblNewLabel_1 = new JLabel("Tipo de Búsqueda:");
+		lblNewLabel_1.setBounds(50, 78, 158, 15);
 		add(lblNewLabel_1);
 		
-		textField = new JTextField();
-		textField.setBounds(243, 74, 158, 24);
-		add(textField);
-		textField.setColumns(10);
-		
 		textField_1 = new JTextField();
+		textField_1.setEnabled(false);
 		textField_1.setColumns(10);
 		textField_1.setBounds(243, 110, 158, 24);
 		add(textField_1);
 		
-		JLabel lblNewLabel_2 = new JLabel("Circuito:");
-		lblNewLabel_2.setBounds(50, 114, 70, 15);
+		JLabel lblNewLabel_2 = new JLabel("(Seleccione el tipo)");
+		lblNewLabel_2.setBounds(50, 114, 158, 15);
 		add(lblNewLabel_2);
 		
 		JCheckBox chckbxNewCheckBox = new JCheckBox("¿Búsqueda por periodo?");
@@ -99,6 +94,10 @@ public class F1SearchPanel extends JPanel {
 		JButton btnNewButton_1 = new JButton("Eliminar");
 		btnNewButton_1.setBounds(294, 276, 117, 25);
 		add(btnNewButton_1);
+		
+		JComboBox comboBox_1 = new JComboBox();
+		comboBox_1.setBounds(243, 73, 158, 24);
+		add(comboBox_1);
 
 	}
 }

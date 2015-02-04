@@ -22,8 +22,10 @@ package com.llama.tech.f1.backbone;
 
 import java.io.Serializable;
 
-import com.llama.tech.f1.utils.Lista;
 
+/**
+ * Esta es la clase que modela la carrera 
+ */
 public class Carrera implements Serializable 
 {
 	/**
@@ -31,9 +33,99 @@ public class Carrera implements Serializable
 	 */
 	
 	private static final long serialVersionUID = 1L;
-	private Lista<Piloto> participantes;
-    private String nombre;
-    private int numeroCarrera;
 	
+	// -----------------------------------------------------------------
+	// Atributos
+	// -----------------------------------------------------------------
+	
+	/**
+	 * Este es el atributo que representa el nombre de la carrera
+	 */
+    private String nombre;
+    
+    /**
+     * Este es el atributo que representa el numero de la carrera
+     */
+    private int numeroCarrera;
+    
+    /**
+     * Este es el atributo que representa la fecha de la carrera
+     */
+    private String fecha;
+    
+    /**
+     * Este es el atributo que representa la hora
+     */
+    private String hora;
+    
+    /**
+     * Este es el atributo que representa el circuito
+     */
+    private String circuito;
+    
+    /**
+     * Este es el atributo que representa el lugar de la carrera
+     */
+    private String lugar;
+    
+    /**
+     * Este es el atributo que representa el pais
+     */
+    private String pais;
+    
+    /**
+     * Este es el atributo que representa la lista de posiciones de los participantes
+     */
+    private String[] posiciones;
+    
+    /**
+     * Este es el atributo que representa la duracion de la carrera
+     */
+    private int duracion;
+    
+    /**
+     * Este es el atributo donde se guarda la URL de la imagend e la carrera
+     */
+    private String urlImagen;
+	
+    // -----------------------------------------------------------------
+ 	// Metodos Construcotres
+ 	// -----------------------------------------------------------------
+    
+    public Carrera(String pNombre, int pNumeroCarrera, String pFecha, String pHora, String pCircuito, String pLugar, String pPais, String[] pPosiciones, int pDuracion, String pUrlImagen )
+    {
+    	nombre = pNombre;
+    	numeroCarrera = pNumeroCarrera;
+    	fecha = pFecha;
+    	hora = pHora;
+    	circuito = pCircuito;
+    	lugar = pLugar;
+    	pais = pPais;
+    	posiciones = pPosiciones;
+    	urlImagen = pUrlImagen;
+    	
+    }
+    
+    // -----------------------------------------------------------------
+  	// Metodos 
+  	// -----------------------------------------------------------------
+
+    /**
+     * Este método transforma la informacion a una cadena de carácteres separada por ";" para enviarla en el siguiente orden:
+     * nombre;numeroCarrera;fecha;hora;circuito;lugar;pais;posiciones...;duracion;urlImagen
+     * @return cadena de caracteres con informacion
+     */
+    public String toString()
+    {
+    	StringBuilder s = new StringBuilder(512);
+    	s.append(nombre+";"+numeroCarrera+";"+fecha+";"+hora+";"+circuito+";"+lugar+";"+pais+";");
+    	for(String c:posiciones)
+    	{
+    		s.append(c+";");
+    	}
+    	s.append(duracion+";"+urlImagen);
+    	
+    	return s.toString();
+    }
 
 }

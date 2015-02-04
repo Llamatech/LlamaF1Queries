@@ -21,8 +21,126 @@
 
 package com.llama.tech.f1.backbone;
 
-public class Piloto 
+import java.io.Serializable;
+
+/**
+ * Esta es la clase que modela a los pilotos
+ */
+public class Piloto implements Serializable 
 {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	// -----------------------------------------------------------------
+	// Atributos
+	// -----------------------------------------------------------------
+
+	/**
+	 * Este es el atributo que representa el nombre del piloto
+	 */
+	private String nombre;
+
+	/**
+	 * Este es el atributo que representa la nacionalidad del piloto
+	 */
+	private String nacionalidad;
+
+	/**
+	 * Este es el atributo que representa la fecha de nacimiento del piloto
+	 */
+	private String fechaNac;
+
+	/**
+	 * Este es el atributo que representa la escudería del piloto
+	 */
+	private String escuderia;
+
+	/**
+	 * Este es el atributo que representa los puntos del piloto
+	 */
+	private int puntos;
+
+	/**
+	 * Este es el atributo que representa la posicion final del piloto
+	 */
+	private int posFinal;
+
+	/**
+	 * Este es el atributo que representa la posicion del piloto
+	 */
+	private int posicion;
+
+	/**
+	 * Este es el atributo que representa el estado final del piloto
+	 */
+	private String estado;
+
+	/**
+	 * Este es el atributo que representa la Estadística del piloto
+	 */
+	private String estadistica;
 	
+	/**
+	 * Este es el atributo donde se guarda el url de la imagen del piloto
+	 */
+	private String urlImagen;
+	
+	private String driverId;
+	
+	
+	
+	
+    /**
+     * Este es el metodo constructor de la clase
+	 * @param nombre
+	 * @param nacionalidad
+	 * @param fechaNac
+	 * @param escuderia
+	 * @param puntos
+	 * @param posFinal
+	 * @param posicion
+	 * @param estado
+	 * @param estadistica
+	 * @param urlImagen
+	 */
+	public Piloto(String nombre, String nacionalidad, String fechaNac,
+			String escuderia, int puntos, int posFinal, int posicion,
+			String estado, String estadistica, String urlImagen) 
+	{
+		this.nombre = nombre;
+		this.nacionalidad = nacionalidad;
+		this.fechaNac = fechaNac;
+		this.escuderia = escuderia;
+		this.puntos = puntos;
+		this.posFinal = posFinal;
+		this.posicion = posicion;
+		this.estado = estado;
+		this.estadistica = estadistica;
+		this.urlImagen = urlImagen;
+	}
+
+
+
+
+	// -----------------------------------------------------------------
+ 	// Metodos
+ 	// -----------------------------------------------------------------
+
+    /**
+     * Este método transforma la informacion a una cadena de carácteres separada por ";" para enviarla en el siguiente orden:
+     * nombre;nacionalidad;fechaNac;escuderia;puntos;posFinal;posicion;estado;estadistica;urlImagen
+     * @return cadena de caracteres con informacion
+     */
+    public String toString()
+    {
+    	StringBuilder s = new StringBuilder(512);
+    	s.append(driverId+";"+nombre+";"+nacionalidad+";"+fechaNac+";"+escuderia+";"+puntos+";"+posFinal+";"+posicion+";"+estado+";"+estadistica+";"+urlImagen);
+    	
+    	return s.toString();
+    }
+
+
 }

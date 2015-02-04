@@ -147,7 +147,7 @@ public class ListaDoblementeEnlazadaTest extends TestCase {
 		//Se prueba el caso de una lista vacía
 		setUpEscenario1();
 		try{
-			lista.add(0, (Integer)9);
+			lista.add(6, (Integer)9);
 			fail("El metodo debería lanzar una excepcion");
 		}
 		catch(Exception e){
@@ -183,9 +183,9 @@ public class ListaDoblementeEnlazadaTest extends TestCase {
 
 		//Prueba el método con una lista no vacía
 		setUpEscenario2();
-		assertEquals("La longitud debería ser cero", 0, lista.size());
-		assertEquals("El primer elemento debería ser null", null, lista.getFirst());
-		assertEquals("El último elemento debería ser null", null, lista.getLast());
+		assertEquals("La longitud de la lista está incorrecta", 6, lista.size());
+		assertNotNull("El primer elemento no debería ser null", lista.getFirst());
+		assertNotNull("El último elemento debería ser null", lista.getLast());
 	}
 
 	/**
@@ -414,7 +414,7 @@ public class ListaDoblementeEnlazadaTest extends TestCase {
 
 				//Se prueba con una lista de múltiples elementos
 				setUpEscenario2();
-				res = lista.removeFirst();
+				res = lista.removeLast();
 				assertEquals("El método debería retornar el elemento eliminado", 5, (int)res);
 			}
 			catch(Exception ex){
@@ -440,7 +440,7 @@ public class ListaDoblementeEnlazadaTest extends TestCase {
 		Integer res = null;
 
 		res= lista.remove((Integer)9);
-		fail("El método debería fallar porque no hay elementos que remover");
+		assertEquals("El metodo debería retornal null porque no hay elementos que eliminar", null, res);
 
 
 		//Se prueba el método con una lista no vacía donde no esta el elemento dado

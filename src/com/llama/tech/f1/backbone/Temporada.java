@@ -31,9 +31,34 @@ public class Temporada implements Serializable
 	private Lista<Piloto> pilotos;
 	private Lista<Escuderia> escuderias;
 	private int year;
+	private boolean pilotoBorrado;
+	private boolean carreraBorrada;
+
+
+	public void cargarPilotos(String[] infoPilotos)
+	{
+		for(String info:infoPilotos)
+		{
+			String[] infoP = info.split(";");
+			Piloto pilot = new Piloto(nombre, nacionalidad, fechaNac, escuderia, puntos, posFinal, posicion, estado, estadistica, urlImagen)
+			pilotos.addAlFinal(pilot);
+		}
+
+	}
 	
-	
-	
-	
+	public void cargarCarreras(String[] infoCarreras)
+	{
+		for(String info:infoPilotos)
+		{
+			String[] infoP = info.split(";");
+			Piloto pilot = new Piloto(nombre, nacionalidad, fechaNac, escuderia, puntos, posFinal, posicion, estado, estadistica, urlImagen)
+			pilotos.addAlFinal(pilot);
+		}
+	}
+
+
+
+
+
 
 }

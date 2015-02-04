@@ -38,14 +38,14 @@ import org.jsoup.select.Elements;
 
 public class ImageContent 
 {
-	 private String pointer;
 	
-     public ImageContent(String url, String loc) throws IOException
+     public static String getImageContent(String url, String loc) throws IOException
      {
     	 Element objElem = null; 
     	 Document doc = Jsoup.connect(url).get();
     	 Elements elemts = doc.select("table");
     	 boolean found = false;
+    	 String pointer = null;
     	 
          for(int i = 0; i < elemts.size() && !found; i++)
          {
@@ -56,7 +56,7 @@ public class ImageContent
         		 if(elem.select("td").get(0).attr("style").equals("text-align:center"))
         		 {
         			 objElem = elem.select("td").get(0);
-        		     found = true;
+        		    found = true;
         		 }
         	 }
          }
@@ -84,10 +84,7 @@ public class ImageContent
         	 
         	 pointer = "./data/img/"+loc+"."+ext;
          }
-     }
-     
-     public String getPointer()
-     {
-    	 return pointer;
+         
+         return null;
      }
 }
