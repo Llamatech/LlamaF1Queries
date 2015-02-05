@@ -35,12 +35,15 @@ import java.nio.file.Paths;
 
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import be.pwnt.jflow.Configuration;
 import be.pwnt.jflow.Configuration.VerticalAlignment;
 import be.pwnt.jflow.JFlowPanel;
 import be.pwnt.jflow.Shape;
+import be.pwnt.jflow.event.ShapeEvent;
+import be.pwnt.jflow.event.ShapeListener;
 import be.pwnt.jflow.shape.Picture;
 
 import com.jgoodies.forms.layout.ColumnSpec;
@@ -49,11 +52,12 @@ import com.jgoodies.forms.layout.RowSpec;
 import com.jgoodies.forms.factories.FormFactory;
 
 import java.awt.Color;
+import java.awt.event.MouseEvent;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
 
-public class F1MainGUI extends JFrame 
+public class F1MainGUI extends JFrame implements ShapeListener
 {
 
 	private JPanel contentPane;
@@ -130,6 +134,7 @@ public class F1MainGUI extends JFrame
 			flowPanel.setLocation(0, 0);
 			flowPanel.setForeground(Color.BLACK);
 			flowPanel.setMaximumSize(new Dimension(674, 300));
+			flowPanel.addListener(this);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -190,7 +195,7 @@ public class F1MainGUI extends JFrame
 			{
 //			    if (files[i] != null)
 //			    {
-				    shapes[i] = new Picture(ImageIO.read(files[i]));
+				    shapes[i] = new Picture(ImageIO.read(files[i]), files[i].getName().split("[.]")[0]);
 			    //}
 			}
 
@@ -204,6 +209,31 @@ public class F1MainGUI extends JFrame
 	
 	public void cargar()
 	{
+		
+	}
+
+	@Override
+	public void shapeActivated(ShapeEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void shapeClicked(ShapeEvent arg0) 
+	{
+		MouseEvent me = arg0.getMouseEvent();
+		if (!me.isConsumed() && me.getButton() == MouseEvent.BUTTON1
+				&& me.getClickCount() == 1) {
+			JOptionPane.showMessageDialog(this,
+					"You clicked on " + arg0.getShape().getShapeName() + ".", "Event Test",
+					JOptionPane.INFORMATION_MESSAGE);
+		}
+		
+	}
+
+	@Override
+	public void shapeDeactivated(ShapeEvent arg0) {
+		// TODO Auto-generated method stub
 		
 	}
 }
