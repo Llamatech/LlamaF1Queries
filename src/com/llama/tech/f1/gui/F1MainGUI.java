@@ -38,6 +38,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import be.pwnt.jflow.Configuration;
+import be.pwnt.jflow.Configuration.VerticalAlignment;
 import be.pwnt.jflow.JFlowPanel;
 import be.pwnt.jflow.Shape;
 import be.pwnt.jflow.shape.Picture;
@@ -46,7 +47,9 @@ import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.RowSpec;
 import com.jgoodies.forms.factories.FormFactory;
+
 import java.awt.Color;
+
 import javax.swing.JButton;
 import javax.swing.JLabel;
 
@@ -121,6 +124,8 @@ public class F1MainGUI extends JFrame
 		try {
 			Config c = new Config(files);
 			c.backgroundColor = new Color(238,238,238);
+			c.activeShapeBorderColor = Color.RED;
+			c.verticalShapeAlignment = VerticalAlignment.MIDDLE;
 			flowPanel = new JFlowPanel(c);
 			flowPanel.setLocation(0, 0);
 			flowPanel.setForeground(Color.BLACK);
