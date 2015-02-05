@@ -32,10 +32,12 @@ public class ListaSimplementeEnlazada<ClaseGenerica> implements Lista<ClaseGener
 			
 		}
 		
+		return true;
+		
 	}
 
 	@Override
-	public void add(int pos, ClaseGenerica elemento) 
+	public boolean add(int pos, ClaseGenerica elemento) 
 	{
 		if(pos < 0 || pos > length-1 || length == 0)
 		{
@@ -71,6 +73,7 @@ public class ListaSimplementeEnlazada<ClaseGenerica> implements Lista<ClaseGener
 				posActual++;
 			}
 		}
+		return true;
 		
 	}
 
@@ -151,7 +154,7 @@ public class ListaSimplementeEnlazada<ClaseGenerica> implements Lista<ClaseGener
 	@Override
 	public ClaseGenerica getLast() 
 	{
-		return anterior.getValor();
+		return ultimo.getValor();
 	}
 
 	@Override
@@ -312,7 +315,7 @@ public class ListaSimplementeEnlazada<ClaseGenerica> implements Lista<ClaseGener
 	}
 
 	@Override
-	public boolean remove(ClaseGenerica elemento) 
+	public ClaseGenerica remove(ClaseGenerica elemento) 
 	{
 		boolean eliminado = false;
 		
@@ -338,7 +341,7 @@ public class ListaSimplementeEnlazada<ClaseGenerica> implements Lista<ClaseGener
 				        eliminado = true;
 				        actual = null;
 						length--;
-						return eliminado;
+						return elemento;
 					}
 					
 					anterior = actual;
@@ -347,7 +350,7 @@ public class ListaSimplementeEnlazada<ClaseGenerica> implements Lista<ClaseGener
 			}
 		}
 		
-		return eliminado;
+		return null;
 	}
 
 	@Override
@@ -404,46 +407,79 @@ public class ListaSimplementeEnlazada<ClaseGenerica> implements Lista<ClaseGener
 
 	@Override
 	public boolean addAlPrincipio(ClaseGenerica elemento) {
-		// TODO Auto-generated method stub
-		return false;
+		add(0, elemento);
+		return true;
 	}
 
-	@Override
-	public boolean add(int pos, ClaseGenerica elemento)
-			throws IndexOutOfBoundsException {
-		// TODO Auto-generated method stub
-		return false;
-	}
+
 
 	@Override
 	public boolean add(ClaseGenerica elementoI, ClaseGenerica elementoAgregar) {
-		// TODO Auto-generated method stub
-		return false;
+		boolean agrego = false;
+		if (length<=0)
+		{
+			return agrego;
+		}
+		else
+		{
+			ElementoSimplementeEnlazado<ClaseGenerica> actual = primero;
+
+			while(actual != null && !agrego)
+			{
+				if(actual.getValor().equals(elementoI))
+				{
+					ElementoSimplementeEnlazado<ClaseGenerica> siguienteI = actual.getSiguiente();
+					ElementoSimplementeEnlazado<ClaseGenerica> nuevo = new ElementoSimplementeEnlazado<ClaseGenerica>(elementoAgregar);
+					nuevo.setSiguiente(siguienteI);
+					actual.setSiguiente(nuevo);
+					length++;
+					agrego= true;
+				}
+
+				actual = actual.getSiguiente();
+			}
+			return agrego;
+
+		}
 	}
 
 	@Override
 	public ClaseGenerica buscar(ClaseGenerica elemento) {
-		// TODO Auto-generated method stub
+		if (length > 0)
+		{
+			if(ultimo.getValor().equals(elemento))
+			{
+				return ultimo.getValor();
+			}
+
+			ElementoSimplementeEnlazado<ClaseGenerica> actual = primero;
+			while(actual != null)
+			{
+				if(actual.getValor().equals(elemento))
+				{
+					return actual.getValor();
+				}
+				actual = actual.getSiguiente();
+			}
+		}
 		return null;
 	}
 
 	@Override
 	public ClaseGenerica removeFirst() throws IndexOutOfBoundsException {
-		// TODO Auto-generated method stub
-		return null;
+		return remove(0);
 	}
 
 	@Override
 	public ClaseGenerica removeLast() throws IndexOutOfBoundsException {
-		// TODO Auto-generated method stub
-		return null;
+		return remove(length-1);
 	}
 
 	@Override
-	public ClaseGenerica remove(ClaseGenerica elemento) {
-		// TODO Auto-generated method stub
-		return null;
+	public ClaseGenerica getFirst() {
+		return primero.getValor();
 	}
+
 
 	
 }

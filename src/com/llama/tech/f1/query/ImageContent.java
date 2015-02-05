@@ -39,7 +39,7 @@ import org.jsoup.select.Elements;
 public class ImageContent 
 {
 	
-     public static String getImageContent(String url, String loc) throws IOException
+     public static String getDriverConstructorImageContent(String url, String loc) throws IOException
      {
     	 Element objElem = null; 
     	 Document doc = Jsoup.connect(url).get();

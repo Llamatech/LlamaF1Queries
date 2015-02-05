@@ -189,4 +189,14 @@ public class F1MainGUI extends JFrame
 
 		}
 	}
+	
+	public void guardar()
+	{
+		
+	}
+	
+	public void cargar()
+	{
+		
+	}
 }

@@ -87,12 +87,31 @@ public class Carrera implements Serializable
      * Este es el atributo donde se guarda la URL de la imagend e la carrera
      */
     private String urlImagen;
+    
+    /**
+     * Este es el atributo que representa el id de la carrera
+     */
+    private String carreraId;
 	
     // -----------------------------------------------------------------
  	// Metodos Construcotres
  	// -----------------------------------------------------------------
     
-    public Carrera(String pNombre, int pNumeroCarrera, String pFecha, String pHora, String pCircuito, String pLugar, String pPais, String[] pPosiciones, int pDuracion, String pUrlImagen )
+    /**
+     * 
+     * @param pNombre
+     * @param pNumeroCarrera
+     * @param pFecha
+     * @param pHora
+     * @param pCircuito
+     * @param pLugar
+     * @param pPais
+     * @param pPosiciones
+     * @param pDuracion
+     * @param pUrlImagen
+     * @param pCarreraId;
+     */
+    public Carrera(String pNombre, int pNumeroCarrera, String pFecha, String pHora, String pCircuito, String pLugar, String pPais, String[] pPosiciones, int pDuracion, String pUrlImagen, String pCarreraId )
     {
     	nombre = pNombre;
     	numeroCarrera = pNumeroCarrera;
@@ -103,6 +122,7 @@ public class Carrera implements Serializable
     	pais = pPais;
     	posiciones = pPosiciones;
     	urlImagen = pUrlImagen;
+    	carreraId = pCarreraId;
     	
     }
     

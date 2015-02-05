@@ -18,6 +18,5 @@ public interface IF1
 	
 	public boolean deleteCircuitRecord(String name);
 	
-	public void cargarTemporadas(String[] temporadas);
 	
 }

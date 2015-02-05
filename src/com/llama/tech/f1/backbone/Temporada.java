@@ -55,19 +55,25 @@ public class Temporada implements Serializable
 	private Lista<Escuderia> escuderias;
 
 	/**
-	 * este atributo representa el año de la temporada
+	 * Este atributo representa el año de la temporada
 	 */
 	private int year;
 
 	/**
-	 * este atributo representa si se han borrado o no pilotos
+	 * Este atributo representa si ya se cargaron los pilotos. Si hay un piloto borrado, es falso.
 	 */
-	private boolean pilotoBorrado;
+	private boolean pilotosCargados;
 
 	/**
-	 * Este atributo representa si se han borrado o no carreras
+	 * Este atributo representa si ya se cargaron las carreras. Si hay una carrera borrada, es falso.
 	 */
-	private boolean carreraBorrada;
+	private boolean carrerasCargadas;
+
+	/**
+	 * Este atributo representa si ya se cargaron las escuderias. 
+	 */
+	private boolean escuderiasCargadas;
+
 
 
 	// -----------------------------------------------------------------
@@ -81,8 +87,9 @@ public class Temporada implements Serializable
 	public Temporada(int anho)
 	{
 		year= anho;
-		pilotoBorrado=false;
-		carreraBorrada=false;
+		pilotosCargados=false;
+		carrerasCargadas=false;
+		escuderiasCargadas= false;
 	}
 
 	// -----------------------------------------------------------------
@@ -95,12 +102,13 @@ public class Temporada implements Serializable
 	 */
 	public void cargarPilotos(String[] infoPilotos)
 	{
-		for(String info:infoPilotos)
-		{
-			String[] infoP = info.split(";");
-			//TODO
-			Piloto pilot = new Piloto(nombre, nacionalidad, fechaNac, escuderia, puntos, posFinal, posicion, estado, estadistica, urlImagen);
-			pilotos.addAlFinal(pilot);
+		if(!pilotosCargados){
+			for(String info:infoPilotos)
+			{
+				String[] infoP = info.split(";");
+				Piloto pilot = new Piloto(infoP[1], infoP[2], infoP[3], infoP[4], infoP[0]);
+				pilotos.addAlFinal(pilot);
+			}
 		}
 
 	}
@@ -111,11 +119,14 @@ public class Temporada implements Serializable
 	 */
 	public void cargarCarreras(String[] infoCarreras)
 	{
-		for(String info:infoCarreras)
-		{
-			String[] infoC = info.split(";");
-			Carrera race = new Carrera(pNombre, pNumeroCarrera, pFecha, pHora, pCircuito, pLugar, pPais, pPosiciones, pDuracion, pUrlImagen);
-			carreras.addAlFinal(race);
+		if(!carrerasCargadas){
+			for(String info:infoCarreras)
+			{
+				String[] infoC = info.split(";");
+				//TODO
+//				Carrera race = new Carrera(pNombre, pNumeroCarrera, pFecha, pHora, pCircuito, pLugar, pPais, pPosiciones, pDuracion, pUrlImagen);
+//				carreras.addAlFinal(race);
+			}
 		}
 	}
 
@@ -125,11 +136,14 @@ public class Temporada implements Serializable
 	 */
 	public void cargarEscuderias(String[] infoEscuderias)
 	{
-		for(String info:infoEscuderias)
-		{
-			String[] infoE = info.split(";");
-			Escuderia escu = new Escuderia(pUrlLogo, pNombre, pPais, pPosFinal, pPuntos, pPilotos, pCarreras);
-			escuderias.addAlFinal(escu);
+		if(!escuderiasCargadas){
+			for(String info:infoEscuderias)
+			{
+				String[] infoE = info.split(";");
+				//TODO
+//				Escuderia escu = new Escuderia(pUrlLogo, pNombre, pPais, pPosFinal, pPuntos, pPilotos, pCarreras);
+//				escuderias.addAlFinal(escu);
+			}
 		}
 	}
 

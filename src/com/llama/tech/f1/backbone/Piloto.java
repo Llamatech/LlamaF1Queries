@@ -53,35 +53,35 @@ public class Piloto implements Serializable
 	 */
 	private String fechaNac;
 
-	/**
-	 * Este es el atributo que representa la escudería del piloto
-	 */
-	private String escuderia;
-
-	/**
-	 * Este es el atributo que representa los puntos del piloto
-	 */
-	private int puntos;
-
-	/**
-	 * Este es el atributo que representa la posicion final del piloto
-	 */
-	private int posFinal;
-
-	/**
-	 * Este es el atributo que representa la posicion del piloto
-	 */
-	private int posicion;
-
-	/**
-	 * Este es el atributo que representa el estado final del piloto
-	 */
-	private String estado;
-
-	/**
-	 * Este es el atributo que representa la Estadística del piloto
-	 */
-	private String estadistica;
+//	/**
+//	 * Este es el atributo que representa la escudería del piloto
+//	 */
+//	private String escuderia;
+//
+//	/**
+//	 * Este es el atributo que representa los puntos del piloto
+//	 */
+//	private int puntos;
+//
+//	/**
+//	 * Este es el atributo que representa la posicion final del piloto
+//	 */
+//	private int posFinal;
+//
+//	/**
+//	 * Este es el atributo que representa la posicion del piloto
+//	 */
+//	private int posicion;
+//
+//	/**
+//	 * Este es el atributo que representa el estado final del piloto
+//	 */
+//	private String estado;
+//
+//	/**
+//	 * Este es el atributo que representa la Estadística del piloto
+//	 */
+//	private String estadistica;
 
 	/**
 	 * Este es el atributo donde se guarda el url de la imagen del piloto
@@ -93,12 +93,12 @@ public class Piloto implements Serializable
 	 */
 	private String driverId;
 
-	/**
-	 * Este es el atributo que representa el 
-	 */
-	private String escuderiaId;
-
-	
+//	/**
+//	 * Este es el atributo que representa el 
+//	 */
+//	private String escuderiaId;
+//
+//	
 	// -----------------------------------------------------------------
 	// Metodos Constructores
 	// -----------------------------------------------------------------
@@ -119,21 +119,20 @@ public class Piloto implements Serializable
 	 * @paran pIdEscuderia
 	 */
 	public Piloto(String nombre, String nacionalidad, String fechaNac,
-			String escuderia, int puntos, int posFinal, int posicion,
-			String estado, String estadistica, String urlImagen, String pIdDriver, String pIdEscuderia) 
+			  String urlImagen, String pIdDriver) 
 	{
 		this.nombre = nombre;
 		this.nacionalidad = nacionalidad;
 		this.fechaNac = fechaNac;
-		this.escuderia = escuderia;
-		this.puntos = puntos;
-		this.posFinal = posFinal;
-		this.posicion = posicion;
-		this.estado = estado;
-		this.estadistica = estadistica;
+//		this.escuderia = escuderia;
+//		this.puntos = puntos;
+//		this.posFinal = posFinal;
+//		this.posicion = posicion;
+//		this.estado = estado;
+//		this.estadistica = estadistica;
 		this.urlImagen = urlImagen;
 		this.driverId = pIdDriver;
-		this.escuderiaId = pIdEscuderia;
+//		this.escuderiaId = pIdEscuderia;
 	}
 
 
@@ -143,6 +142,7 @@ public class Piloto implements Serializable
 	// Metodos
 	// -----------------------------------------------------------------
 
+	//TODO
 	/**
 	 * Este método transforma la informacion a una cadena de carácteres separada por ";" para enviarla en el siguiente orden:
 	 * nombre;nacionalidad;fechaNac;escuderia;puntos;posFinal;posicion;estado;estadistica;urlImagen
@@ -151,7 +151,7 @@ public class Piloto implements Serializable
 	public String toString()
 	{
 		StringBuilder s = new StringBuilder(512);
-		s.append(driverId+";"+nombre+";"+nacionalidad+";"+fechaNac+";"+escuderiaId+";"+escuderia+";"+puntos+";"+posFinal+";"+posicion+";"+estado+";"+estadistica+";"+urlImagen);
+		s.append(driverId+";"+nombre+";"+nacionalidad+";"+fechaNac+";"+urlImagen);
 
 		return s.toString();
 	}

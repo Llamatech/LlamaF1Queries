@@ -81,6 +81,11 @@ public interface Lista<ClaseGenerica> extends Iterable<ClaseGenerica>
 	 */
 	public ClaseGenerica getLast();
 	/**
+	 * Retorna el primer elemento de la lista
+	 * @return El primer elemento de la lista
+	 */
+	public ClaseGenerica getFirst();
+	/**
 	 * Retorna la primera posici�n en la lista donde aparece un elemento dado.
 	 * @param elemento El elemento a buscar su posici�n.
 	 * @return La primera posici�n del elemento dado. Si el elemento no se encuentra en la lista retorna -1

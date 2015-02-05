@@ -1,9 +1,14 @@
 package com.llama.tech.f1.backbone;
 
+import java.io.IOException;
 import java.io.Serializable;
 
+import com.llama.tech.f1.query.Query;
 import com.llama.tech.f1.utils.Lista;
 
+/**
+ * Esta es la clase principal del mundo y modela la base de datos de fórmula1
+ */
 public class F1 implements IF1, Serializable
 {
 	/**
@@ -11,7 +16,9 @@ public class F1 implements IF1, Serializable
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	
+	/**
+	 * Este es el atributo que representa las temporadas de la base de datos
+	 */
 	private Lista<Temporada> temporadas;
 
 	
@@ -65,10 +72,13 @@ public class F1 implements IF1, Serializable
 		return null;
 	}
 
-	@Override
-	public void cargarTemporadas(String[] temporadas) {
-		// TODO Auto-generated method stub
-		
+	public void cargarTemporadas() throws IOException 
+	{
+	    String[] pTemporadas =  Query.getTotalSeasons();
+		for	(String s:pTemporadas){
+			Temporada t = new Temporada(Integer.parseInt(s));
+			temporadas.addAlFinal(t);
+		}
 	}
 	
 	public void cargarCarrerasTemporada(int anho, String[]infoCarreras)

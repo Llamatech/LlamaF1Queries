@@ -24,22 +24,31 @@ package com.llama.tech.f1.query;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutput;
+import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
+import java.net.MalformedURLException;
 import java.net.URL;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.llama.tech.f1.backbone.IF1;
+
 public class Query 
 {
 	private final static String ROOT = "http://ergast.com/api/f1/";
 	private final static String DATA_ROOT = "./data/seasons/";
 	private final static String IMG_ROOT = "./data/img/";
+	private final static String DIR_ARCHIVO = "./data/persistence/";
+	public final static File ARCHIVO = new File(DIR_ARCHIVO+"info.f1");
 
 	private static String getJSONFormat(URL urlReq) throws IOException
 	{
@@ -57,7 +66,7 @@ public class Query
 
 	public static String[] getTotalSeasons() throws IOException //→ Aquí me encuentro!
 	{
-		File dataRoot = new File("./data/seasons/");
+		File dataRoot = new File(DATA_ROOT);
 		String[] seasonList = null;
 		boolean exists = false;
 		int len = -1;
@@ -146,7 +155,6 @@ public class Query
 
 	public static String[] getDriversSeason(String year) throws IOException
 	{
-		//TODO Guardar archivo de persistencia
 		String[] drivers = null;
 		URL urlReq = new URL(ROOT+year+"/drivers.json"); //yupi
 		//Ahora a obtener el archivo JSON!
@@ -235,7 +243,7 @@ public class Query
 			
 			if(!imageExists)
 			{
-				loc = ImageContent.getImageContent(url, "./data/img/drivers/"+driverId);
+				loc = ImageContent.getDriverConstructorImageContent(url, "./data/img/drivers/"+driverId);
 			}
 			
 			sb.append(driverId);
@@ -247,15 +255,18 @@ public class Query
 			sb.append(driver.getString("nationality"));
 			sb.append(";");
 			sb.append(driver.getString("dateOfBirth"));
+//			sb.append(constructorId);
+//			sb.append(";");
+//			sb.append(constructorName);
+//			sb.append(";");
+//			sb.append(points);
+//			sb.append(";");
+//			sb.append(position);
 			sb.append(";");
-			sb.append(constructorId);
-			sb.append(";");
-			sb.append(constructorName);
-			sb.append(";");
-			sb.append(points);
-			sb.append(";");
-			sb.append(position);
-			sb.append(";");
+			if(loc == null)
+			{
+				loc = "./data/img/drivers/default.png";
+			}
 			sb.append(loc);
 			sb.append(";");
 			drivers[i] = sb.toString();
@@ -268,12 +279,280 @@ public class Query
 		return drivers;
 		
 	}
+		
+	public static String[] getCircuitsSeason(String year) throws IOException
+	{
+		URL urlReq = new URL(ROOT+year+".json");
+		String[] circuits = null;
+		String content = getJSONFormat(urlReq);
+		JSONObject mainInfo = new JSONObject(content);
+		JSONObject circuitsLength = mainInfo.getJSONObject("MRData");
+		
+		int len = circuitsLength.getInt("total");
+		circuits = new String[len];
+		
+		JSONObject raceTable = circuitsLength.getJSONObject("RaceTable");
+		JSONArray races = raceTable.getJSONArray("Races");
+		
+		//{"season":"2012","round":"1","url":"http:\/\/en.wikipedia.org\/wiki\/2012_Australian_Grand_Prix",
+		//"raceName":"Australian Grand Prix","Circuit":{"circuitId":"albert_park","url":"http:\/\/en.wikipedia.org\/wiki\/Melbourne_Grand_Prix_Circuit","circuitName":"Albert Park Grand Prix Circuit","Location":{"lat":"-37.8497","long":"144.968","locality":"Melbourne","country":"Australia"}},"date":"2012-03-18","time":"06:00:00Z"}
+		
+		StringBuilder sb = new StringBuilder();
+		File dir = new File(IMG_ROOT+"circuits/");
+		
+		for(int i = 0; i < len; i++)
+		{
+			JSONObject race = races.getJSONObject(i);
+			int round = race.getInt("round");
+			
+			String raceName = race.getString("raceName");
+			
+			JSONObject circuitInfo = race.getJSONObject("Circuit");
+			
+			String circuitId = circuitInfo.getString("circuitId");
+			String url = circuitInfo.getString("url");
+			String circuitName = circuitInfo.getString("circuitName");
+			
+			JSONObject location = circuitInfo.getJSONObject("Location");
+			String locality = location.getString("locality");
+			String country = location.getString("country");
+			
+			String date = race.getString("date");
+			String time = null;
+			try
+			{
+				time = race.getString("time");
+			}
+			catch(JSONException j)
+			{
+				
+			}
+			
+			String loc = null;
+			boolean imgExists = false;
+			
+			for(File f: dir.listFiles())
+			{
+				if(!f.isDirectory())
+				{
+					if(f.getName().contains(circuitId))
+					{
+						loc = f.getName();
+						imgExists = true;
+						break;
+					}
+				}
+			}
+			
+			if(!imgExists)
+			{
+				loc = ImageContent.getDriverConstructorImageContent(url, "./data/img/circuits/"+circuitId);
+			}
+			
+			sb.append(circuitName);
+			sb.append(";");
+			sb.append(circuitId);
+			sb.append(";");
+			sb.append(raceName);
+			sb.append(";");
+			sb.append(round);
+			sb.append(";");
+			sb.append(date);
+			sb.append(";");
+			sb.append(time);
+			sb.append(";");
+			sb.append(locality);
+			sb.append(";");
+			sb.append(country);
+			sb.append(";");
+			sb.append(loc);
+			circuits[i] = sb.toString();
+			sb.setLength(0);
+		}
+		
+		return circuits;
+	}
+
+	public static String[] getConstructorsSeason(String year) throws IOException
+	{
+		String[] constructors;
+		URL urlReq;
+		boolean discardPos = false;
+		if(Integer.parseInt(year) < 1958)
+		{
+			urlReq = new URL(ROOT+year+"/constructors.json");
+			discardPos = true;
+		}
+		else
+		{
+			urlReq = new URL(ROOT+year+"/constructorStandings.json");
+		}
+		
+		String content = getJSONFormat(urlReq);
+		JSONObject mainInfo = new JSONObject(content);
+		JSONObject constructorsInfo = mainInfo.getJSONObject("MRData");
+		
+		int len = constructorsInfo.getInt("total");
+		constructors = new String[len];
+		
+		StringBuilder sb = new StringBuilder();
+		File dir = new File(IMG_ROOT+"constructors/");
+		
+		if(discardPos)
+		{
+			JSONObject constructorTable = constructorsInfo.getJSONObject("ConstructorTable");
+			JSONArray constructrs = constructorTable.getJSONArray("Constructors");
+			for(int i = 0; i < len; i++)
+			{
+				//{"constructorId":"benetton","url":"http:\/\/en.wikipedia.org\/wiki\/Benetton_Formula","name":"Benetton","nationality":"Italian"}
+				JSONObject constructor = constructrs.getJSONObject(i);
+				String constructorId = constructor.getString("constructorId");
+				String constructorName = constructor.getString("name");
+				String constructorNationality = constructor.getString("nationality");
+				String url = constructor.getString("url");
+				String points = null;
+				String pos = null;
+				
+				String loc = null;
+				boolean imgExists = false;
+				
+				for(File f: dir.listFiles())
+				{
+					if(!f.isDirectory())
+					{
+						if(f.getName().contains(constructorId))
+						{
+							loc = f.getName();
+							imgExists = true;
+							break;
+						}
+					}
+				}
+				if(!imgExists)
+					loc = ImageContent.getDriverConstructorImageContent(url, "./data/img/constructors/"+constructorId);
+				
+				sb.append(constructorId);
+				sb.append(";");
+				sb.append(constructorName);
+				sb.append(";");
+				sb.append(constructorNationality);
+				sb.append(";");
+				sb.append(pos);
+				sb.append(";");
+				sb.append(points);
+				sb.append(";");
+				sb.append(loc);
+				constructors[i] = sb.toString();
+				sb.setLength(0);	
+			}
+			
+		}
+		else
+		{
+			JSONObject constructorTable = constructorsInfo.getJSONObject("StandingsTable");
+			JSONArray standingsLists = constructorTable.getJSONArray("StandingsLists");
+			JSONObject standingsList = standingsLists.getJSONObject(0);
+			JSONArray constructorStandings = standingsList.getJSONArray("ConstructorStandings");
+			//{"position":"1","positionText":"1","points":"701","wins":"16","Constructor":{"constructorId":"mercedes","url":"http://en.wikipedia.org/wiki/Mercedes-Benz_in_Formula_One","name":"Mercedes","nationality":"German"}}
+			for(int i = 0; i < len; i++)
+			{
+				JSONObject constructorInfo = constructorStandings.getJSONObject(i);
+				int pos = constructorInfo.getInt("position");
+				int points = constructorInfo.getInt("points");
+				JSONObject constructor = constructorInfo.getJSONObject("Constructor");
+				String constructorId = constructor.getString("constructorId");
+				String constructorName = constructor.getString("name");
+				String constructorNationality = constructor.getString("nationality");
+				String url = constructor.getString("url");
+				
+				String loc = null;
+				boolean imgExists = false;
+				
+				for(File f: dir.listFiles())
+				{
+					if(!f.isDirectory())
+					{
+						if(f.getName().contains(constructorId))
+						{
+							loc = f.getName();
+							imgExists = true;
+							break;
+						}
+					}
+				}
+				if(!imgExists)
+					loc = ImageContent.getDriverConstructorImageContent(url, "./data/img/constructors/"+constructorId);
+				
+				sb.append(constructorId);
+				sb.append(";");
+				sb.append(constructorName);
+				sb.append(";");
+				sb.append(constructorNationality);
+				sb.append(";");
+				sb.append(pos);
+				sb.append(";");
+				sb.append(points);
+				sb.append(";");
+				sb.append(loc);
+				constructors[i] = sb.toString();
+				sb.setLength(0);
+				
+				
+			}
+		}
+		
+		return constructors;
+		
+		
+	}
+		
+	public static void guardar(IF1 o)
+	{
+		//Cuidado, esto no es una clase con atributos! Te refieres al archivo? Jajajaja no, query necesita un objeto por
+		//parámetro para guardar → Got ya? jajaja si si te entiendo. Esto lo llamamos desde la interfaz, cierto?
+		//Sí, recibe 
+//		un objeto de tipo
+//		Podemos hacer una constante para la ruta del archivo? Sí!
+		try{
+			FileOutputStream fos = new FileOutputStream(ARCHIVO);
+			ObjectOutputStream oos = new ObjectOutputStream(fos);
+			oos.writeObject(o);
+			oos.close();
+			fos.close();
+		}
+		catch(Exception e){
+			
+		}
+	}
+	
+	public static IF1 cargar()
+	{
+		try{ 
+			if(ARCHIVO.exists())
+			{
+				FileInputStream fis = new FileInputStream(ARCHIVO);
+				ObjectInputStream ois = new ObjectInputStream(fis);
+				Object f1 = ois.readObject();
+				ois.close();
+				fis.close();
+				return (IF1) f1;
+			}
+		}
+	    catch(Exception ex)
+	    {
+			
+		}
+		
+		return null;
+	}
 	
 	public static void main(String[] args) 
 	{
-		try {
-			String[] pilots = getDriversSeason("1963");
-		} catch (IOException e) {
+		try 
+		{
+			String[] pilots = getConstructorsSeason("1953");
+		} 
+		catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
