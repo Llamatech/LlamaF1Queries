@@ -18,7 +18,7 @@
  * along with LlamaUtils. If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.llama.tech.f1.utils;
+package com.llama.tech.utils.list;
 
 import java.io.Serializable;
 import java.util.Iterator;

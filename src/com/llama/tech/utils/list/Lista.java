@@ -1,5 +1,5 @@
 /*
- * List.java
+ * Lista.java
  * This file is part of LlamaUtils
  *
  * Copyright (C) 2015 - LlamaTech Team 
@@ -18,7 +18,7 @@
  * along with LlamaUtils. If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.llama.tech.f1.utils;
+package com.llama.tech.utils.list;
 
 import java.util.Iterator;
 

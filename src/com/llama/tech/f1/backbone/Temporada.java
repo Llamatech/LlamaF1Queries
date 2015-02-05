@@ -23,7 +23,7 @@ package com.llama.tech.f1.backbone;
 
 import java.io.Serializable;
 
-import com.llama.tech.f1.utils.Lista;
+import com.llama.tech.utils.list.Lista;
 
 /**
  * Esta es la clase que modela la Temporada

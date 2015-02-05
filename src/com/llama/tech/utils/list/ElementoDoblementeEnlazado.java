@@ -19,7 +19,7 @@
  */
 
 
-package com.llama.tech.f1.utils;
+package com.llama.tech.utils.list;
 
 import java.io.Serializable;
 

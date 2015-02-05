@@ -1,7 +1,7 @@
 package com.llama.tech.utils.test;
 
-import com.llama.tech.f1.utils.Lista;
-import com.llama.tech.f1.utils.ListaSimplementeEnlazada;
+import com.llama.tech.utils.list.Lista;
+import com.llama.tech.utils.list.ListaSimplementeEnlazada;
 
 /**
  * Esta es la clase que prueba la lista simplemente enlazada
