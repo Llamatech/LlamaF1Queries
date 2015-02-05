@@ -20,6 +20,9 @@
 
 package com.llama.tech.f1.gui;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
 import javax.swing.JLabel;
@@ -34,17 +37,29 @@ import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.factories.FormFactory;
 import com.jgoodies.forms.layout.RowSpec;
+import com.llama.tech.f1.backbone.F1;
+import com.llama.tech.f1.backbone.IF1;
+import com.llama.tech.utils.list.Lista;
+
 import javax.swing.JButton;
 
-public class F1SearchPanel extends JPanel {
+public class F1SearchPanel extends JPanel implements ActionListener {
 	private JTextField textField_1;
 	private JCalendar cal1;
+	
+	private JComboBox comboBox_1;
+	private JComboBox comboBox;
+	private JButton btnNewButton;
+	private F1MainGUI principal;
 	
 
 	/**
 	 * Create the panel.
 	 */
-	public F1SearchPanel() {
+	public F1SearchPanel(F1MainGUI v) {
+		
+
+		principal = v;
 		setBorder(new TitledBorder(null, "B\u00FAsqueda", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		setLayout(null);
 		
@@ -52,7 +67,8 @@ public class F1SearchPanel extends JPanel {
 		lblNewLabel.setBounds(50, 40, 183, 15);
 		add(lblNewLabel);
 		
-		JComboBox comboBox = new JComboBox();
+		String[] temp = principal.darTemporadas();
+		comboBox = new JComboBox(temp);
 		comboBox.setBounds(243, 35, 158, 24);
 		add(comboBox);
 		
@@ -107,7 +123,7 @@ public class F1SearchPanel extends JPanel {
 		JDateChooser dateChooser_1 = new JDateChooser();
 		panel.add(dateChooser_1, "6, 4, fill, top");
 		
-		JButton btnNewButton = new JButton("Consultar");
+		btnNewButton = new JButton("Consultar");
 		btnNewButton.setBounds(50, 276, 117, 25);
 		add(btnNewButton);
 		
@@ -115,9 +131,30 @@ public class F1SearchPanel extends JPanel {
 		btnNewButton_1.setBounds(294, 276, 117, 25);
 		add(btnNewButton_1);
 		
-		JComboBox comboBox_1 = new JComboBox();
+		String[] tipo = new String[]{"Carreras","Escuderias","Pilotos"};
+		comboBox_1 = new JComboBox(tipo);
 		comboBox_1.setBounds(243, 73, 158, 24);
 		add(comboBox_1);
+		
+	
+		
+		
 
+	}
+	
+	public String darTipoBusqueda()
+	{
+		return (String) comboBox_1.getSelectedItem();
+	}
+	
+	public String darAñoBusqueda()
+	{
+		return (String) comboBox.getSelectedItem();
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 }

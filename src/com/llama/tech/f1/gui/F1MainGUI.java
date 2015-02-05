@@ -50,6 +50,8 @@ import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.RowSpec;
 import com.jgoodies.forms.factories.FormFactory;
+import com.llama.tech.f1.backbone.F1;
+import com.llama.tech.f1.backbone.IF1;
 
 import java.awt.Color;
 import java.awt.event.MouseEvent;
@@ -63,6 +65,8 @@ public class F1MainGUI extends JFrame implements ShapeListener
 	private JPanel contentPane;
 	private JFlowPanel flowPanel;
 	private F1CircuitInfoPanel f1CircuitInfoPanel;
+	private F1SearchPanel f1SearchPanel;
+	private IF1 mundo;
 
 	/**
 	 * Launch the application.
@@ -86,6 +90,8 @@ public class F1MainGUI extends JFrame implements ShapeListener
 	 */
 	public F1MainGUI() 
 	{
+		mundo = new F1();
+		 
 		setTitle("Llamatech's F1 Board");
 		setPreferredSize(new Dimension(1200, 800));
 		setMinimumSize(new Dimension(1200, 800));
@@ -170,7 +176,7 @@ public class F1MainGUI extends JFrame implements ShapeListener
 		f1DriverInfoPanel.setBounds(655, 12, 513, 376);
 		contentPane.add(f1DriverInfoPanel);
 		
-		F1SearchPanel f1SearchPanel = new F1SearchPanel();
+		f1SearchPanel = new F1SearchPanel(this);
 		f1SearchPanel.setBounds(680, 398, 458, 306);
 		contentPane.add(f1SearchPanel);
 		flowPanel.revalidate();
@@ -236,4 +242,21 @@ public class F1MainGUI extends JFrame implements ShapeListener
 		// TODO Auto-generated method stub
 		
 	}
+
+	public void realizarConsulta()
+	{
+		int anho = Integer.parseInt(f1SearchPanel.darAñoBusqueda());
+		String tipo = f1SearchPanel.darTipoBusqueda();
+		
+		if(tipo.equals("Pilotos"));
+		{
+			
+		}
+	}
+	
+	public String[] darTemporadas()
+	{
+		return mundo.darTemporadas();
+	}
 }
+

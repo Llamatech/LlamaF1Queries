@@ -20,6 +20,8 @@
 
 package com.llama.tech.f1.backbone;
 
+import com.llama.tech.utils.list.Lista;
+
 public interface IF1 
 {	
 	public String[] getSeasonInfo(String year);
@@ -38,5 +40,7 @@ public interface IF1
 	
 	public boolean deleteCircuitRecord(String name);
 	
+	public String[] darTemporadas();
 	
+	public void cargar(String tipo, int anho);
 }

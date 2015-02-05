@@ -36,6 +36,7 @@ public class F1 implements IF1, Serializable
 	 */
 	private static final long serialVersionUID = 1L;
 	
+	
 	/**
 	 * Este es el atributo que representa las temporadas de la base de datos
 	 */
@@ -101,18 +102,42 @@ public class F1 implements IF1, Serializable
 		}
 	}
 	
-	public void cargarCarrerasTemporada(int anho, String[]infoCarreras)
+	public void cargarCarrerasTemporada(int anho) throws IOException
 	{
+		String[]infoCarreras = Query.getCircuitsSeason(""+anho);
 		temporadas.get(anho-1950).cargarCarreras(infoCarreras);
 	}
 	
-	public void cargarPilotosTemporada(int anho, String[]infoPilotos)
+	public void cargarPilotosTemporada(int anho) throws IOException
 	{
+		String[]infoPilotos = Query.getDriversSeason(""+anho);
 		temporadas.get(anho-1950).cargarPilotos(infoPilotos);
 	}
 	
-	public void cargarEscuderiasTemporada(int anho, String[]infoEscuderias)
+	public void cargarEscuderiasTemporada(int anho) throws IOException
 	{
+		String[]infoEscuderias = Query.getConstructorsSeason(""+anho);
 		temporadas.get(anho-1950).cargarEscuderias(infoEscuderias);
+	}
+
+	@Override
+	public String[] darTemporadas() {
+		try {
+			return Query.getTotalSeasons();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			return new String[]{""};
+		}
+	}
+
+	@Override
+	public void cargar(String tipo, int anho) throws IOException {
+		// TODO Auto-generated method stub
+		if(tipo.equals("Pilotos"))
+		{
+			cargarPilotosTemporada(anho);
+		}
+		else if(tipo.equals("Carreras))
+		
 	}
 }
