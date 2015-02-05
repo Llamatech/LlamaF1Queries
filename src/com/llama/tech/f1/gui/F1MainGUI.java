@@ -91,10 +91,10 @@ public class F1MainGUI extends JFrame
 		//contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		
-		Path dir = Paths.get("./data/img/");
+		Path dir = Paths.get("./data/img/circuits");
 		File[] files = new File[9];
 		int i = 0;
-		try (DirectoryStream<Path> stream = Files.newDirectoryStream(dir, "*.jpg")) 
+		try (DirectoryStream<Path> stream = Files.newDirectoryStream(dir, "*.png")) 
 		{
 		    for (Path file : stream) 
 		    {
@@ -119,7 +119,9 @@ public class F1MainGUI extends JFrame
 //			e1.printStackTrace();
 //		}
 		try {
-			flowPanel = new JFlowPanel(new Config(files));
+			Config c = new Config(files);
+			c.backgroundColor = new Color(238,238,238);
+			flowPanel = new JFlowPanel(c);
 			flowPanel.setLocation(0, 0);
 			flowPanel.setForeground(Color.BLACK);
 			flowPanel.setMaximumSize(new Dimension(674, 300));

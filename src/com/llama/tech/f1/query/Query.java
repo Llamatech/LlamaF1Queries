@@ -64,7 +64,7 @@ public class Query
 		return sb.toString();
 	}
 
-	public static String[] getTotalSeasons() throws IOException //→ Aquí me encuentro!
+	public static String[] getTotalSeasons() throws IOException 
 	{
 		File dataRoot = new File(DATA_ROOT);
 		String[] seasonList = null;
