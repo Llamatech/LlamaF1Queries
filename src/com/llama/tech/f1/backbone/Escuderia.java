@@ -91,15 +91,13 @@ public class Escuderia implements Serializable {
 	 * @param pCarreras
 	 * @param pId
 	 */
-	public Escuderia(String pUrlLogo, String pNombre, String pPais, int pPosFinal, int pPuntos, String[] pPilotos, String[] pCarreras, String pId)
+	public Escuderia(String pUrlLogo, String pNombre, String pPais, int pPosFinal, int pPuntos, String pId)
 	{
 		urlLogo=pUrlLogo;
 		nombre=pNombre;
 		pais=pPais;
 		posFinal=pPosFinal;
 		puntos=pPuntos;
-		pilotos = pPilotos;
-		carreras = pCarreras;
 		id = pId;
 	}
 	 // -----------------------------------------------------------------
@@ -127,4 +125,68 @@ public class Escuderia implements Serializable {
     	
     	return s.toString();
     }
+
+	public String getUrlLogo() {
+		return urlLogo;
+	}
+
+	public void setUrlLogo(String urlLogo) {
+		this.urlLogo = urlLogo;
+	}
+
+	public String getNombre() {
+		return nombre;
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
+	public String getPais() {
+		return pais;
+	}
+
+	public void setPais(String pais) {
+		this.pais = pais;
+	}
+
+	public int getPosFinal() {
+		return posFinal;
+	}
+
+	public void setPosFinal(int posFinal) {
+		this.posFinal = posFinal;
+	}
+
+	public int getPuntos() {
+		return puntos;
+	}
+
+	public void setPuntos(int puntos) {
+		this.puntos = puntos;
+	}
+
+	public String[] getPilotos() {
+		return pilotos;
+	}
+
+	public void setPilotos(String[] pilotos) {
+		this.pilotos = pilotos;
+	}
+
+	public String[] getCarreras() {
+		return carreras;
+	}
+
+	public void setCarreras(String[] carreras) {
+		this.carreras = carreras;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
 }

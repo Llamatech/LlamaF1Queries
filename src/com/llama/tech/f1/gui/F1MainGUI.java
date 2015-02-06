@@ -50,8 +50,12 @@ import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.RowSpec;
 import com.jgoodies.forms.factories.FormFactory;
+import com.llama.tech.f1.backbone.Carrera;
+import com.llama.tech.f1.backbone.Escuderia;
 import com.llama.tech.f1.backbone.F1;
 import com.llama.tech.f1.backbone.IF1;
+import com.llama.tech.f1.backbone.Piloto;
+import com.llama.tech.f1.backbone.Temporada;
 
 import java.awt.Color;
 import java.awt.event.MouseEvent;
@@ -66,7 +70,13 @@ public class F1MainGUI extends JFrame implements ShapeListener
 	private JFlowPanel flowPanel;
 	private F1CircuitInfoPanel f1CircuitInfoPanel;
 	private F1SearchPanel f1SearchPanel;
+	private F1YearRangeChooser f1YearRangeChooser;
 	private IF1 mundo;
+	private F1CircuitPositions f1CircuitPositions;
+	private F1ConstructorInfo f1ConstructorInfo;
+	private F1DriverInfoPanel f1DriverInfoPanel;
+	private int min;
+	private int max;
 
 	/**
 	 * Launch the application.
@@ -97,7 +107,17 @@ public class F1MainGUI extends JFrame implements ShapeListener
 			{
 				//Aquí va el diálogo
 				//min,max = ...
-				mundo = new F1(1950,1950);
+				mundo = new F1();
+				String[] yearList = mundo.darTemporadasCompletas();
+				f1YearRangeChooser = new F1YearRangeChooser(this, yearList);
+				f1YearRangeChooser.setVisible(true);
+				f1YearRangeChooser.setAlwaysOnTop(true);
+				f1YearRangeChooser.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+				
+				mundo = new F1(min, max);
+				System.out.println(min+":"+max);
+				
+				
 			}
 		} catch (IOException e2) {
 			// TODO Auto-generated catch block
@@ -180,11 +200,11 @@ public class F1MainGUI extends JFrame implements ShapeListener
 		f1CircuitInfoPanel.setBounds(12, 12, 332, 215);
 		racePanel.add(f1CircuitInfoPanel);
 		
-		F1CircuitPositions f1CircuitPositions = new F1CircuitPositions();
+		f1CircuitPositions = new F1CircuitPositions();
 		f1CircuitPositions.setBounds(345, 12, 297, 162);
 		racePanel.add(f1CircuitPositions);
 		
-		F1ConstructorInfo f1ConstructorInfo = new F1ConstructorInfo();
+		f1ConstructorInfo = new F1ConstructorInfo();
 		f1ConstructorInfo.setBounds(12, 232, 630, 271);
 		racePanel.add(f1ConstructorInfo);
 		
@@ -192,7 +212,7 @@ public class F1MainGUI extends JFrame implements ShapeListener
 		f1LongestRacePanel.setBounds(369, 186, 244, 41);
 		racePanel.add(f1LongestRacePanel);
 		
-		F1DriverInfoPanel f1DriverInfoPanel = new F1DriverInfoPanel();
+		f1DriverInfoPanel = new F1DriverInfoPanel();
 		f1DriverInfoPanel.setBounds(655, 12, 513, 376);
 		contentPane.add(f1DriverInfoPanel);
 		
@@ -256,12 +276,94 @@ public class F1MainGUI extends JFrame implements ShapeListener
 
 	public void realizarConsulta(int anho)
 	{
-		String [] infoCarreras = mundo.darInfoCarreras(anho);
+		Temporada temp = mundo.darTemporada(anho);
+		f1CircuitInfoPanel.cambiarInfo(temp.getCarreras().get(0));
+		f1ConstructorInfo.cambiarInfo(temp.getEscuderias().get(0));
+		f1DriverInfoPanel.cambiarInfo(temp.getPilotos().get(0));
 	}
 	
 	public String[] darTemporadas()
 	{
-		return mundo.darTemporadas();
+		Temporada[] temps = mundo.darTemporadas();
+		String[] ret = new String[temps.length];
+		for(ret)
+		return ret;
+	}
+
+	public void setMinMax(String min, String max) 
+	{
+		this.min = Integer.parseInt(min);
+		this.max = Integer.parseInt(max);
+	}
+	
+	public void darAnterior(String tipo, int anho)
+	{
+		Temporada temp = mundo.darTemporada(anho);
+		if(tipo.equalsIgnoreCase("Carrera"))
+		{
+			try {
+				Carrera carrera = temp.darAnteriorCarrera();
+				f1CircuitInfoPanel.cambiarInfo(carrera);
+			} catch (Exception e) {
+				JOptionPane.showMessageDialog(this, "No hay anterior");
+			}
+			
+		}
+		else if(tipo.equalsIgnoreCase("Piloto"))
+		{
+			try {
+				Piloto piloto = temp.darAnteriorPiloto();
+				f1DriverInfoPanel.cambiarInfo(piloto);
+			} catch (Exception e) {
+				JOptionPane.showMessageDialog(this, "No hay anterior");
+			}
+			
+		}
+		else if(tipo.equalsIgnoreCase("Escuderia"))
+		{
+			try {
+				Escuderia escuderia = temp.darAnteriorEscuderia();
+				f1ConstructorInfo.cambiarInfo(escuderia);
+			} catch (Exception e) {
+				JOptionPane.showMessageDialog(this, "No hay anterior");
+			}
+			
+		}
+	}
+	
+	public void darSiguiente(String tipo, int anho)
+	{
+		Temporada temp = mundo.darTemporada(anho);
+		if(tipo.equalsIgnoreCase("Carrera"))
+		{
+			try {
+				Carrera carrera = temp.darSiguienteCarrera();
+				f1CircuitInfoPanel.cambiarInfo(carrera);
+			} catch (Exception e) {
+				JOptionPane.showMessageDialog(this, "No hay siguiente");
+			}
+			
+		}
+		else if(tipo.equalsIgnoreCase("Piloto"))
+		{
+			try {
+				Piloto piloto = temp.darSiguientePiloto();
+				f1DriverInfoPanel.cambiarInfo(piloto);
+			} catch (Exception e) {
+				JOptionPane.showMessageDialog(this, "No hay siguiente");
+			}
+			
+		}
+		else if(tipo.equalsIgnoreCase("Escuderia"))
+		{
+			try {
+				Escuderia escuderia = temp.darSiguienteEscuderia();
+				f1ConstructorInfo.cambiarInfo(escuderia);
+			} catch (Exception e) {
+				JOptionPane.showMessageDialog(this, "No hay siguiente");
+			}
+			
+		}
 	}
 }
 

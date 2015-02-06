@@ -111,7 +111,7 @@ public class Carrera implements Comparable<Carrera>, Serializable
      * @param pUrlImagen
      * @param pCarreraId;
      */
-    public Carrera(String pNombre, int pNumeroCarrera, String pFecha, String pHora, String pCircuito, String pLugar, String pPais, String[] pPosiciones, int pDuracion, String pUrlImagen, String pCarreraId )
+    public Carrera(String pNombre, int pNumeroCarrera, String pFecha, String pHora, String pCircuito, String pLugar, String pPais, int pDuracion, String pUrlImagen, String pCarreraId )
     {
     	nombre = pNombre;
     	numeroCarrera = pNumeroCarrera;
@@ -120,7 +120,7 @@ public class Carrera implements Comparable<Carrera>, Serializable
     	circuito = pCircuito;
     	lugar = pLugar;
     	pais = pPais;
-    	posiciones = pPosiciones;
+//    	posiciones = pPosiciones;
     	urlImagen = pUrlImagen;
     	carreraId = pCarreraId;
     	

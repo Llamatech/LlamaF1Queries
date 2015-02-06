@@ -34,6 +34,7 @@ import com.jgoodies.forms.factories.FormFactory;
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.RowSpec;
+import com.llama.tech.f1.backbone.Carrera;
 
 public class F1CircuitInfoPanel extends JPanel {
 	/**
@@ -155,8 +156,14 @@ public class F1CircuitInfoPanel extends JPanel {
 
 	}
 	
-	public void cambiarInfo(String pNombre, String pNumeroCarrera, String fecha)
+	public void cambiarInfo(Carrera pCarrera)
 	{
-	
+		 nameField.setText(pCarrera.getNombre());
+		 roundField.setText(pCarrera.getNumeroCarrera()+"");
+		 dateField.setText(pCarrera.getFecha());
+		 textField_4.setText(pCarrera.getHora());
+		 circuitLabel.setText(pCarrera.getCircuito());
+		 locationField.setText(pCarrera.getLugar());
+		 countryField.setText(pCarrera.getPais());
 	}
 }

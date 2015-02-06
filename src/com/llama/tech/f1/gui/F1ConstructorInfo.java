@@ -24,18 +24,24 @@ import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
 import javax.swing.JLabel;
 import javax.swing.border.LineBorder;
+
 import java.awt.Color;
+
 import javax.swing.border.SoftBevelBorder;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.EtchedBorder;
+
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.RowSpec;
 import com.jgoodies.forms.factories.FormFactory;
+import com.llama.tech.f1.backbone.Escuderia;
+
 import javax.swing.JTextField;
 import javax.swing.JTable;
 import javax.swing.JScrollPane;
 import javax.swing.UIManager;
+import javax.swing.JButton;
 
 public class F1ConstructorInfo extends JPanel {
 	private JLabel lblNewLabel;
@@ -51,6 +57,7 @@ public class F1ConstructorInfo extends JPanel {
 	private JScrollPane scrollPane_1;
 	private JTable table;
 	private JTable table_1;
+	private JButton btnNewButton_1;
 
 	/**
 	 * Create the panel.
@@ -107,7 +114,7 @@ public class F1ConstructorInfo extends JPanel {
 		
 		scrollPane = new JScrollPane();
 		scrollPane.setBorder(new TitledBorder(null, "Pilotos", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(51, 51, 51)));
-		scrollPane.setBounds(23, 155, 232, 100);
+		scrollPane.setBounds(23, 155, 232, 73);
 		add(scrollPane);
 		
 		table = new JTable();
@@ -115,11 +122,32 @@ public class F1ConstructorInfo extends JPanel {
 		
 		scrollPane_1 = new JScrollPane();
 		scrollPane_1.setBorder(new TitledBorder(null, "Carreras", TitledBorder.RIGHT, TitledBorder.TOP, null, null));
-		scrollPane_1.setBounds(274, 155, 332, 100);
+		scrollPane_1.setBounds(274, 155, 332, 73);
 		add(scrollPane_1);
 		
 		table_1 = new JTable();
 		scrollPane_1.setViewportView(table_1);
+		
+		JPanel panel = new JPanel();
+		panel.setBounds(269, 234, 332, 30);
+		add(panel);
+		panel.setLayout(null);
+		
+		JButton btnNewButton = new JButton("←");
+		btnNewButton.setBounds(81, 0, 117, 25);
+		panel.add(btnNewButton);
+		
+		btnNewButton_1 = new JButton("→");
+		btnNewButton_1.setBounds(210, 0, 117, 25);
+		panel.add(btnNewButton_1);
 
+	}
+	
+	public void cambiarInfo(Escuderia escuderia)
+	{
+		textField.setText(escuderia.getNombre());
+		textField_1.setText(escuderia.getPais());
+		textField_2.setText(escuderia.getPosFinal()+"");
+		textField_3.setText(escuderia.getPuntos()+"");
 	}
 }

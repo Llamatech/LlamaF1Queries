@@ -352,7 +352,6 @@
       <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_693IZqguEeS1_oZXyyS6Cw" value="1"/>
     </ownedEnd>
   </packagedElement>
-  <packagedElement xmi:type="uml:Realization" xmi:id="_AQOZ4KgvEeS1_oZXyyS6Cw" client="_J8W_cKgYEeS1_oZXyyS6Cw" supplier="_iP-w0KgXEeS1_oZXyyS6Cw"/>
   <packagedElement xmi:type="uml:Interface" xmi:id="_CplEQKzMEeSgQZzKe-tcLQ" name="Iterator&lt;ClaseGenerica>">
     <ownedTemplateSignature xmi:type="uml:RedefinableTemplateSignature" xmi:id="_pG4QoKzMEeSgQZzKe-tcLQ" name="RedefinableTemplateSignature1" parameter="_p1zzMKzMEeSgQZzKe-tcLQ">
       <ownedParameter xmi:type="uml:ClassifierTemplateParameter" xmi:id="_p1zzMKzMEeSgQZzKe-tcLQ" parameteredElement="_tKGOcKzMEeSgQZzKe-tcLQ">
@@ -369,9 +368,9 @@
     </ownedOperation>
   </packagedElement>
   <packagedElement xmi:type="uml:Class" xmi:id="_VOFr0KzNEeSgQZzKe-tcLQ" name="ListaSimplementeEnlazada">
-    <ownedTemplateSignature xmi:type="uml:RedefinableTemplateSignature" xmi:id="_VOFr0azNEeSgQZzKe-tcLQ" name="RedefinableTemplateSignature1" parameter="_VOFr0qzNEeSgQZzKe-tcLQ _VOFr0qzNEeSgQZzKe-tcLQ _VOFr0qzNEeSgQZzKe-tcLQ">
-      <ownedParameter xmi:type="uml:ClassifierTemplateParameter" xmi:id="_VOFr0qzNEeSgQZzKe-tcLQ" parameteredElement="_VOFr06zNEeSgQZzKe-tcLQ">
-        <ownedParameteredElement xmi:type="uml:Class" xmi:id="_VOFr06zNEeSgQZzKe-tcLQ" name="ClaseGenerica" templateParameter="_VOFr0qzNEeSgQZzKe-tcLQ"/>
+    <ownedTemplateSignature xmi:type="uml:RedefinableTemplateSignature" xmi:id="_VOFr0azNEeSgQZzKe-tcLQ" name="RedefinableTemplateSignature1" parameter="_pRTbQK25EeSPmeHEUMMnxg">
+      <ownedParameter xmi:type="uml:ClassifierTemplateParameter" xmi:id="_pRTbQK25EeSPmeHEUMMnxg" parameteredElement="_rdJAsK25EeSPmeHEUMMnxg">
+        <ownedParameteredElement xmi:type="uml:Class" xmi:id="_rdJAsK25EeSPmeHEUMMnxg" name="Clase Generica" templateParameter="_pRTbQK25EeSPmeHEUMMnxg"/>
       </ownedParameter>
     </ownedTemplateSignature>
     <ownedAttribute xmi:type="uml:Property" xmi:id="_VOFr1KzNEeSgQZzKe-tcLQ" name="length" visibility="private" type="_WAAocKghEeS1_oZXyyS6Cw"/>
@@ -493,13 +492,35 @@
       </ownedParameter>
     </ownedOperation>
     <ownedOperation xmi:type="uml:Operation" xmi:id="_VOFsF6zNEeSgQZzKe-tcLQ" name="getPrimero">
-      <ownedParameter xmi:type="uml:Parameter" xmi:id="_VOFsGKzNEeSgQZzKe-tcLQ" type="_VOFr06zNEeSgQZzKe-tcLQ" direction="return"/>
+      <ownedParameter xmi:type="uml:Parameter" xmi:id="_VOFsGKzNEeSgQZzKe-tcLQ" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:type="uml:Operation" xmi:id="_1Lf8YK25EeSPmeHEUMMnxg" name="addAlFinal">
+      <ownedParameter xmi:type="uml:Parameter" xmi:id="_1LgjcK25EeSPmeHEUMMnxg" direction="return">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#boolean"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_1LhKgK25EeSPmeHEUMMnxg" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_1LhKga25EeSPmeHEUMMnxg" value="1"/>
+      </ownedParameter>
+      <ownedParameter xmi:type="uml:Parameter" xmi:id="_1LhKgq25EeSPmeHEUMMnxg" name="elemento" type="_At9bkKgrEeS1_oZXyyS6Cw">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_1LhxkK25EeSPmeHEUMMnxg" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_1Lhxka25EeSPmeHEUMMnxg" value="1"/>
+      </ownedParameter>
+    </ownedOperation>
+    <ownedOperation xmi:type="uml:Operation" xmi:id="_soT94K26EeSPmeHEUMMnxg" name="addAlFinal">
+      <ownedParameter xmi:type="uml:Parameter" xmi:id="_soUk8K26EeSPmeHEUMMnxg" direction="return">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#boolean"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_soVMAK26EeSPmeHEUMMnxg" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_soVMAa26EeSPmeHEUMMnxg" value="1"/>
+      </ownedParameter>
+      <ownedParameter xmi:type="uml:Parameter" xmi:id="_soVMAq26EeSPmeHEUMMnxg" name="elemento" type="_At9bkKgrEeS1_oZXyyS6Cw">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_soVMA626EeSPmeHEUMMnxg" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_soVzEK26EeSPmeHEUMMnxg" value="1"/>
+      </ownedParameter>
     </ownedOperation>
   </packagedElement>
   <packagedElement xmi:type="uml:Class" xmi:id="_O5i5sKzPEeSgQZzKe-tcLQ" name="ElementoSimplementeEnlazado&lt;ClaseGenerica>">
-    <ownedTemplateSignature xmi:type="uml:RedefinableTemplateSignature" xmi:id="_O5i5sazPEeSgQZzKe-tcLQ" name="RedefinableTemplateSignature1" parameter="_O5i5sqzPEeSgQZzKe-tcLQ _O5i5sqzPEeSgQZzKe-tcLQ _O5i5sqzPEeSgQZzKe-tcLQ">
-      <ownedParameter xmi:type="uml:ClassifierTemplateParameter" xmi:id="_O5i5sqzPEeSgQZzKe-tcLQ" parameteredElement="_O5i5s6zPEeSgQZzKe-tcLQ">
-        <ownedParameteredElement xmi:type="uml:Class" xmi:id="_O5i5s6zPEeSgQZzKe-tcLQ" name="ClaseGenerica" templateParameter="_O5i5sqzPEeSgQZzKe-tcLQ"/>
+    <ownedTemplateSignature xmi:type="uml:RedefinableTemplateSignature" xmi:id="_O5i5sazPEeSgQZzKe-tcLQ" name="RedefinableTemplateSignature1" parameter="_bxPIgK25EeSPmeHEUMMnxg">
+      <ownedParameter xmi:type="uml:ClassifierTemplateParameter" xmi:id="_bxPIgK25EeSPmeHEUMMnxg" parameteredElement="_jF7eIK25EeSPmeHEUMMnxg">
+        <ownedParameteredElement xmi:type="uml:Class" xmi:id="_jF7eIK25EeSPmeHEUMMnxg" name="Clase Generica" templateParameter="_bxPIgK25EeSPmeHEUMMnxg"/>
       </ownedParameter>
     </ownedTemplateSignature>
     <ownedAttribute xmi:type="uml:Property" xmi:id="_O5i5tKzPEeSgQZzKe-tcLQ" name="valor" visibility="public" type="_At9bkKgrEeS1_oZXyyS6Cw"/>
@@ -538,7 +559,7 @@
       <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_BahTUazQEeSgQZzKe-tcLQ" value="1"/>
       <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_BahTUqzQEeSgQZzKe-tcLQ" value="1"/>
     </ownedAttribute>
-    <interfaceRealization xmi:type="uml:InterfaceRealization" xmi:id="_d6E5pKzPEeSgQZzKe-tcLQ" client="_d6E5oKzPEeSgQZzKe-tcLQ _d6E5oKzPEeSgQZzKe-tcLQ _d6E5oKzPEeSgQZzKe-tcLQ" supplier="_CplEQKzMEeSgQZzKe-tcLQ" contract="_CplEQKzMEeSgQZzKe-tcLQ"/>
+    <interfaceRealization xmi:type="uml:InterfaceRealization" xmi:id="_d6E5pKzPEeSgQZzKe-tcLQ" client="_d6E5oKzPEeSgQZzKe-tcLQ" supplier="_CplEQKzMEeSgQZzKe-tcLQ" contract="_CplEQKzMEeSgQZzKe-tcLQ"/>
     <ownedOperation xmi:type="uml:Operation" xmi:id="_d6E5pazPEeSgQZzKe-tcLQ" name="IteradorListaDoblementeEnlazada">
       <ownedParameter xmi:type="uml:Parameter" xmi:id="_d6E5pqzPEeSgQZzKe-tcLQ" name="elemento" type="_O5i5sKzPEeSgQZzKe-tcLQ"/>
     </ownedOperation>

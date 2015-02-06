@@ -42,7 +42,7 @@ public interface IF1
 	
 	public boolean deleteCircuitRecord(String name);
 	
-	public String[] darTemporadas();
+	public String[] darTemporadasCompletas();
 	
 	public void cargar(int anho) throws IOException;
 	
@@ -51,5 +51,22 @@ public interface IF1
 	public String[] darInfoPilotos(int anho);
 	
 	public String[] darInfoEscuderias(int anho);
+	
+	public Piloto darAnteriorPiloto(int anho) throws Exception;
+
+	public Piloto darSiguientePiloto(int anho) throws Exception;
+
+	public Carrera darAnteriorCarrera(int anho) throws Exception;
+
+	public Carrera darSiguienteCarrera(int anho) throws Exception;
+	
+	public Escuderia darAnteriorEscuderia(int anho) throws Exception;
+	
+	public Escuderia darSiguienteEscuderia(int anho) throws Exception;
+	
+	public Temporada darTemporada(int anho);
+	
+	public Temporada[] darTemporadas();
+
 	
 }

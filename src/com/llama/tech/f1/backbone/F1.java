@@ -49,12 +49,16 @@ public class F1 implements IF1, Serializable
 	private int min;
 	private int max;
 
+	public F1()
+	{
+		
+	}
 	public F1(int pMin, int pMax) throws IOException
 	{
 		min=pMin;
 		max = pMax;
 		cargarTemporadas();
-		temporadas = Arrays.copyOfRange(temporadas, pMin-1950, pMax-1950); 
+		temporadas = Arrays.copyOfRange(temporadas, pMin-1950, pMax-1950+1); 
 		for (int i = 0; i < temporadas.length; i++) {
 			cargar(temporadas[i].getYear());
 		}
@@ -143,7 +147,7 @@ public class F1 implements IF1, Serializable
 	}
 
 	@Override
-	public String[] darTemporadas() {
+	public String[] darTemporadasCompletas() {
 		try {
 			return Query.getTotalSeasons();
 		} catch (IOException e) {
@@ -187,4 +191,46 @@ public class F1 implements IF1, Serializable
 		return Query.cargar();
 	}
 
+	public Piloto darAnteriorPiloto(int anho) throws Exception
+	{
+		return temporadas[anho-min].darAnteriorPiloto();
+	}
 
+	public Piloto darSiguientePiloto(int anho) throws Exception
+	{
+		return temporadas[anho-min].darSiguientePiloto();
+	}
+
+	public Carrera darAnteriorCarrera(int anho) throws Exception
+	{
+		return temporadas[anho-min].darAnteriorCarrera();
+	}
+
+	public Carrera darSiguienteCarrera(int anho) throws Exception
+	{
+		return temporadas[anho-min].darSiguienteCarrera();
+	}
+
+	public Escuderia darAnteriorEscuderia(int anho) throws Exception
+	{
+		return temporadas[anho-min].darAnteriorEscuderia();
+	}
+
+	public Escuderia darSiguienteEscuderia(int anho) throws Exception
+	{
+		return temporadas[anho-min].darSiguienteEscuderia();
+	}
+	
+	public Temporada darTemporada(int anho)
+	{
+		System.out.println(anho-min + " "+ temporadas.length);
+		return temporadas[anho-min];
+	}
+	
+	public Temporada[] darTemporadas()
+	{
+		return temporadas;
+	}
+
+
+}

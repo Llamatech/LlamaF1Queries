@@ -25,17 +25,24 @@ import javax.swing.border.TitledBorder;
 import javax.swing.JLabel;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.LineBorder;
+
 import java.awt.Color;
+
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.RowSpec;
 import com.jgoodies.forms.factories.FormFactory;
+import com.llama.tech.f1.backbone.Piloto;
+
 import javax.swing.JTextField;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+
 import net.miginfocom.swing.MigLayout;
+
 import javax.swing.JList;
 import javax.swing.JComboBox;
+import javax.swing.JButton;
 
 public class F1DriverInfoPanel extends JPanel {
 	private JTextField textField;
@@ -133,7 +140,7 @@ public class F1DriverInfoPanel extends JPanel {
 		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBorder(new TitledBorder(null, "Estad\u00EDsticas", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		scrollPane.setBounds(24, 261, 464, 95);
+		scrollPane.setBounds(24, 261, 464, 73);
 		add(scrollPane);
 		
 		table = new JTable();
@@ -173,6 +180,33 @@ public class F1DriverInfoPanel extends JPanel {
 		
 		JComboBox comboBox = new JComboBox();
 		panel_1.add(comboBox, "cell 3 1,growx");
+		
+		JPanel panel_2 = new JPanel();
+		panel_2.setBounds(24, 334, 462, 35);
+		add(panel_2);
+		panel_2.setLayout(null);
+		
+		JButton btnNewButton = new JButton("←");
+		btnNewButton.setBounds(204, 5, 117, 25);
+		panel_2.add(btnNewButton);
+		
+		JButton btnNewButton_1 = new JButton("→");
+		btnNewButton_1.setBounds(333, 5, 117, 25);
+		panel_2.add(btnNewButton_1);
 
+	}
+	
+	public void cambiarInfo(Piloto piloto)
+	{
+		textField.setText(piloto.getFechaNac());
+		textField_1.setText(piloto.getNacionalidad());
+		textField_2.setText(piloto.getNombre());
+		textField_3.setText(piloto.getEscuderia());
+		textField_4.setText(piloto.getPuntos()+"");
+		textField_5.setText(piloto.getPosFinal()+"");
+//		textField_7
+		textField_6.setText(piloto.getPosicion()+"");
+//		textField_8
+		
 	}
 }

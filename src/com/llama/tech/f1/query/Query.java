@@ -255,6 +255,7 @@ public class Query
 			sb.append(driver.getString("nationality"));
 			sb.append(";");
 			sb.append(driver.getString("dateOfBirth"));
+			sb.append(";");
 			sb.append(constructorId);
 			sb.append(";");
 			sb.append(constructorName);
@@ -262,6 +263,7 @@ public class Query
 			sb.append(points);
 			sb.append(";");
 			sb.append(position);
+			sb.append(";");
 			if(loc == null)
 			{
 				loc = "./data/img/drivers/default.png";
@@ -580,16 +582,22 @@ public class Query
 	
 	public static void main(String[] args) 
 	{
-		//			String[] years = getDriversSeason("1993");
-		//			for(String year: years)
-		//			{
-		//				System.out.println(year);
-		//			}
-		            File files = new File("./data/img/circuits");
-		            for(File f: files.listFiles())
-		            {
-		            	System.out.println(f.getName());
-		            }
+		    String[] years = new String[2007-1993];
+			for(int i = 1993; i < 2007; i++)
+			{
+				years[i - 1993] = String.valueOf(i);
+			}
+			try {
+				for(String year: years)
+				{
+					System.out.println(year);
+					getDriversSeason(year);
+				}
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	
 	}
 
 

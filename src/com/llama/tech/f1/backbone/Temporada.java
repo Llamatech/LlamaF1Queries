@@ -180,11 +180,16 @@ public class Temporada implements Comparable<Temporada>, Serializable
 		if(!pilotosCargados){
 			for(String info:infoPilotos)
 			{
+				System.out.println("Loading: "+info);
+				if(info!=null)
+				{
 				String[] infoP = info.split(";");
 				Piloto pilot = new Piloto(infoP[1], infoP[2], infoP[3], infoP[4], infoP[6], 
 						Integer.parseInt(infoP[7]), Integer.parseInt(infoP[7]), 
 						infoP[8], infoP[0], infoP[5]);
+				
 				pilotos.addAlFinal(pilot);
+				}
 			}
 		}
 
@@ -196,13 +201,17 @@ public class Temporada implements Comparable<Temporada>, Serializable
 	 */
 	public void cargarCarreras(String[] infoCarreras)
 	{
+		int pos = 0;
 		if(!carrerasCargadas){
 			for(String info:infoCarreras)
 			{
 				String[] infoC = info.split(";");
-				//TODO
-				//				Carrera race = new Carrera(pNombre, pNumeroCarrera, pFecha, pHora, pCircuito, pLugar, pPais, pPosiciones, pDuracion, pUrlImagen);
-				//				carreras.addAlFinal(race);
+				
+
+								Carrera race = new Carrera(infoC[2], pos, infoC[4], infoC[5], 
+										                   infoC[0], infoC[6], infoC[7],
+										                   0 , infoC[8],infoC[1]);
+								carreras.addAlFinal(race);
 
 				//				sb.append(circuitName);
 				//				sb.append(";");
@@ -221,6 +230,7 @@ public class Temporada implements Comparable<Temporada>, Serializable
 				//				sb.append(country);
 				//				sb.append(";");
 				//				sb.append(loc);
+			pos++;
 			}
 		}
 	}
@@ -235,6 +245,32 @@ public class Temporada implements Comparable<Temporada>, Serializable
 			for(String info:infoEscuderias)
 			{
 				String[] infoE = info.split(";");
+				int pos = 0;
+				int points = 0;
+				if(!infoE[3].equals("null"))
+				{
+					pos = Integer.parseInt(infoE[3]);
+				}
+				if(!infoE[4].equals("null"))
+				{
+					points = Integer.parseInt(infoE[4]);
+				}
+				Escuderia e = new Escuderia(infoE[5], infoE[1], infoE[2], 
+						                    pos, points, infoE[0]);
+				escuderias.addAlFinal(e);
+//				sb.append(constructorId);
+//				sb.append(";");
+//				sb.append(constructorName);
+//				sb.append(";");
+//				sb.append(constructorNationality);
+//				sb.append(";");
+//				sb.append(pos);
+//				sb.append(";");
+//				sb.append(points);
+//				sb.append(";");
+//				sb.append(loc);
+				
+				
 				//TODO
 				//				Escuderia escu = new Escuderia(pUrlLogo, pNombre, pPais, pPosFinal, pPuntos, pPilotos, pCarreras);
 				//				escuderias.addAlFinal(escu);
@@ -349,5 +385,3 @@ public class Temporada implements Comparable<Temporada>, Serializable
 
 
 }
-
-
