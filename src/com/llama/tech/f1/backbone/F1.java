@@ -22,6 +22,8 @@ package com.llama.tech.f1.backbone;
 
 import java.io.IOException;
 import java.io.Serializable;
+import java.lang.reflect.Array;
+import java.util.Arrays;
 
 import com.llama.tech.f1.query.Query;
 import com.llama.tech.utils.list.Lista;
@@ -35,14 +37,31 @@ public class F1 implements IF1, Serializable
 	 *  Constante de Serialización. 
 	 */
 	private static final long serialVersionUID = 1L;
-	
-	
+
+	private boolean carga;
+
+
 	/**
 	 * Este es el atributo que representa las temporadas de la base de datos
 	 */
-	private Lista<Temporada> temporadas;
+	private Temporada[] temporadas;
 
-	
+	private int min;
+	private int max;
+
+	public F1(int pMin, int pMax) throws IOException
+	{
+		min=pMin;
+		max = pMax;
+		cargarTemporadas();
+		temporadas = Arrays.copyOfRange(temporadas, pMin-1950, pMax-1950); 
+		for (int i = 0; i < temporadas.length; i++) {
+			cargar(temporadas[i].getYear());
+		}
+
+	}
+
+
 
 	@Override
 	public boolean deletePilotRecord(String name) {
@@ -95,29 +114,32 @@ public class F1 implements IF1, Serializable
 
 	public void cargarTemporadas() throws IOException 
 	{
-	    String[] pTemporadas =  Query.getTotalSeasons();
+		String[] pTemporadas =  Query.getTotalSeasons();
+		temporadas = new Temporada[pTemporadas.length];
+		int i = 0;
 		for	(String s:pTemporadas){
 			Temporada t = new Temporada(Integer.parseInt(s));
-			temporadas.addAlFinal(t);
+			temporadas[i] = t;
+			i++;
 		}
 	}
-	
+
 	public void cargarCarrerasTemporada(int anho) throws IOException
 	{
 		String[]infoCarreras = Query.getCircuitsSeason(""+anho);
-		temporadas.get(anho-1950).cargarCarreras(infoCarreras);
+		temporadas[anho-min].cargarCarreras(infoCarreras);
 	}
-	
+
 	public void cargarPilotosTemporada(int anho) throws IOException
 	{
 		String[]infoPilotos = Query.getDriversSeason(""+anho);
-		temporadas.get(anho-1950).cargarPilotos(infoPilotos);
+		temporadas[anho-min].cargarPilotos(infoPilotos);
 	}
-	
+
 	public void cargarEscuderiasTemporada(int anho) throws IOException
 	{
 		String[]infoEscuderias = Query.getConstructorsSeason(""+anho);
-		temporadas.get(anho-1950).cargarEscuderias(infoEscuderias);
+		temporadas[anho-min].cargarEscuderias(infoEscuderias);
 	}
 
 	@Override
@@ -131,13 +153,38 @@ public class F1 implements IF1, Serializable
 	}
 
 	@Override
-	public void cargar(String tipo, int anho) throws IOException {
+	public void cargar(int anho) throws IOException {
 		// TODO Auto-generated method stub
-		if(tipo.equals("Pilotos"))
-		{
-			cargarPilotosTemporada(anho);
-		}
-		else if(tipo.equals("Carreras))
-		
+		cargarCarrerasTemporada(anho);
+		cargarEscuderiasTemporada(anho);
+		cargarPilotosTemporada(anho);
+
 	}
-}
+
+
+
+	@Override
+	public String[] darInfoCarreras(int anho) {
+		return temporadas[anho-min].darInfoCircuitos();
+	}
+
+
+
+	@Override
+	public String[] darInfoPilotos(int anho) {
+		return temporadas[anho-min].darInfoPilotos();
+	}
+
+
+
+	@Override
+	public String[] darInfoEscuderias(int anho) {
+		return temporadas[anho-min].darInfoCircuitos();
+	}
+
+	public static IF1 cargarF1()
+	{
+		return Query.cargar();
+	}
+
+

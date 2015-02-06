@@ -20,14 +20,13 @@
 
 package com.llama.tech.utils.list;
 
-import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 /**
  * Esta clase permite recorrer una lista simplemente enlazada
  * @param <ClaseGenerica>  el tipo de elemento que permite obtener el iterador
  */
-class IteradorListaSimplementeEnlazada<ClaseGenerica> implements Iterator<ClaseGenerica>{
+class IteradorListaSimplementeEnlazada<ClaseGenerica> implements LlamaIterator<ClaseGenerica>{
 	
 	private ElementoSimplementeEnlazado<ClaseGenerica> elementoActual;
 	
@@ -56,6 +55,18 @@ class IteradorListaSimplementeEnlazada<ClaseGenerica> implements Iterator<ClaseG
 		elementoActual = elementoActual.getSiguiente();
 		
 		return obj;
+	}
+
+	@Override
+	public boolean hasPrevious() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public ClaseGenerica previous() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 }

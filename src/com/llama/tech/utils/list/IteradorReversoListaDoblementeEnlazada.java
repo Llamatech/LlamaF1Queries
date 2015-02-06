@@ -21,14 +21,13 @@
 
 package com.llama.tech.utils.list;
 
-import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 /**
  * Esta clase permite recorrer una lista doblemente enlazada de manera reversa (hacia atr�s)
  * @param <ClaseGenerica> el tipo de elemento que permite obtener el iterador
  */
-class IteradorReversoListaDoblementeEnlazada<ClaseGenerica extends Comparable <? super ClaseGenerica>> implements Iterator<ClaseGenerica>{
+public class IteradorReversoListaDoblementeEnlazada<ClaseGenerica extends Comparable <? super ClaseGenerica>> implements LlamaIterator<ClaseGenerica>{
 	
 	private ElementoDoblementeEnlazado<ClaseGenerica> elementoActual;
 	
@@ -56,6 +55,18 @@ class IteradorReversoListaDoblementeEnlazada<ClaseGenerica extends Comparable <?
 		ClaseGenerica obj = elementoActual.getValor();
 		elementoActual = elementoActual.getAnterior();
 		return obj;
+	}
+
+	@Override
+	public boolean hasPrevious() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public ClaseGenerica previous() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 }

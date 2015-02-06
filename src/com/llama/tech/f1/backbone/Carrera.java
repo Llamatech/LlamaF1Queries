@@ -26,7 +26,7 @@ import java.io.Serializable;
 /**
  * Esta es la clase que modela la carrera 
  */
-public class Carrera implements Serializable 
+public class Carrera implements Comparable<Carrera>, Serializable 
 {
 	/**
 	 *  Constante de serialización.
@@ -81,7 +81,7 @@ public class Carrera implements Serializable
     /**
      * Este es el atributo que representa la duracion de la carrera
      */
-    private int duracion;
+    private String duracion;
     
     /**
      * Este es el atributo donde se guarda la URL de la imagend e la carrera
@@ -147,5 +147,100 @@ public class Carrera implements Serializable
     	
     	return s.toString();
     }
+
+
+	public String getNombre() {
+		return nombre;
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
+	public int getNumeroCarrera() {
+		return numeroCarrera;
+	}
+
+	public void setNumeroCarrera(int numeroCarrera) {
+		this.numeroCarrera = numeroCarrera;
+	}
+
+	public String getFecha() {
+		return fecha;
+	}
+
+	public void setFecha(String fecha) {
+		this.fecha = fecha;
+	}
+
+	public String getHora() {
+		return hora;
+	}
+
+	public void setHora(String hora) {
+		this.hora = hora;
+	}
+
+	public String getCircuito() {
+		return circuito;
+	}
+
+	public void setCircuito(String circuito) {
+		this.circuito = circuito;
+	}
+
+	public String getLugar() {
+		return lugar;
+	}
+
+	public void setLugar(String lugar) {
+		this.lugar = lugar;
+	}
+
+	public String getPais() {
+		return pais;
+	}
+
+	public void setPais(String pais) {
+		this.pais = pais;
+	}
+
+	public String[] getPosiciones() {
+		return posiciones;
+	}
+
+	public void setPosiciones(String[] posiciones) {
+		this.posiciones = posiciones;
+	}
+
+	public String getDuracion() {
+		return duracion;
+	}
+
+	public void setDuracion(String duracion) {
+		this.duracion = duracion;
+	}
+
+	public String getUrlImagen() {
+		return urlImagen;
+	}
+
+	public void setUrlImagen(String urlImagen) {
+		this.urlImagen = urlImagen;
+	}
+
+	public String getCarreraId() {
+		return carreraId;
+	}
+
+	public void setCarreraId(String carreraId) {
+		this.carreraId = carreraId;
+	}
+
+	@Override
+	public int compareTo(Carrera o) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 
 }

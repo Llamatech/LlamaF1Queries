@@ -22,14 +22,13 @@
 
 package com.llama.tech.utils.list;
 
-import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 /**
  * Esta clase permite recorrer una lista enlazada de manera directa (hacia adelante)
  * @param <ClaseGenerica> el tipo de elemento que permite obtener el iterador
  */
-public class IteradorListaDoblementeEnlazada<ClaseGenerica extends Comparable <? super ClaseGenerica>> implements Iterator<ClaseGenerica>
+public class IteradorListaDoblementeEnlazada<ClaseGenerica extends Comparable <? super ClaseGenerica>> implements LlamaIterator<ClaseGenerica>
 {
 	
 	private ElementoDoblementeEnlazado<ClaseGenerica> elementoActual;
@@ -48,6 +47,11 @@ public class IteradorListaDoblementeEnlazada<ClaseGenerica extends Comparable <?
 	{
 		return elementoActual != null && elementoActual.getValor() != null;
 	}
+	
+	public boolean hasPrevious()
+	{
+		return elementoActual.getAnterior() != null;
+	}
 
 	@Override
 	public ClaseGenerica next() throws NoSuchElementException 
@@ -58,6 +62,17 @@ public class IteradorListaDoblementeEnlazada<ClaseGenerica extends Comparable <?
 		}
 		ClaseGenerica obj = elementoActual.getValor();
 		elementoActual = elementoActual.getSiguiente();
+		return obj;
+	}
+	
+	public ClaseGenerica previous() throws NoSuchElementException 
+	{
+		if(!hasPrevious())
+		{
+			throw new NoSuchElementException("No hay m�s elementos en el Iterador");
+		}
+		ClaseGenerica obj = elementoActual.getValor();
+		elementoActual = elementoActual.getAnterior();
 		return obj;
 	}
 

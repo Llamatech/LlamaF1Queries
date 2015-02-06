@@ -199,31 +199,31 @@ public class Query
 			String driverId = driver.getString("driverId");
 			
 			//drivers/alonso/driverStandings.json
-//			URL totalInfo = new URL(ROOT+year+"/drivers/"+driverId+"/driverStandings.json");
-//			String cons = getJSONFormat(totalInfo);
-//			JSONObject totalMain = new JSONObject(cons);
-//			JSONObject standings = totalMain.getJSONObject("MRData");
-//			JSONObject standingsTable = standings.getJSONObject("StandingsTable");
-//			JSONArray standingsLists = standingsTable.getJSONArray("StandingsLists");
-//			try
-//			{
-//				JSONObject moreStandingsInfo = standingsLists.getJSONObject(0);			
-//				JSONArray driverStandings = moreStandingsInfo.getJSONArray("DriverStandings");
-//				JSONObject pointsAndInfo = driverStandings.getJSONObject(0);
-//				
-//				
-//				position = pointsAndInfo.getString("position");
-//				points = pointsAndInfo.getString("points");
-//				
-//				JSONArray constructorInfo = pointsAndInfo.getJSONArray("Constructors");
-//				JSONObject constructor = constructorInfo.getJSONObject(0);
-//				constructorId = constructor.getString("constructorId");
-//				constructorName = constructor.getString("name");
-//			}
-//			catch(JSONException j)
-//			{
-//				
-//			}
+			URL totalInfo = new URL(ROOT+year+"/drivers/"+driverId+"/driverStandings.json");
+			String cons = getJSONFormat(totalInfo);
+			JSONObject totalMain = new JSONObject(cons);
+			JSONObject standings = totalMain.getJSONObject("MRData");
+			JSONObject standingsTable = standings.getJSONObject("StandingsTable");
+			JSONArray standingsLists = standingsTable.getJSONArray("StandingsLists");
+			try
+			{
+				JSONObject moreStandingsInfo = standingsLists.getJSONObject(0);			
+				JSONArray driverStandings = moreStandingsInfo.getJSONArray("DriverStandings");
+				JSONObject pointsAndInfo = driverStandings.getJSONObject(0);
+				
+				
+				position = pointsAndInfo.getString("position");
+				points = pointsAndInfo.getString("points");
+				
+				JSONArray constructorInfo = pointsAndInfo.getJSONArray("Constructors");
+				JSONObject constructor = constructorInfo.getJSONObject(0);
+				constructorId = constructor.getString("constructorId");
+				constructorName = constructor.getString("name");
+			}
+			catch(JSONException j)
+			{
+				
+			}
 			
 			String url = driver.getString("url");
 			
@@ -249,20 +249,19 @@ public class Query
 			sb.append(driverId);
 			sb.append(";");
 			sb.append(driver.getString("givenName"));
-			sb.append(" ");
+			sb.append(";");
 			sb.append(driver.getString("familyName"));
 			sb.append(";");
 			sb.append(driver.getString("nationality"));
 			sb.append(";");
 			sb.append(driver.getString("dateOfBirth"));
-//			sb.append(constructorId);
-//			sb.append(";");
-//			sb.append(constructorName);
-//			sb.append(";");
-//			sb.append(points);
-//			sb.append(";");
-//			sb.append(position);
+			sb.append(constructorId);
 			sb.append(";");
+			sb.append(constructorName);
+			sb.append(";");
+			sb.append(points);
+			sb.append(";");
+			sb.append(position);
 			if(loc == null)
 			{
 				loc = "./data/img/drivers/default.png";
@@ -366,8 +365,39 @@ public class Query
 			sb.append(country);
 			sb.append(";");
 			sb.append(loc);
+			
+			
+//			URL req2 = new URL(ROOT+year+"/"+i+"/driverStandings.json");
+//			String response = getJSONFormat(req2);
+//			JSONObject totalList = new JSONObject(response);
+//			JSONObject positionsOverall = totalList.getJSONObject("MRData");
+//			int limit = positionsOverall.getInt("limit");
+//			int lenPositions = positionsOverall.getInt("total");
+//			if(limit < lenPositions)
+//			{
+//				req2 = new URL(ROOT+year+"/"+i+"/driverStandings.json?limit="+lenPositions);
+//				response = getJSONFormat(req2);
+//				totalList = new JSONObject(response);
+//				positionsOverall = totalList.getJSONObject("MRData");
+//			}
+//			
+//			JSONObject standingsTable = positionsOverall.getJSONObject("StandingsTable");
+//			JSONArray standingsLists = standingsTable.getJSONArray("StandingsLists");
+//			
+//			//{"position":"1","positionText":"1","points":"79","wins":"1","Driver":{"driverId":"rosberg","permanentNumber":"6","code":"ROS","url":"http:\/\/en.wikipedia.org\/wiki\/Nico_Rosberg","givenName":"Nico","familyName":"Rosberg","dateOfBirth":"1985-06-27","nationality":"German"},              "Constructors":[{"constructorId":"mercedes","url":"http:\/\/en.wikipedia.org\/wiki\/Mercedes-Benz_in_Formula_One","name":"Mercedes","nationality":"German"}]}
+//			
+//			for(int j = 0; j < lenPositions; j++)
+//			{
+//				JSONObject positionInfo =  standingsLists.getJSONObject(i);
+//				int points = positionInfo.getInt("points");
+//				int wins = positionInfo.getInt("wins");
+//				JSONObject driver = positionInfo.getJSONObject("Driver");
+//				
+//			}
+			
 			circuits[i] = sb.toString();
 			sb.setLength(0);
+			System.out.println(circuits[i]);
 		}
 		
 		return circuits;
@@ -431,6 +461,7 @@ public class Query
 				if(!imgExists)
 					loc = ImageContent.getDriverConstructorImageContent(url, "./data/img/constructors/"+constructorId);
 				
+				
 				sb.append(constructorId);
 				sb.append(";");
 				sb.append(constructorName);
@@ -443,7 +474,8 @@ public class Query
 				sb.append(";");
 				sb.append(loc);
 				constructors[i] = sb.toString();
-				sb.setLength(0);	
+				sb.setLength(0);
+				System.out.println(constructors[i]);
 			}
 			
 		}
@@ -458,7 +490,7 @@ public class Query
 			{
 				JSONObject constructorInfo = constructorStandings.getJSONObject(i);
 				int pos = constructorInfo.getInt("position");
-				int points = constructorInfo.getInt("points");
+				String points = constructorInfo.getString("points");
 				JSONObject constructor = constructorInfo.getJSONObject("Constructor");
 				String constructorId = constructor.getString("constructorId");
 				String constructorName = constructor.getString("name");
@@ -548,14 +580,16 @@ public class Query
 	
 	public static void main(String[] args) 
 	{
-		try 
-		{
-			String[] pilots = getConstructorsSeason("1953");
-		} 
-		catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		//			String[] years = getDriversSeason("1993");
+		//			for(String year: years)
+		//			{
+		//				System.out.println(year);
+		//			}
+		            File files = new File("./data/img/circuits");
+		            for(File f: files.listFiles())
+		            {
+		            	System.out.println(f.getName());
+		            }
 	}
 
 

@@ -20,6 +20,8 @@
 
 package com.llama.tech.f1.backbone;
 
+import java.io.IOException;
+
 import com.llama.tech.utils.list.Lista;
 
 public interface IF1 
@@ -42,5 +44,12 @@ public interface IF1
 	
 	public String[] darTemporadas();
 	
-	public void cargar(String tipo, int anho);
+	public void cargar(int anho) throws IOException;
+	
+	public String[] darInfoCarreras(int anho);
+	
+	public String[] darInfoPilotos(int anho);
+	
+	public String[] darInfoEscuderias(int anho);
+	
 }

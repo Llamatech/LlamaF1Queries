@@ -21,7 +21,6 @@
 package com.llama.tech.utils.list;
 
 import java.io.Serializable;
-import java.util.Iterator;
 
 public class ListaDoblementeEnlazada<ClaseGenerica extends Comparable<ClaseGenerica>> implements Lista<ClaseGenerica>,Serializable{
 
@@ -279,12 +278,12 @@ public class ListaDoblementeEnlazada<ClaseGenerica extends Comparable<ClaseGener
 	}
 
 	@Override
-	public Iterator<ClaseGenerica> iterator() {
-		return new IteradorListaDoblementeEnlazada<>(primero);
+	public LlamaIterator<ClaseGenerica> iterator() {
+		return new IteradorListaDoblementeEnlazada<ClaseGenerica>(primero);
 	}
 
 	@Override
-	public Iterator<ClaseGenerica> iterator(int pos) 
+	public LlamaIterator<ClaseGenerica> iterator(int pos) 
 	{
 		ElementoDoblementeEnlazado<ClaseGenerica> elementoPos=null;
 
@@ -324,7 +323,8 @@ public class ListaDoblementeEnlazada<ClaseGenerica extends Comparable<ClaseGener
 		return new IteradorListaDoblementeEnlazada<ClaseGenerica>(elementoPos);
 	}
 
-	public Iterator<ClaseGenerica> reverseIterator() 
+	@Override
+	public LlamaIterator<ClaseGenerica> reverseIterator() 
 	{
 		return new IteradorReversoListaDoblementeEnlazada<ClaseGenerica>(ultimo);
 	}

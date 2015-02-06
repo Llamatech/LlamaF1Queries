@@ -42,6 +42,11 @@ public class Piloto implements Serializable
 	 * Este es el atributo que representa el nombre del piloto
 	 */
 	private String nombre;
+	
+	/**
+	 * Este es el atributo que representa el apellido del piloto
+	 */
+	private String apellido;
 
 	/**
 	 * Este es el atributo que representa la nacionalidad del piloto
@@ -53,35 +58,35 @@ public class Piloto implements Serializable
 	 */
 	private String fechaNac;
 
-//	/**
-//	 * Este es el atributo que representa la escudería del piloto
-//	 */
-//	private String escuderia;
-//
-//	/**
-//	 * Este es el atributo que representa los puntos del piloto
-//	 */
-//	private int puntos;
-//
-//	/**
-//	 * Este es el atributo que representa la posicion final del piloto
-//	 */
-//	private int posFinal;
-//
-//	/**
-//	 * Este es el atributo que representa la posicion del piloto
-//	 */
-//	private int posicion;
-//
-//	/**
-//	 * Este es el atributo que representa el estado final del piloto
-//	 */
-//	private String estado;
-//
-//	/**
-//	 * Este es el atributo que representa la Estadística del piloto
-//	 */
-//	private String estadistica;
+	/**
+	 * Este es el atributo que representa la escudería del piloto
+	 */
+	private String escuderia;
+
+	/**
+	 * Este es el atributo que representa los puntos del piloto
+	 */
+	private int puntos;
+
+	/**
+	 * Este es el atributo que representa la posicion final del piloto
+	 */
+	private int posFinal;
+
+	/**
+	 * Este es el atributo que representa la posicion del piloto
+	 */
+	private int posicion;
+
+	/**
+	 * Este es el atributo que representa el estado final del piloto
+	 */
+	private String estado;
+
+	/**
+	 * Este es el atributo que representa la Estadística del piloto
+	 */
+	private String estadistica;
 
 	/**
 	 * Este es el atributo donde se guarda el url de la imagen del piloto
@@ -93,46 +98,30 @@ public class Piloto implements Serializable
 	 */
 	private String driverId;
 
-//	/**
-//	 * Este es el atributo que representa el 
-//	 */
-//	private String escuderiaId;
-//
-//	
+	/**
+	 * Este es el atributo que representa el 
+	 */
+	private String escuderiaId;
+
+	
 	// -----------------------------------------------------------------
 	// Metodos Constructores
 	// -----------------------------------------------------------------
 
-	/**
-	 * Este es el metodo constructor de la clase
-	 * @param nombre
-	 * @param nacionalidad
-	 * @param fechaNac
-	 * @param escuderia
-	 * @param puntos
-	 * @param posFinal
-	 * @param posicion
-	 * @param estado
-	 * @param estadistica
-	 * @param urlImagen
-	 * @param pIdDriver
-	 * @paran pIdEscuderia
-	 */
-	public Piloto(String nombre, String nacionalidad, String fechaNac,
-			  String urlImagen, String pIdDriver) 
+	public Piloto(String nombre, String apellido, String nacionalidad,
+			String fechaNac, String escuderia, int puntos, int posFinal,
+			String urlImagen, String driverId, String escuderiaId) 
 	{
 		this.nombre = nombre;
+		this.apellido = apellido;
 		this.nacionalidad = nacionalidad;
 		this.fechaNac = fechaNac;
-//		this.escuderia = escuderia;
-//		this.puntos = puntos;
-//		this.posFinal = posFinal;
-//		this.posicion = posicion;
-//		this.estado = estado;
-//		this.estadistica = estadistica;
+		this.escuderia = escuderia;
+		this.puntos = puntos;
+		this.posFinal = posFinal;
 		this.urlImagen = urlImagen;
-		this.driverId = pIdDriver;
-//		this.escuderiaId = pIdEscuderia;
+		this.driverId = driverId;
+		this.escuderiaId = escuderiaId;
 	}
 
 
@@ -142,7 +131,187 @@ public class Piloto implements Serializable
 	// Metodos
 	// -----------------------------------------------------------------
 
-	//TODO
+	
+	public String getNombre() {
+		return nombre;
+	}
+
+
+
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
+
+
+
+	public String getApellido() {
+		return apellido;
+	}
+
+
+
+
+	public void setApellido(String apellido) {
+		this.apellido = apellido;
+	}
+
+
+
+
+	public String getNacionalidad() {
+		return nacionalidad;
+	}
+
+
+
+
+	public void setNacionalidad(String nacionalidad) {
+		this.nacionalidad = nacionalidad;
+	}
+
+
+
+
+	public String getFechaNac() {
+		return fechaNac;
+	}
+
+
+
+
+	public void setFechaNac(String fechaNac) {
+		this.fechaNac = fechaNac;
+	}
+
+
+
+
+	public String getEscuderia() {
+		return escuderia;
+	}
+
+
+
+
+	public void setEscuderia(String escuderia) {
+		this.escuderia = escuderia;
+	}
+
+
+
+
+	public int getPuntos() {
+		return puntos;
+	}
+
+
+
+
+	public void setPuntos(int puntos) {
+		this.puntos = puntos;
+	}
+
+
+
+
+	public int getPosicion() {
+		return posicion;
+	}
+
+
+
+
+	public void setPosicion(int posicion) {
+		this.posicion = posicion;
+	}
+
+
+
+
+	public String getUrlImagen() {
+		return urlImagen;
+	}
+
+
+
+
+	public void setUrlImagen(String urlImagen) {
+		this.urlImagen = urlImagen;
+	}
+
+
+
+
+	public String getDriverId() {
+		return driverId;
+	}
+
+
+
+
+	public void setDriverId(String driverId) {
+		this.driverId = driverId;
+	}
+
+
+
+
+	public String getEscuderiaId() {
+		return escuderiaId;
+	}
+
+
+
+
+	public void setEscuderiaId(String escuderiaId) {
+		this.escuderiaId = escuderiaId;
+	}
+
+
+
+
+	public int getPosFinal() {
+		return posFinal;
+	}
+
+
+
+
+	public void setPosFinal(int posFinal) {
+		this.posFinal = posFinal;
+	}
+
+
+
+
+	public String getEstado() {
+		return estado;
+	}
+
+
+
+
+	public void setEstado(String estado) {
+		this.estado = estado;
+	}
+
+
+
+
+	public String getEstadistica() {
+		return estadistica;
+	}
+
+
+
+
+	public void setEstadistica(String estadistica) {
+		this.estadistica = estadistica;
+	}    	
+	
+	
 	/**
 	 * Este método transforma la informacion a una cadena de carácteres separada por ";" para enviarla en el siguiente orden:
 	 * nombre;nacionalidad;fechaNac;escuderia;puntos;posFinal;posicion;estado;estadistica;urlImagen
@@ -151,10 +320,11 @@ public class Piloto implements Serializable
 	public String toString()
 	{
 		StringBuilder s = new StringBuilder(512);
-		s.append(driverId+";"+nombre+";"+nacionalidad+";"+fechaNac+";"+urlImagen);
+		s.append(driverId+";"+nombre+";"+apellido+";"+nacionalidad+";"+fechaNac+";"+escuderiaId+";"+escuderia+";"+puntos+";"+posicion+";"+urlImagen);
 
 		return s.toString();
 	}
+
 
 
 }

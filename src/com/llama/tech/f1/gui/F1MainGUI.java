@@ -90,7 +90,19 @@ public class F1MainGUI extends JFrame implements ShapeListener
 	 */
 	public F1MainGUI() 
 	{
-		mundo = new F1();
+		try 
+		{
+			mundo = F1.cargarF1();
+			if(mundo == null)
+			{
+				//Aquí va el diálogo
+				//min,max = ...
+				mundo = new F1(1950,1950);
+			}
+		} catch (IOException e2) {
+			// TODO Auto-generated catch block
+			e2.printStackTrace();
+		}
 		 
 		setTitle("Llamatech's F1 Board");
 		setPreferredSize(new Dimension(1200, 800));
@@ -105,20 +117,28 @@ public class F1MainGUI extends JFrame implements ShapeListener
 		setContentPane(contentPane);
 		
 		Path dir = Paths.get("./data/img/circuits");
+		File f = new File("./data/img/circuits");
 		File[] files = new File[9];
-		int i = 0;
-		try (DirectoryStream<Path> stream = Files.newDirectoryStream(dir, "*.png")) 
+		//int i = 0;
+		for(int i = 0; i < 9; i++)
 		{
-		    for (Path file : stream) 
-		    {
-		    	System.out.println(file.toString());
-		        files[i] = file.toAbsolutePath().toFile();
-		        i++;
-		    }
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
+			files[i] = f.listFiles()[i];
 		}
+		
+		
+		
+//		try (DirectoryStream<Path> stream = Files.newDirectoryStream(dir, "*.png")) 
+//		{
+//		    for (Path file : stream) 
+//		    {
+//		    	System.out.println(file.toString());
+//		        files[i] = file.toAbsolutePath().toFile();
+//		        i++;
+//		    }
+//		} catch (IOException e1) {
+//			// TODO Auto-generated catch block
+//			e1.printStackTrace();
+//		}
 //		try (DirectoryStream<Path> stream = Files.newDirectoryStream(dir, "*.png")) 
 //		{
 //		    for (Path file : stream) 
@@ -208,15 +228,6 @@ public class F1MainGUI extends JFrame implements ShapeListener
 		}
 	}
 	
-	public void guardar()
-	{
-		
-	}
-	
-	public void cargar()
-	{
-		
-	}
 
 	@Override
 	public void shapeActivated(ShapeEvent arg0) {
@@ -243,15 +254,9 @@ public class F1MainGUI extends JFrame implements ShapeListener
 		
 	}
 
-	public void realizarConsulta()
+	public void realizarConsulta(int anho)
 	{
-		int anho = Integer.parseInt(f1SearchPanel.darA�oBusqueda());
-		String tipo = f1SearchPanel.darTipoBusqueda();
-		
-		if(tipo.equals("Pilotos"));
-		{
-			
-		}
+		String [] infoCarreras = mundo.darInfoCarreras(anho);
 	}
 	
 	public String[] darTemporadas()

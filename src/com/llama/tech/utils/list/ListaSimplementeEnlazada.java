@@ -21,7 +21,6 @@
 package com.llama.tech.utils.list;
 
 import java.io.Serializable;
-import java.util.Iterator;
 
 public class ListaSimplementeEnlazada<ClaseGenerica> implements Lista<ClaseGenerica>,Serializable{
 
@@ -255,13 +254,13 @@ public class ListaSimplementeEnlazada<ClaseGenerica> implements Lista<ClaseGener
 	}
 
 	@Override
-	public Iterator<ClaseGenerica> iterator() 
+	public LlamaIterator<ClaseGenerica> iterator() 
 	{
-		return new IteradorListaSimplementeEnlazada<>(primero);
+		return new IteradorListaSimplementeEnlazada<ClaseGenerica>(primero);
 	}
 	
 	@Override
-	public Iterator<ClaseGenerica> iterator(int pos) 
+	public LlamaIterator<ClaseGenerica> iterator(int pos) 
 	{
 		ElementoSimplementeEnlazado<ClaseGenerica> elementoPos=null;
 		
@@ -287,7 +286,7 @@ public class ListaSimplementeEnlazada<ClaseGenerica> implements Lista<ClaseGener
 		}
 		
 		
-		return new IteradorListaSimplementeEnlazada<>(elementoPos);
+		return new IteradorListaSimplementeEnlazada<ClaseGenerica>(elementoPos);
 	}
 
 	@Override
@@ -498,6 +497,12 @@ public class ListaSimplementeEnlazada<ClaseGenerica> implements Lista<ClaseGener
 	@Override
 	public ClaseGenerica getFirst() {
 		return primero.getValor();
+	}
+
+	@Override
+	public LlamaIterator<ClaseGenerica> reverseIterator() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 

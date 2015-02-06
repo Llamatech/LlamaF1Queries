@@ -63,27 +63,33 @@ public class ImageContent
          
          if(objElem != null)
          {
-        	 String uri = objElem.select("img").get(0).attr("src");
-        	 uri = "http:"+uri;
-        	 System.out.println(uri);
-        	 String[] parts = uri.split("[.]");
-        	 String ext = parts[parts.length-1];
-        	 
-        	 URL imgURL = new URL(uri);
-        	 try(InputStream in = new BufferedInputStream(imgURL.openStream()))
+        	 try
         	 {
-        	 
-	        	 try(OutputStream out = new BufferedOutputStream(new FileOutputStream(loc+"."+ext)))
-	        	 {
-	        		 for ( int i; (i = in.read()) != -1; ) 
-	        		 {
-	        			    out.write(i);
-	        		 }
-	        	 }
+        		 String uri = objElem.select("img").get(0).attr("src");
+        		 uri = "http:"+uri;
+            	 System.out.println(uri);
+            	 String[] parts = uri.split("[.]");
+            	 String ext = parts[parts.length-1];
+            	 
+            	 URL imgURL = new URL(uri);
+            	 try(InputStream in = new BufferedInputStream(imgURL.openStream()))
+            	 {
+            	 
+    	        	 try(OutputStream out = new BufferedOutputStream(new FileOutputStream(loc+"."+ext)))
+    	        	 {
+    	        		 for ( int i; (i = in.read()) != -1; ) 
+    	        		 {
+    	        			    out.write(i);
+    	        		 }
+    	        	 }
+            	 }
+            	 
+            	 pointer = loc+"."+ext;
+            	 return pointer;
         	 }
-        	 
-        	 pointer = loc+"."+ext;
-        	 return pointer;
+        	 catch(Exception e)
+        	 {
+        	 }
          }
          
          return null;

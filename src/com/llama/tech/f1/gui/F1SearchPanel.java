@@ -22,6 +22,8 @@ package com.llama.tech.f1.gui;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 
 import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
@@ -70,6 +72,7 @@ public class F1SearchPanel extends JPanel implements ActionListener {
 		String[] temp = principal.darTemporadas();
 		comboBox = new JComboBox(temp);
 		comboBox.setBounds(243, 35, 158, 24);
+		comboBox.addItemListener(new ItemChangeListener());
 		add(comboBox);
 		
 		JLabel lblNewLabel_1 = new JLabel("Tipo de Búsqueda:");
@@ -147,11 +150,22 @@ public class F1SearchPanel extends JPanel implements ActionListener {
 		return (String) comboBox_1.getSelectedItem();
 	}
 	
-	public String darA�oBusqueda()
+	public String darAnhoBusqueda()
 	{
 		return (String) comboBox.getSelectedItem();
 	}
 
+	//addItemListener(new ItemChangeListener());
+	class ItemChangeListener implements ItemListener{
+	    @Override
+	    public void itemStateChanged(ItemEvent event) {
+	       if (event.getStateChange() == ItemEvent.SELECTED) 
+	       {
+	          String item = (String) event.getItem(); //→ Año
+	          principal.realizarConsulta(Integer.parseInt(item));
+	       }
+	    }       
+	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub

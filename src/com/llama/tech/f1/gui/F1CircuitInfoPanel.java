@@ -154,4 +154,9 @@ public class F1CircuitInfoPanel extends JPanel {
 		add(countryField, "8, 14, fill, default");
 
 	}
+	
+	public void cambiarInfo(String pNombre, String pNumeroCarrera, String fecha)
+	{
+	
+	}
 }

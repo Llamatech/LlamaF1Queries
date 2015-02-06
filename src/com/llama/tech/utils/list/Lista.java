@@ -20,9 +20,9 @@
 
 package com.llama.tech.utils.list;
 
-import java.util.Iterator;
 
-public interface Lista<ClaseGenerica> extends Iterable<ClaseGenerica>
+
+public interface Lista<ClaseGenerica>
 {
 	/**
 	 * Agrega un elemento al final de la lista
@@ -100,13 +100,15 @@ public interface Lista<ClaseGenerica> extends Iterable<ClaseGenerica>
 	/**
 	 * Determina si la lista est� vac�a o no
 	 * @return Un boolean indicando si la lista est� vac�a
-	 */
+	 */ 
 	public boolean isEmpty();
 	/**
 	 * Metodo que genera un iterador para recorrer la lista
 	 * @return Un iterador sobre la lista
 	 */
-	public Iterator<ClaseGenerica> iterator();
+	public LlamaIterator<ClaseGenerica> iterator();
+	
+	public LlamaIterator<ClaseGenerica> reverseIterator();
 	
 	/**
 	 * Metodo que genera un iterador para recorrer la lista. El iterador empieza en la posici�n pos
@@ -114,7 +116,7 @@ public interface Lista<ClaseGenerica> extends Iterable<ClaseGenerica>
 	 * @return Un iterador sobre la lista.
 	 * @throws IndexOutOfBoundsException Si la posici�n no existe
 	 */
-	public Iterator<ClaseGenerica> iterator(int pos)throws IndexOutOfBoundsException;
+	public LlamaIterator<ClaseGenerica> iterator(int pos)throws IndexOutOfBoundsException;
 
 	/**
 	 * M�todo que elimina un elemento de la lista.
