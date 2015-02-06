@@ -53,7 +53,7 @@ public class F1 implements IF1, Serializable
 	{
 		
 	}
-	public F1(int pMin, int pMax) throws IOException
+	public F1(int pMin, int pMax) throws Exception
 	{
 		min=pMin;
 		max = pMax;
@@ -128,19 +128,19 @@ public class F1 implements IF1, Serializable
 		}
 	}
 
-	public void cargarCarrerasTemporada(int anho) throws IOException
+	public void cargarCarrerasTemporada(int anho) throws Exception
 	{
 		String[]infoCarreras = Query.getCircuitsSeason(""+anho);
 		temporadas[anho-min].cargarCarreras(infoCarreras);
 	}
 
-	public void cargarPilotosTemporada(int anho) throws IOException
+	public void cargarPilotosTemporada(int anho) throws Exception
 	{
 		String[]infoPilotos = Query.getDriversSeason(""+anho);
 		temporadas[anho-min].cargarPilotos(infoPilotos);
 	}
 
-	public void cargarEscuderiasTemporada(int anho) throws IOException
+	public void cargarEscuderiasTemporada(int anho) throws Exception
 	{
 		String[]infoEscuderias = Query.getConstructorsSeason(""+anho);
 		temporadas[anho-min].cargarEscuderias(infoEscuderias);
@@ -157,7 +157,7 @@ public class F1 implements IF1, Serializable
 	}
 
 	@Override
-	public void cargar(int anho) throws IOException {
+	public void cargar(int anho) throws Exception {
 		// TODO Auto-generated method stub
 		cargarCarrerasTemporada(anho);
 		cargarEscuderiasTemporada(anho);

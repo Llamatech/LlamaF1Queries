@@ -45,7 +45,7 @@ public interface IF1 extends Serializable
 	
 	public String[] darTemporadasCompletas();
 	
-	public void cargar(int anho) throws IOException;
+	public void cargar(int anho) throws Exception;
 	
 	public String[] darInfoCarreras(int anho);
 	

@@ -111,9 +111,10 @@ public class F1MainGUI extends JFrame implements ShapeListener
 				
 				
 			}
-		} catch (IOException e2) {
+		} catch (Exception e2) {
 			// TODO Auto-generated catch block
-			e2.printStackTrace();
+			//e2.printStackTrace();
+			JOptionPane.showMessageDialog(this, "Ocurrió un error mientras se cargaban los archivos", "Error", JOptionPane.ERROR_MESSAGE);
 		}
 		 
 		setTitle("Llamatech's F1 Board");

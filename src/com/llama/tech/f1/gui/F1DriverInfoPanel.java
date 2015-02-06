@@ -20,6 +20,7 @@
 
 package com.llama.tech.f1.gui;
 
+import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
 import javax.swing.JLabel;
@@ -27,8 +28,12 @@ import javax.swing.border.EtchedBorder;
 import javax.swing.border.LineBorder;
 
 import java.awt.Color;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.ColumnSpec;
@@ -36,6 +41,7 @@ import com.jgoodies.forms.layout.RowSpec;
 import com.jgoodies.forms.factories.FormFactory;
 import com.llama.tech.f1.backbone.Piloto;
 
+import javax.swing.ImageIcon;
 import javax.swing.JTextField;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -60,6 +66,7 @@ public class F1DriverInfoPanel extends JPanel implements ActionListener{
 	private JButton btnAnterior;
 	private JButton btnSiguiente;
 	private F1MainGUI principal;
+	private JLabel lblImage;
 
 	/**
 	 * Create the panel.
@@ -69,10 +76,10 @@ public class F1DriverInfoPanel extends JPanel implements ActionListener{
 		setBorder(new TitledBorder(null, "Informaci\u00F3n Piloto", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		setLayout(null);
 		
-		JLabel lblNewLabel = new JLabel("");
-		lblNewLabel.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
-		lblNewLabel.setBounds(24, 24, 141, 156);
-		add(lblNewLabel);
+		lblImage = new JLabel("");
+		lblImage.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
+		lblImage.setBounds(24, 24, 141, 156);
+		add(lblImage);
 		
 		JPanel panel = new JPanel();
 		panel.setBounds(183, 24, 305, 156);
@@ -216,7 +223,18 @@ public class F1DriverInfoPanel extends JPanel implements ActionListener{
 		textField_5.setText(piloto.getPosFinal()+"");
 //		textField_7
 		textField_6.setText(piloto.getPosicion()+"");
-//		textField_8
+//		BufferedImage img = null;
+//		try {
+//			System.out.println(piloto.getUrlImagen());
+//		    img = ImageIO.read(new File(piloto.getUrlImagen()));
+//		} catch (IOException e) {
+//		    e.printStackTrace();
+//		}
+//		BufferedImage dimg = (BufferedImage) img.getScaledInstance(lblImage.getWidth(), lblImage.getHeight(),
+//		        Image.SCALE_SMOOTH);
+////		textField_8
+//		ImageIcon imageIcon = new ImageIcon(dimg);
+//		lblImage.setIcon(imageIcon);
 		
 	}
 

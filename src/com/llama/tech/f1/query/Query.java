@@ -153,7 +153,7 @@ public class Query
 
 	}
 
-	public static String[] getDriversSeason(String year) throws IOException
+	public static String[] getDriversSeason(String year) throws Exception
 	{
 		String[] drivers = null;
 		URL urlReq = new URL(ROOT+year+"/drivers.json"); //yupi
@@ -281,7 +281,7 @@ public class Query
 		
 	}
 		
-	public static String[] getCircuitsSeason(String year) throws IOException
+	public static String[] getCircuitsSeason(String year) throws Exception
 	{
 		URL urlReq = new URL(ROOT+year+".json");
 		String[] circuits = null;
@@ -405,7 +405,7 @@ public class Query
 		return circuits;
 	}
 
-	public static String[] getConstructorsSeason(String year) throws IOException
+	public static String[] getConstructorsSeason(String year) throws Exception
 	{
 		String[] constructors;
 		URL urlReq;
