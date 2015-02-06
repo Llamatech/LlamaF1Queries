@@ -66,7 +66,7 @@ public class Piloto implements Serializable
 	/**
 	 * Este es el atributo que representa los puntos del piloto
 	 */
-	private int puntos;
+	private double puntos;
 
 	/**
 	 * Este es el atributo que representa la posicion final del piloto
@@ -109,7 +109,7 @@ public class Piloto implements Serializable
 	// -----------------------------------------------------------------
 
 	public Piloto(String nombre, String apellido, String nacionalidad,
-			String fechaNac, String escuderia, int puntos, int posFinal,
+			String fechaNac, String escuderia, double puntos, int posFinal,
 			String urlImagen, String driverId, String escuderiaId) 
 	{
 		this.nombre = nombre;
@@ -202,7 +202,7 @@ public class Piloto implements Serializable
 
 
 
-	public int getPuntos() {
+	public double getPuntos() {
 		return puntos;
 	}
 

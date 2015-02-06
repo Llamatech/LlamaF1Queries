@@ -185,7 +185,7 @@ public class Temporada implements Comparable<Temporada>, Serializable
 				{
 				String[] infoP = info.split(";");
 				Piloto pilot = new Piloto(infoP[1], infoP[2], infoP[3], infoP[4], infoP[6], 
-						Integer.parseInt(infoP[7]), Integer.parseInt(infoP[8]), 
+						Double.parseDouble(infoP[7]), Integer.parseInt(infoP[8]), 
 						infoP[9], infoP[0], infoP[5]);
 				
 				pilotos.addAlFinal(pilot);
