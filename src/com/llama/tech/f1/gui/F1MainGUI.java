@@ -23,21 +23,16 @@
 
 package com.llama.tech.f1.gui;
 
-import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.EventQueue;
+import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.DirectoryStream;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-
 import be.pwnt.jflow.Configuration;
 import be.pwnt.jflow.Configuration.VerticalAlignment;
 import be.pwnt.jflow.JFlowPanel;
@@ -45,27 +40,23 @@ import be.pwnt.jflow.Shape;
 import be.pwnt.jflow.event.ShapeEvent;
 import be.pwnt.jflow.event.ShapeListener;
 import be.pwnt.jflow.shape.Picture;
-
-import com.jgoodies.forms.layout.ColumnSpec;
-import com.jgoodies.forms.layout.FormLayout;
-import com.jgoodies.forms.layout.RowSpec;
-import com.jgoodies.forms.factories.FormFactory;
 import com.llama.tech.f1.backbone.Carrera;
 import com.llama.tech.f1.backbone.Escuderia;
 import com.llama.tech.f1.backbone.F1;
 import com.llama.tech.f1.backbone.IF1;
 import com.llama.tech.f1.backbone.Piloto;
 import com.llama.tech.f1.backbone.Temporada;
-
-import java.awt.Color;
-import java.awt.event.MouseEvent;
-
-import javax.swing.JButton;
-import javax.swing.JLabel;
+import com.llama.tech.f1.query.Query;
+import com.llama.tech.utils.list.Lista;
 
 public class F1MainGUI extends JFrame implements ShapeListener
 {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	private JPanel contentPane;
 	private JFlowPanel flowPanel;
 	private F1CircuitInfoPanel f1CircuitInfoPanel;
@@ -86,6 +77,7 @@ public class F1MainGUI extends JFrame implements ShapeListener
 			public void run() {
 				try {
 					F1MainGUI frame = new F1MainGUI();
+					frame.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 					//frame.setExtendedState(MAXIMIZED_BOTH);
 					frame.setVisible(true);
 				} catch (Exception e) {
@@ -112,7 +104,7 @@ public class F1MainGUI extends JFrame implements ShapeListener
 				f1YearRangeChooser = new F1YearRangeChooser(this, yearList);
 				f1YearRangeChooser.setVisible(true);
 				f1YearRangeChooser.setAlwaysOnTop(true);
-				f1YearRangeChooser.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+				f1YearRangeChooser.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 				
 				mundo = new F1(min, max);
 				System.out.println(min+":"+max);
@@ -136,14 +128,9 @@ public class F1MainGUI extends JFrame implements ShapeListener
 		//contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		
-		Path dir = Paths.get("./data/img/circuits");
-		File f = new File("./data/img/circuits");
-		File[] files = new File[9];
-		//int i = 0;
-		for(int i = 0; i < 9; i++)
-		{
-			files[i] = f.listFiles()[i];
-		}
+		File f = new File("./data/img/circuits/default.png");
+		File[] files = new File[1];
+		files[0] = f;
 		
 		
 		
@@ -204,7 +191,7 @@ public class F1MainGUI extends JFrame implements ShapeListener
 		f1CircuitPositions.setBounds(345, 12, 297, 162);
 		racePanel.add(f1CircuitPositions);
 		
-		f1ConstructorInfo = new F1ConstructorInfo();
+		f1ConstructorInfo = new F1ConstructorInfo(this);
 		f1ConstructorInfo.setBounds(12, 232, 630, 271);
 		racePanel.add(f1ConstructorInfo);
 		
@@ -212,7 +199,7 @@ public class F1MainGUI extends JFrame implements ShapeListener
 		f1LongestRacePanel.setBounds(369, 186, 244, 41);
 		racePanel.add(f1LongestRacePanel);
 		
-		f1DriverInfoPanel = new F1DriverInfoPanel();
+		f1DriverInfoPanel = new F1DriverInfoPanel(this);
 		f1DriverInfoPanel.setBounds(655, 12, 513, 376);
 		contentPane.add(f1DriverInfoPanel);
 		
@@ -237,11 +224,11 @@ public class F1MainGUI extends JFrame implements ShapeListener
 //				}
 //			}
 			//shapes = new Shape[num];
-			for (int i = 0; i < shapes.length; i++) 
+			for (int i = shapes.length-1; i >= 0; i--) 
 			{
 //			    if (files[i] != null)
 //			    {
-				    shapes[i] = new Picture(ImageIO.read(files[i]), files[i].getName().split("[.]")[0]);
+				    shapes[i] = new Picture(ImageIO.read(files[i]), String.valueOf(i+1));//+";"+files[i].getName().split("[.]")[0]);
 			    //}
 			}
 
@@ -261,9 +248,12 @@ public class F1MainGUI extends JFrame implements ShapeListener
 		MouseEvent me = arg0.getMouseEvent();
 		if (!me.isConsumed() && me.getButton() == MouseEvent.BUTTON1
 				&& me.getClickCount() == 1) {
-			JOptionPane.showMessageDialog(this,
-					"You clicked on " + arg0.getShape().getShapeName() + ".", "Event Test",
-					JOptionPane.INFORMATION_MESSAGE);
+			//JOptionPane.showMessageDialog(this,
+					//"You clicked on " + arg0.getShape().getShapeName() + ".", "Event Test",
+					//JOptionPane.INFORMATION_MESSAGE);
+			String anho = f1SearchPanel.darAnhoBusqueda();
+			Temporada temp = mundo.darTemporada(Integer.parseInt(anho));
+			f1CircuitInfoPanel.cambiarInfo(temp.getCarreras().get(Integer.parseInt(arg0.getShape().getShapeName())-1));
 		}
 		
 	}
@@ -277,16 +267,59 @@ public class F1MainGUI extends JFrame implements ShapeListener
 	public void realizarConsulta(int anho)
 	{
 		Temporada temp = mundo.darTemporada(anho);
+		Lista<Carrera> infoCarreras = temp.getCarreras();
 		f1CircuitInfoPanel.cambiarInfo(temp.getCarreras().get(0));
 		f1ConstructorInfo.cambiarInfo(temp.getEscuderias().get(0));
 		f1DriverInfoPanel.cambiarInfo(temp.getPilotos().get(0));
+		try
+		{
+			String[] info = new String[infoCarreras.size()];
+			for(int i = 0; i < infoCarreras.size(); i++)
+			{
+				info[i] = infoCarreras.get(i).toString();
+			}
+			
+			reloadJFlow(info);
+		}
+		catch(IOException e)
+		{
+			e.printStackTrace();
+		}
+		
+	}
+	
+	public void reloadJFlow(String[] pilots) throws IOException
+	{
+		File[] files = new File[pilots.length];
+		int i = 0;
+		for(String pilot: pilots)
+		{
+			String loc = "./data/img/circuits/"+pilot.split(";")[pilot.split(";").length-1];
+			System.out.println(loc);
+			files[i] = new File(loc);
+			i++;
+		}
+		Config config = new Config(files);
+		//Config c = config;
+		config.backgroundColor = new Color(238,238,238);
+		config.activeShapeBorderColor = Color.RED;
+		config.verticalShapeAlignment = VerticalAlignment.MIDDLE;
+		flowPanel.setConfig(config);
+		
+		flowPanel.setForeground(Color.BLACK);
+		flowPanel.updateShapes();
+		flowPanel.revalidate();
+		
 	}
 	
 	public String[] darTemporadas()
 	{
 		Temporada[] temps = mundo.darTemporadas();
 		String[] ret = new String[temps.length];
-		for(ret)
+		for(int i =0; i<temps.length;i++)
+		{
+			ret[i]=temps[i].getYear()+"";
+		}
 		return ret;
 	}
 
@@ -296,8 +329,9 @@ public class F1MainGUI extends JFrame implements ShapeListener
 		this.max = Integer.parseInt(max);
 	}
 	
-	public void darAnterior(String tipo, int anho)
+	public void darAnterior(String tipo)
 	{
+		int anho = Integer.parseInt(f1SearchPanel.darAnhoBusqueda());
 		Temporada temp = mundo.darTemporada(anho);
 		if(tipo.equalsIgnoreCase("Carrera"))
 		{
@@ -331,8 +365,9 @@ public class F1MainGUI extends JFrame implements ShapeListener
 		}
 	}
 	
-	public void darSiguiente(String tipo, int anho)
+	public void darSiguiente(String tipo)
 	{
+		int anho = Integer.parseInt(f1SearchPanel.darAnhoBusqueda());
 		Temporada temp = mundo.darTemporada(anho);
 		if(tipo.equalsIgnoreCase("Carrera"))
 		{
@@ -364,6 +399,14 @@ public class F1MainGUI extends JFrame implements ShapeListener
 			}
 			
 		}
+	}
+	
+	@Override
+	public void dispose()
+	{
+		System.out.println("Cerrando...");
+		Query.guardar(mundo);
+		System.exit(0);
 	}
 }
 

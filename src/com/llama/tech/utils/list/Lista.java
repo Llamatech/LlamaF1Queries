@@ -20,9 +20,11 @@
 
 package com.llama.tech.utils.list;
 
+import java.io.Serializable;
 
 
-public interface Lista<ClaseGenerica>
+
+public interface Lista<ClaseGenerica> extends Serializable
 {
 	/**
 	 * Agrega un elemento al final de la lista

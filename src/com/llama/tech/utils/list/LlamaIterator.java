@@ -21,9 +21,10 @@
 
 package com.llama.tech.utils.list;
 
+import java.io.Serializable;
 import java.util.NoSuchElementException;
 
-public interface LlamaIterator<T> 
+public interface LlamaIterator<T> extends Serializable
 {
     public boolean hasNext();
     public boolean hasPrevious();

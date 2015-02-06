@@ -185,10 +185,29 @@ public class Temporada implements Comparable<Temporada>, Serializable
 				{
 				String[] infoP = info.split(";");
 				Piloto pilot = new Piloto(infoP[1], infoP[2], infoP[3], infoP[4], infoP[6], 
-						Integer.parseInt(infoP[7]), Integer.parseInt(infoP[7]), 
-						infoP[8], infoP[0], infoP[5]);
+						Integer.parseInt(infoP[7]), Integer.parseInt(infoP[8]), 
+						infoP[9], infoP[0], infoP[5]);
 				
 				pilotos.addAlFinal(pilot);
+				
+//				sb.append(driverId);
+//				sb.append(";");
+//				sb.append(driver.getString("givenName"));
+//				sb.append(";");
+//				sb.append(driver.getString("familyName"));
+//				sb.append(";");
+//				sb.append(driver.getString("nationality"));
+//				sb.append(";");
+//				sb.append(driver.getString("dateOfBirth"));
+//				sb.append(";");
+//				sb.append(constructorId);
+//				sb.append(";");
+//				sb.append(constructorName);
+//				sb.append(";");
+//				sb.append(points);
+//				sb.append(";");
+//				sb.append(position);
+//				sb.append(";");
 				}
 			}
 		}

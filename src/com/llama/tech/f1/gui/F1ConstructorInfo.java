@@ -26,6 +26,8 @@ import javax.swing.JLabel;
 import javax.swing.border.LineBorder;
 
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.border.SoftBevelBorder;
 import javax.swing.border.BevelBorder;
@@ -43,7 +45,7 @@ import javax.swing.JScrollPane;
 import javax.swing.UIManager;
 import javax.swing.JButton;
 
-public class F1ConstructorInfo extends JPanel {
+public class F1ConstructorInfo extends JPanel implements ActionListener {
 	private JLabel lblNewLabel;
 	private JLabel lblNewLabel_1;
 	private JTextField textField;
@@ -57,13 +59,16 @@ public class F1ConstructorInfo extends JPanel {
 	private JScrollPane scrollPane_1;
 	private JTable table;
 	private JTable table_1;
-	private JButton btnNewButton_1;
+	private JButton btnSiguiente;
+	private JButton btnAnterior ;
+	private F1MainGUI principal;
 
 	/**
 	 * Create the panel.
 	 */
-	public F1ConstructorInfo() 
+	public F1ConstructorInfo(F1MainGUI v) 
 	{
+		principal = v;
 		setBorder(new TitledBorder(new LineBorder(new Color(184, 207, 229)), "Informaci\u00F3n Escuder\u00EDa", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(51, 51, 51)));
 		setLayout(null);
 		
@@ -133,13 +138,17 @@ public class F1ConstructorInfo extends JPanel {
 		add(panel);
 		panel.setLayout(null);
 		
-		JButton btnNewButton = new JButton("←");
-		btnNewButton.setBounds(81, 0, 117, 25);
-		panel.add(btnNewButton);
+		btnAnterior = new JButton("←");
+		btnAnterior.setActionCommand("ANTERIOR");
+		btnAnterior.addActionListener(this);
+		btnAnterior.setBounds(81, 0, 117, 25);
+		panel.add(btnAnterior);
 		
-		btnNewButton_1 = new JButton("→");
-		btnNewButton_1.setBounds(210, 0, 117, 25);
-		panel.add(btnNewButton_1);
+		btnSiguiente = new JButton("→");
+		btnSiguiente.setActionCommand("SIGUIENTE");
+		btnSiguiente.addActionListener(this);
+		btnSiguiente.setBounds(210, 0, 117, 25);
+		panel.add(btnSiguiente);
 
 	}
 	
@@ -149,5 +158,14 @@ public class F1ConstructorInfo extends JPanel {
 		textField_1.setText(escuderia.getPais());
 		textField_2.setText(escuderia.getPosFinal()+"");
 		textField_3.setText(escuderia.getPuntos()+"");
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		if(e.getActionCommand().equals("ANTERIOR"))
+			principal.darAnterior("Escuderia");
+		else if(e.getActionCommand().equals("SIGUIENTE"))
+			principal.darSiguiente("Escuderia");
+		
 	}
 }

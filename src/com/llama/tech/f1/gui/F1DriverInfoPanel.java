@@ -27,6 +27,8 @@ import javax.swing.border.EtchedBorder;
 import javax.swing.border.LineBorder;
 
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.ColumnSpec;
@@ -44,7 +46,7 @@ import javax.swing.JList;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
 
-public class F1DriverInfoPanel extends JPanel {
+public class F1DriverInfoPanel extends JPanel implements ActionListener{
 	private JTextField textField;
 	private JTextField textField_1;
 	private JTextField textField_2;
@@ -55,11 +57,15 @@ public class F1DriverInfoPanel extends JPanel {
 	private JTextField textField_6;
 	private JTextField textField_7;
 	private JTextField textField_8;
+	private JButton btnAnterior;
+	private JButton btnSiguiente;
+	private F1MainGUI principal;
 
 	/**
 	 * Create the panel.
 	 */
-	public F1DriverInfoPanel() {
+	public F1DriverInfoPanel(F1MainGUI v) {
+		principal = v;
 		setBorder(new TitledBorder(null, "Informaci\u00F3n Piloto", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		setLayout(null);
 		
@@ -186,13 +192,17 @@ public class F1DriverInfoPanel extends JPanel {
 		add(panel_2);
 		panel_2.setLayout(null);
 		
-		JButton btnNewButton = new JButton("←");
-		btnNewButton.setBounds(204, 5, 117, 25);
-		panel_2.add(btnNewButton);
+		btnAnterior = new JButton("←");
+		btnAnterior.setActionCommand("ANTERIOR");
+		btnAnterior.addActionListener(this);
+		btnAnterior.setBounds(204, 5, 117, 25);
+		panel_2.add(btnAnterior);
 		
-		JButton btnNewButton_1 = new JButton("→");
-		btnNewButton_1.setBounds(333, 5, 117, 25);
-		panel_2.add(btnNewButton_1);
+		btnSiguiente = new JButton("→");
+		btnSiguiente.addActionListener(this);
+		btnSiguiente.setActionCommand("SIGUIENTE");
+		btnSiguiente.setBounds(333, 5, 117, 25);
+		panel_2.add(btnSiguiente);
 
 	}
 	
@@ -207,6 +217,16 @@ public class F1DriverInfoPanel extends JPanel {
 //		textField_7
 		textField_6.setText(piloto.getPosicion()+"");
 //		textField_8
+		
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		if(e.getActionCommand().equals("ANTERIOR"))
+			principal.darAnterior("Piloto");
+		else if(e.getActionCommand().equals("SIGUIENTE"))
+			principal.darSiguiente("Piloto");
+			
 		
 	}
 }

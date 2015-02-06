@@ -139,11 +139,12 @@ public class Carrera implements Comparable<Carrera>, Serializable
     {
     	StringBuilder s = new StringBuilder(512);
     	s.append(nombre+";"+numeroCarrera+";"+fecha+";"+hora+";"+circuito+";"+lugar+";"+pais+";");
-    	for(String c:posiciones)
-    	{
-    		s.append(c+";");
-    	}
-    	s.append(duracion+";"+urlImagen);
+//    	for(String c:posiciones)
+//    	{
+//    		s.append(c+";");
+//    	}
+    	//s.append(duracion+";"+urlImagen);
+    	s.append(urlImagen);
     	
     	return s.toString();
     }

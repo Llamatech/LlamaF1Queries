@@ -574,31 +574,12 @@ public class Query
 		}
 	    catch(Exception ex)
 	    {
-			
+			ex.printStackTrace();
 		}
 		
 		return null;
 	}
 	
-	public static void main(String[] args) 
-	{
-		    String[] years = new String[2007-1993];
-			for(int i = 1993; i < 2007; i++)
-			{
-				years[i - 1993] = String.valueOf(i);
-			}
-			try {
-				for(String year: years)
-				{
-					System.out.println(year);
-					getDriversSeason(year);
-				}
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-	
-	}
 
 
 }

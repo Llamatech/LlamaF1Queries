@@ -20,13 +20,14 @@
 
 package com.llama.tech.utils.list;
 
+import java.io.Serializable;
 import java.util.NoSuchElementException;
 
 /**
  * Esta clase permite recorrer una lista simplemente enlazada
  * @param <ClaseGenerica>  el tipo de elemento que permite obtener el iterador
  */
-class IteradorListaSimplementeEnlazada<ClaseGenerica> implements LlamaIterator<ClaseGenerica>{
+class IteradorListaSimplementeEnlazada<ClaseGenerica> implements LlamaIterator<ClaseGenerica>, Serializable{
 	
 	private ElementoSimplementeEnlazado<ClaseGenerica> elementoActual;
 	

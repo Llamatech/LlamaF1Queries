@@ -21,10 +21,11 @@
 package com.llama.tech.f1.backbone;
 
 import java.io.IOException;
+import java.io.Serializable;
 
 import com.llama.tech.utils.list.Lista;
 
-public interface IF1 
+public interface IF1 extends Serializable
 {	
 	public String[] getSeasonInfo(String year);
 	

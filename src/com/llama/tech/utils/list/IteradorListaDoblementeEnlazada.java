@@ -22,13 +22,14 @@
 
 package com.llama.tech.utils.list;
 
+import java.io.Serializable;
 import java.util.NoSuchElementException;
 
 /**
  * Esta clase permite recorrer una lista enlazada de manera directa (hacia adelante)
  * @param <ClaseGenerica> el tipo de elemento que permite obtener el iterador
  */
-public class IteradorListaDoblementeEnlazada<ClaseGenerica extends Comparable <? super ClaseGenerica>> implements LlamaIterator<ClaseGenerica>
+public class IteradorListaDoblementeEnlazada<ClaseGenerica extends Comparable <? super ClaseGenerica>> implements LlamaIterator<ClaseGenerica>, Serializable
 {
 	
 	private ElementoDoblementeEnlazado<ClaseGenerica> elementoActual;

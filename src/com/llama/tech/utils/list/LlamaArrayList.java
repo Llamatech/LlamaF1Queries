@@ -20,7 +20,9 @@
 
 package com.llama.tech.utils.list;
 
-public class LlamaArrayList<T> implements Lista<T>{
+import java.io.Serializable;
+
+public class LlamaArrayList<T> implements Lista<T>, Serializable{
 
 	private T[] lista;
 	int posActual;
@@ -201,7 +203,7 @@ public class LlamaArrayList<T> implements Lista<T>{
 		}
 		
 		public boolean hasPrevious(){
-			if((x-1)>=posActual)
+			if((x-1)>=0)
 				return true;
 			return false;
 			
