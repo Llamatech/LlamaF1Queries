@@ -193,10 +193,11 @@ public class Temporada implements Comparable<Temporada>, Serializable {
 					if (!infoP[8].equals("null")) {
 						pos = Integer.parseInt(infoP[8]);
 					}
+					
 
 					Piloto pilot = new Piloto(infoP[1], infoP[2], infoP[3],
 							infoP[4], infoP[6], points, pos, infoP[9],
-							infoP[0], infoP[5]);
+							infoP[0], infoP[5],infoP[10]);
 
 					pilotos.addAlFinal(pilot);
 
@@ -218,6 +219,12 @@ public class Temporada implements Comparable<Temporada>, Serializable {
 					// sb.append(";");
 					// sb.append(position);
 					// sb.append(";");
+//					sb.append(loc);
+//					sb.append(";");
+//					drivers[i] = sb.toString();
+//					sb.setLength(0);
+//					System.out.println(drivers[i]);
+//					
 				}
 			}
 		}
@@ -455,7 +462,7 @@ public class Temporada implements Comparable<Temporada>, Serializable {
 	 */
 	public Piloto removePiloto(String apellido){
 		
-		Piloto pil = new Piloto("", apellido, "","", "", 0, 0, "", "", "");
+		Piloto pil = new Piloto("", apellido, "","", "", 0, 0, "", "", "","");
 		return pilotos.remove(pil); 
 	}
 }

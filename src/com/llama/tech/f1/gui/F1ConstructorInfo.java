@@ -20,32 +20,27 @@
 
 package com.llama.tech.f1.gui;
 
-import javax.swing.JPanel;
-import javax.swing.border.TitledBorder;
-import javax.swing.JLabel;
-import javax.swing.border.LineBorder;
-
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.border.SoftBevelBorder;
-import javax.swing.border.BevelBorder;
-import javax.swing.border.EtchedBorder;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.border.TitledBorder;
 
-import com.jgoodies.forms.layout.FormLayout;
-import com.jgoodies.forms.layout.ColumnSpec;
-import com.jgoodies.forms.layout.RowSpec;
-import com.jgoodies.forms.factories.FormFactory;
 import com.llama.tech.f1.backbone.Escuderia;
 
-import javax.swing.JTextField;
-import javax.swing.JTable;
-import javax.swing.JScrollPane;
-import javax.swing.UIManager;
-import javax.swing.JButton;
-
-public class F1ConstructorInfo extends JPanel implements ActionListener {
+public class F1ConstructorInfo extends JFrame implements ActionListener 
+{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JLabel lblNewLabel;
 	private JLabel lblNewLabel_1;
 	private JTextField textField;
@@ -60,7 +55,6 @@ public class F1ConstructorInfo extends JPanel implements ActionListener {
 	private JTable table;
 	private JTable table_1;
 	private JButton btnSiguiente;
-	private JButton btnAnterior ;
 	private F1MainGUI principal;
 
 	/**
@@ -68,87 +62,88 @@ public class F1ConstructorInfo extends JPanel implements ActionListener {
 	 */
 	public F1ConstructorInfo(F1MainGUI v) 
 	{
+		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		principal = v;
-		setBorder(new TitledBorder(new LineBorder(new Color(184, 207, 229)), "Informaci\u00F3n Escuder\u00EDa", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(51, 51, 51)));
-		setLayout(null);
+		setTitle("Informaci\u00F3n Escuder\u00EDa");
+		//setBorder(new TitledBorder(new LineBorder(new Color(184, 207, 229)), "Informaci\u00F3n Escuder\u00EDa", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(51, 51, 51)));
+		getContentPane().setLayout(null);
 		
 		lblNewLabel = new JLabel("");
 		lblNewLabel.setBorder(new TitledBorder(null, "Logo", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		lblNewLabel.setBounds(23, 36, 181, 100);
-		add(lblNewLabel);
+		getContentPane().add(lblNewLabel);
 		
 		lblNewLabel_1 = new JLabel("Nombre:");
 		lblNewLabel_1.setBounds(216, 40, 70, 15);
-		add(lblNewLabel_1);
+		getContentPane().add(lblNewLabel_1);
 		
 		textField = new JTextField();
 		textField.setEditable(false);
 		textField.setBounds(341, 36, 265, 19);
-		add(textField);
+		getContentPane().add(textField);
 		textField.setColumns(10);
 		
 		lblPas = new JLabel("País:");
 		lblPas.setBounds(216, 67, 70, 15);
-		add(lblPas);
+		getContentPane().add(lblPas);
 		
 		textField_1 = new JTextField();
 		textField_1.setEditable(false);
 		textField_1.setBounds(341, 63, 265, 19);
-		add(textField_1);
+		getContentPane().add(textField_1);
 		textField_1.setColumns(10);
 		
 		lblNewLabel_2 = new JLabel("Posición final:");
 		lblNewLabel_2.setBounds(216, 94, 107, 15);
-		add(lblNewLabel_2);
+		getContentPane().add(lblNewLabel_2);
 		
 		textField_2 = new JTextField();
 		textField_2.setEditable(false);
 		textField_2.setColumns(10);
 		textField_2.setBounds(341, 90, 265, 19);
-		add(textField_2);
+		getContentPane().add(textField_2);
 		
 		lblPuntos = new JLabel("Puntos:");
 		lblPuntos.setBounds(216, 121, 107, 15);
-		add(lblPuntos);
+		getContentPane().add(lblPuntos);
 		
 		textField_3 = new JTextField();
 		textField_3.setEditable(false);
 		textField_3.setColumns(10);
 		textField_3.setBounds(341, 117, 265, 19);
-		add(textField_3);
+		getContentPane().add(textField_3);
 		
 		scrollPane = new JScrollPane();
 		scrollPane.setBorder(new TitledBorder(null, "Pilotos", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(51, 51, 51)));
-		scrollPane.setBounds(23, 155, 232, 73);
-		add(scrollPane);
+		scrollPane.setBounds(23, 155, 232, 109);
+		getContentPane().add(scrollPane);
 		
 		table = new JTable();
 		scrollPane.setViewportView(table);
 		
 		scrollPane_1 = new JScrollPane();
 		scrollPane_1.setBorder(new TitledBorder(null, "Carreras", TitledBorder.RIGHT, TitledBorder.TOP, null, null));
-		scrollPane_1.setBounds(274, 155, 332, 73);
-		add(scrollPane_1);
+		scrollPane_1.setBounds(274, 155, 332, 109);
+		getContentPane().add(scrollPane_1);
 		
 		table_1 = new JTable();
 		scrollPane_1.setViewportView(table_1);
 		
 		JPanel panel = new JPanel();
-		panel.setBounds(269, 234, 332, 30);
-		add(panel);
+		panel.setBounds(331, 276, 275, 26);
+		getContentPane().add(panel);
 		panel.setLayout(null);
 		
-		btnAnterior = new JButton("←");
-		btnAnterior.setActionCommand("ANTERIOR");
-		btnAnterior.addActionListener(this);
-		btnAnterior.setBounds(81, 0, 117, 25);
-		panel.add(btnAnterior);
-		
-		btnSiguiente = new JButton("→");
+		btnSiguiente = new JButton("\u2192");
 		btnSiguiente.setActionCommand("SIGUIENTE");
 		btnSiguiente.addActionListener(this);
-		btnSiguiente.setBounds(210, 0, 117, 25);
+		btnSiguiente.setBounds(141, 0, 117, 25);
 		panel.add(btnSiguiente);
+		
+		JButton button = new JButton("\u2190");
+		button.setActionCommand("SIGUIENTE");
+		button.setBounds(12, 0, 117, 25);
+		panel.add(button);
 
 	}
 	
@@ -167,5 +162,12 @@ public class F1ConstructorInfo extends JPanel implements ActionListener {
 		else if(e.getActionCommand().equals("SIGUIENTE"))
 			principal.darSiguiente("Escuderia");
 		
+	}
+	
+	@Override
+	public void dispose()
+	{
+		principal.setConstructorsInfo(false);
+		this.setVisible(false);
 	}
 }

@@ -74,6 +74,7 @@ public class F1MainGUI extends JFrame implements ShapeListener
 	private boolean searchWindowAct;
 	private int min;
 	private int max;
+	private F1BottomSelectionButtons f1BottomSelectionButtons;
 
 	/**
 	 * Launch the application.
@@ -98,6 +99,8 @@ public class F1MainGUI extends JFrame implements ShapeListener
 	 */
 	public F1MainGUI() 
 	{
+		constructorsWindowAct = false;
+		searchWindowAct = false;
 		try 
 		{
 			mundo = F1.cargarF1();
@@ -123,11 +126,9 @@ public class F1MainGUI extends JFrame implements ShapeListener
 		}
 		 
 		setTitle("Llamatech's F1 Board");
-		setPreferredSize(new Dimension(1200, 800));
-		setMinimumSize(new Dimension(1200, 800));
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 520, 449);
+		setBounds(100, 100, 1200, 489);
 		contentPane = new JPanel();
 		contentPane.setPreferredSize(new Dimension(674, 600));
 		contentPane.setMinimumSize(new Dimension(674, 600));
@@ -185,7 +186,7 @@ public class F1MainGUI extends JFrame implements ShapeListener
 		contentPane.add(flowPanel);
 		
 		JPanel racePanel = new JPanel();
-		racePanel.setBounds(0, 200, 643, 502);
+		racePanel.setBounds(0, 200, 643, 249);
 		contentPane.add(racePanel);
 		racePanel.setLayout(null);
 		
@@ -198,8 +199,8 @@ public class F1MainGUI extends JFrame implements ShapeListener
 		racePanel.add(f1CircuitPositions);
 		
 		f1ConstructorInfo = new F1ConstructorInfo(this);
-		f1ConstructorInfo.setBounds(12, 232, 630, 271);
-		racePanel.add(f1ConstructorInfo);
+		//f1ConstructorInfo.setBounds(12, 232, 630, 271);
+		//racePanel.add(f1ConstructorInfo);
 		
 		F1LongestRacePanel f1LongestRacePanel = new F1LongestRacePanel();
 		f1LongestRacePanel.setBounds(369, 186, 244, 41);
@@ -209,9 +210,13 @@ public class F1MainGUI extends JFrame implements ShapeListener
 		f1DriverInfoPanel.setBounds(655, 12, 513, 376);
 		contentPane.add(f1DriverInfoPanel);
 		
+		f1BottomSelectionButtons = new F1BottomSelectionButtons(this);
+		f1BottomSelectionButtons.setBounds(642, 390, 549, 39);
+		contentPane.add(f1BottomSelectionButtons);
+		
 		f1SearchPanel = new F1SearchPanel(this);
-		f1SearchPanel.setBounds(680, 398, 458, 306);
-		contentPane.add(f1SearchPanel);
+		//f1SearchPanel.setBounds(680, 398, 458, 306);
+		//contentPane.add(f1SearchPanel);
 		flowPanel.revalidate();
 	}
 	
@@ -418,6 +423,34 @@ public class F1MainGUI extends JFrame implements ShapeListener
 		System.out.println("Cerrando...");
 		Query.guardar(mundo);
 		System.exit(0);
+	}
+
+	public void showConstructorsDialog() 
+	{
+		if(!constructorsWindowAct)
+		{
+			constructorsWindowAct = true;
+			f1ConstructorInfo.setVisible(true);
+		}
+	}
+
+	public void setConstructorsInfo(boolean b) 
+	{
+		constructorsWindowAct = b;
+	}
+
+	public void showSearchDialog() 
+	{
+		if(!searchWindowAct)
+		{
+			searchWindowAct = true;
+			f1SearchPanel.setVisible(true);
+		}
+	}
+
+	public void setSearchPanel(boolean b) 
+	{
+		searchWindowAct = b;	
 	}
 }
 

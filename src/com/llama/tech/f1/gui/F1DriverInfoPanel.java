@@ -53,6 +53,10 @@ import javax.swing.JComboBox;
 import javax.swing.JButton;
 
 public class F1DriverInfoPanel extends JPanel implements ActionListener{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JTextField textField;
 	private JTextField textField_1;
 	private JTextField textField_2;

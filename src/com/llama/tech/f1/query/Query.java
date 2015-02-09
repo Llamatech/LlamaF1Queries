@@ -52,6 +52,12 @@ public class Query
 	private final static String DIR_ARCHIVO = "./data/persistence/";
 	public final static File ARCHIVO = new File(DIR_ARCHIVO+"info.f1");
 
+	/**
+	 * Este método retorna el formato JSON del url que se le pasa por parametro.
+	 * @param urlReq url del que se desea el formato JSON
+	 * @return formato JSON
+	 * @throws IOException si hay un error consultando la url
+	 */
 	private static String getJSONFormat(URL urlReq) throws IOException
 	{
 		StringBuilder sb = new StringBuilder();
@@ -66,6 +72,11 @@ public class Query
 		return sb.toString();
 	}
 
+	/**
+	 * Este método retorna el total de temporadas disponibles en la página de consultas
+	 * @return una lista con todos los años disponibles
+	 * @throws IOException si hay un problema haciendo la consulta
+	 */
 	public static String[] getTotalSeasons() throws IOException 
 	{
 		File dataRoot = new File(DATA_ROOT);
@@ -155,6 +166,10 @@ public class Query
 
 	}
 
+	/**
+	 * 
+	 */
+	
 	public static String[] getDriversSeason(String year) throws Exception
 	{
 		String[] drivers = null;

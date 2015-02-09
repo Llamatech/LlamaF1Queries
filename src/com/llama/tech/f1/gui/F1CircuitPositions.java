@@ -21,7 +21,6 @@
 package com.llama.tech.f1.gui;
 
 import javax.swing.JPanel;
-import java.awt.FlowLayout;
 import javax.swing.border.TitledBorder;
 import java.awt.BorderLayout;
 import javax.swing.JScrollPane;
@@ -29,6 +28,11 @@ import javax.swing.JTextArea;
 import javax.swing.UIManager;
 
 public class F1CircuitPositions extends JPanel {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	/**
 	 * Create the panel.

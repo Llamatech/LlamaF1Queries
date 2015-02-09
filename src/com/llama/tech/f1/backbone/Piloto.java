@@ -22,6 +22,9 @@
 package com.llama.tech.f1.backbone;
 
 import java.io.Serializable;
+import java.util.Arrays;
+
+import com.llama.tech.utils.list.Lista;
 
 /**
  * Esta es la clase que modela a los pilotos
@@ -42,7 +45,7 @@ public class Piloto implements Serializable, Comparable<Piloto>
 	 * Este es el atributo que representa el nombre del piloto
 	 */
 	private String nombre;
-	
+
 	/**
 	 * Este es el atributo que representa el apellido del piloto
 	 */
@@ -103,14 +106,16 @@ public class Piloto implements Serializable, Comparable<Piloto>
 	 */
 	private String escuderiaId;
 
-	
+	private Lista<InfoCarrera> infoCarreras;
+
+
 	// -----------------------------------------------------------------
 	// Metodos Constructores
 	// -----------------------------------------------------------------
 
 	public Piloto(String nombre, String apellido, String nacionalidad,
 			String fechaNac, String escuderia, double puntos, int posFinal,
-			String urlImagen, String driverId, String escuderiaId) 
+			String urlImagen, String driverId, String escuderiaId, String pInfoCarreras) 
 	{
 		this.nombre = nombre;
 		this.apellido = apellido;
@@ -122,6 +127,22 @@ public class Piloto implements Serializable, Comparable<Piloto>
 		this.urlImagen = urlImagen;
 		this.driverId = driverId;
 		this.escuderiaId = escuderiaId;
+
+		String [] infoC = pInfoCarreras.split("|");
+
+		for(int i=0; i<infoC.length;i++)
+		{
+			//TODO No te burles, 
+//			if(infoC[i]!=null)
+////			{
+////				String [] iC=infoC[i].split("%");
+////				String idC = iC[0];
+////				String [] tiempos = Arrays.copyOfRange(iC, 1, iC.length-1);
+////				
+//			}
+		}
+//		nombre; ... ; URL; |"carrera1id%t1%t2%...%tn"$"vuelta:t%vuelta2:t%vueltan:tn" |
+//		"carrera2id%..."%...|;. 
 	}
 
 
@@ -131,7 +152,7 @@ public class Piloto implements Serializable, Comparable<Piloto>
 	// Metodos
 	// -----------------------------------------------------------------
 
-	
+
 	public String getNombre() {
 		return nombre;
 	}
@@ -310,8 +331,8 @@ public class Piloto implements Serializable, Comparable<Piloto>
 	public void setEstadistica(String estadistica) {
 		this.estadistica = estadistica;
 	}    	
-	
-	
+
+
 	/**
 	 * Este método transforma la informacion a una cadena de carácteres separada por ";" para enviarla en el siguiente orden:
 	 * nombre;nacionalidad;fechaNac;escuderia;puntos;posFinal;posicion;estado;estadistica;urlImagen
@@ -331,13 +352,13 @@ public class Piloto implements Serializable, Comparable<Piloto>
 	{
 		return compareTo((Piloto) o) == 0;
 	}
-	
+
 	@Override
 	public int compareTo(Piloto o)
 	{
 		return apellido.compareTo(o.getApellido());
 	}
-	
+
 
 
 

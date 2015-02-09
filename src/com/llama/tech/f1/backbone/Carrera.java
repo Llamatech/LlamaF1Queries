@@ -150,22 +150,42 @@ public class Carrera implements Comparable<Carrera>, Serializable
     }
 
 
+    /**
+     * Retorna el nombre de la carrera
+     * @return nombre de la carrera
+     */
 	public String getNombre() {
 		return nombre;
 	}
 
+	/**
+	 * Cambia el nombre de la carrera
+	 * @param nombre el nombre al que será cambiado
+	 */
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
 
+	/**
+	 * Retorna el numero de la carrera
+	 * @return el numero de la carrera
+	 */
 	public int getNumeroCarrera() {
 		return numeroCarrera;
 	}
 
+	/**
+	 * Cambia el numero de la carrera
+	 * @param numeroCarrera numero nuevo carrera
+	 */
 	public void setNumeroCarrera(int numeroCarrera) {
 		this.numeroCarrera = numeroCarrera;
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
 	public String getFecha() {
 		return fecha;
 	}

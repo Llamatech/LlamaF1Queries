@@ -27,6 +27,7 @@ import java.awt.event.ItemListener;
 
 import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JSpinner;
 import javax.swing.JComboBox;
@@ -45,14 +46,15 @@ import com.llama.tech.utils.list.Lista;
 
 import javax.swing.JButton;
 
-public class F1SearchPanel extends JPanel implements ActionListener {
+public class F1SearchPanel extends JFrame implements ActionListener {
 	private JTextField textField_1;
-	private JCalendar cal1;
 
-	private JComboBox comboBox_1;
-	private JComboBox comboBox;
+	private JComboBox<String> comboBox_1;
+	private JComboBox<String> comboBox;
 	private JButton btnNewButton;
 	private F1MainGUI principal;
+	private JDateChooser dateChooser;
+	private JDateChooser dateChooser_1;
 
 
 	/**
@@ -60,44 +62,45 @@ public class F1SearchPanel extends JPanel implements ActionListener {
 	 */
 	public F1SearchPanel(F1MainGUI v) {
 
-
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		principal = v;
-		setBorder(new TitledBorder(null, "B\u00FAsqueda", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		setLayout(null);
+		//setBorder(new TitledBorder(null, "B\u00FAsqueda", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		setTitle("B\u00FAsqueda");
+		getContentPane().setLayout(null);
 
 		JLabel lblNewLabel = new JLabel("Año Actual (Consulta):");
-		lblNewLabel.setBounds(50, 40, 183, 15);
-		add(lblNewLabel);
+		lblNewLabel.setBounds(31, 28, 183, 15);
+		getContentPane().add(lblNewLabel);
 
 		String[] temp = principal.darTemporadas();
-		comboBox = new JComboBox(temp);
-		comboBox.setBounds(243, 35, 158, 24);
-		comboBox.addItemListener(new ItemChangeListener());
+		comboBox = new JComboBox<String>(temp);
+		comboBox.setBounds(224, 23, 158, 24);
+		//comboBox.addItemListener(new ItemChangeListener());
 		comboBox.setSelectedItem(null);
-		add(comboBox);
+		getContentPane().add(comboBox);
 
 		JLabel lblNewLabel_1 = new JLabel("Tipo de Búsqueda:");
-		lblNewLabel_1.setBounds(50, 78, 158, 15);
-		add(lblNewLabel_1);
+		lblNewLabel_1.setBounds(31, 66, 158, 15);
+		getContentPane().add(lblNewLabel_1);
 
 		textField_1 = new JTextField();
 		textField_1.setEnabled(false);
 		textField_1.setColumns(10);
-		textField_1.setBounds(243, 110, 158, 24);
-		add(textField_1);
+		textField_1.setBounds(224, 98, 158, 24);
+		getContentPane().add(textField_1);
 
 		JLabel lblNewLabel_2 = new JLabel("(Seleccione el tipo)");
-		lblNewLabel_2.setBounds(50, 114, 158, 15);
-		add(lblNewLabel_2);
+		lblNewLabel_2.setBounds(31, 102, 158, 15);
+		getContentPane().add(lblNewLabel_2);
 
 		JCheckBox chckbxNewCheckBox = new JCheckBox("¿Búsqueda por periodo?");
-		chckbxNewCheckBox.setBounds(50, 147, 237, 23);
-		add(chckbxNewCheckBox);
+		chckbxNewCheckBox.setBounds(31, 135, 237, 23);
+		getContentPane().add(chckbxNewCheckBox);
 
 		JPanel panel = new JPanel();
 		panel.setBorder(new TitledBorder(null, "Per\u00EDodo de B\u00FAsqueda", TitledBorder.RIGHT, TitledBorder.TOP, null, null));
-		panel.setBounds(50, 178, 361, 79);
-		add(panel);
+		panel.setBounds(31, 166, 361, 79);
+		getContentPane().add(panel);
 		panel.setLayout(new FormLayout(new ColumnSpec[] {
 				FormFactory.LABEL_COMPONENT_GAP_COLSPEC,
 				ColumnSpec.decode("92px"),
@@ -118,27 +121,27 @@ public class F1SearchPanel extends JPanel implements ActionListener {
 		JLabel lblNewLabel_3 = new JLabel("Fecha Inicial:");
 		panel.add(lblNewLabel_3, "2, 2, left, center");
 
-		JDateChooser dateChooser = new JDateChooser();
+		dateChooser = new JDateChooser();
 		panel.add(dateChooser, "6, 2, fill, top");
 
 		JLabel lblFechaFinal = new JLabel("Fecha Final:");
 		panel.add(lblFechaFinal, "2, 4, left, center");
 
-		JDateChooser dateChooser_1 = new JDateChooser();
+		dateChooser_1 = new JDateChooser();
 		panel.add(dateChooser_1, "6, 4, fill, top");
 
 		btnNewButton = new JButton("Consultar");
-		btnNewButton.setBounds(50, 276, 117, 25);
-		add(btnNewButton);
+		btnNewButton.setBounds(72, 264, 117, 25);
+		getContentPane().add(btnNewButton);
 
 		JButton btnNewButton_1 = new JButton("Eliminar");
-		btnNewButton_1.setBounds(294, 276, 117, 25);
-		add(btnNewButton_1);
+		btnNewButton_1.setBounds(224, 264, 117, 25);
+		getContentPane().add(btnNewButton_1);
 
 		String[] tipo = new String[]{"Carreras","Escuderias","Pilotos"};
-		comboBox_1 = new JComboBox(tipo);
-		comboBox_1.setBounds(243, 73, 158, 24);
-		add(comboBox_1);
+		comboBox_1 = new JComboBox<String>(tipo);
+		comboBox_1.setBounds(224, 61, 158, 24);
+		getContentPane().add(comboBox_1);
 
 
 
@@ -172,5 +175,12 @@ public class F1SearchPanel extends JPanel implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 
+	}
+	
+	@Override
+	public void dispose()
+	{
+		principal.setSearchPanel(false);
+		this.setVisible(false);
 	}
 }
