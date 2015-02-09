@@ -133,9 +133,9 @@ public class Piloto implements Serializable, Comparable<Piloto>
 		for(int i=0; i<infoC.length;i++)
 		{
 			//TODO No te burles, hay demasiados signos por los cuales dividir TODO TODO TODO TODO! Ackermann(TODO, TODO)
-			if(infoC[i]!=null) //
+			if(infoC[i]!=null) 
 			{
-//				String [] iC=infoC[i].split(""");
+//				String [] iC=infoC[i].split("[$]");
 //				String idC = iC[0];
 //				String [] tiempos = Arrays.copyOfRange(iC, 1, iC.length-1);
 				
