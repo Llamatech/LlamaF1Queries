@@ -26,7 +26,7 @@ import java.io.Serializable;
 /**
  * Esta es la clase que modela a los pilotos
  */
-public class Piloto implements Serializable 
+public class Piloto implements Serializable, Comparable<Piloto> 
 {
 
 	/**
@@ -317,6 +317,7 @@ public class Piloto implements Serializable
 	 * nombre;nacionalidad;fechaNac;escuderia;puntos;posFinal;posicion;estado;estadistica;urlImagen
 	 * @return cadena de caracteres con informacion
 	 */
+	@Override 
 	public String toString()
 	{
 		StringBuilder s = new StringBuilder(512);
@@ -324,6 +325,19 @@ public class Piloto implements Serializable
 
 		return s.toString();
 	}
+
+	@Override
+	public boolean equals(Object o)
+	{
+		return compareTo((Piloto) o) == 0;
+	}
+	
+	@Override
+	public int compareTo(Piloto o)
+	{
+		return apellido.compareTo(o.getApellido());
+	}
+	
 
 
 

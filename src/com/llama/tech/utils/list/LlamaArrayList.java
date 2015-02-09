@@ -26,16 +26,18 @@ public class LlamaArrayList<T> implements Lista<T>, Serializable{
 
 	private T[] lista;
 	int posActual;
+	int startNumber;
 
-	public LlamaArrayList()
+	public LlamaArrayList(int sN)
 	{
 		posActual=0;
-		lista = (T[]) new Object[100];
+		startNumber=sN;
+		lista = (T[]) new Object[startNumber];
 
 	}
 
 	@Override
-	public boolean addAlFinal(T elemento) {
+	public synchronized boolean addAlFinal(T elemento) {
 		agrandar();
 		lista[posActual]=elemento;
 		posActual++;
@@ -43,12 +45,13 @@ public class LlamaArrayList<T> implements Lista<T>, Serializable{
 	}
 
 	@Override
-	public boolean addAlPrincipio(T elemento) {
+	public synchronized boolean addAlPrincipio(T elemento) {
+		agrandar();
 		return add(0,elemento);
 	}
 
 	@Override
-	public boolean add(int pos, T elemento) throws IndexOutOfBoundsException {
+	public synchronized boolean add(int pos, T elemento) throws IndexOutOfBoundsException {
 		agrandar();
 		if(pos>posActual+1)
 			throw new IndexOutOfBoundsException();
@@ -61,7 +64,7 @@ public class LlamaArrayList<T> implements Lista<T>, Serializable{
 	}
 
 	@Override
-	public boolean add(T elementoI, T elementoAgregar) 
+	public synchronized boolean add(T elementoI, T elementoAgregar) 
 	{
 		agrandar();
 		int pos =0;
@@ -79,7 +82,7 @@ public class LlamaArrayList<T> implements Lista<T>, Serializable{
 	}
 
 	@Override
-	public void clear() {
+	public synchronized void clear() {
 		for(int i =0;i<posActual;i++)
 		{
 			lista[i]=null;
@@ -89,7 +92,7 @@ public class LlamaArrayList<T> implements Lista<T>, Serializable{
 	}
 
 	@Override
-	public boolean contains(T elemento) {
+	public synchronized boolean contains(T elemento) {
 
 		for (T t:lista)
 		{
@@ -102,7 +105,7 @@ public class LlamaArrayList<T> implements Lista<T>, Serializable{
 	}
 
 	@Override
-	public T buscar(T elemento) {
+	public synchronized T buscar(T elemento) {
 		for (T t:lista)
 		{
 			if(t.equals(elemento))
@@ -114,7 +117,7 @@ public class LlamaArrayList<T> implements Lista<T>, Serializable{
 	}
 
 	@Override
-	public T get(int pos) throws IndexOutOfBoundsException {
+	public synchronized T get(int pos) throws IndexOutOfBoundsException {
 		if(pos>posActual||pos<0)
 			throw new IndexOutOfBoundsException();
 		else
@@ -122,21 +125,21 @@ public class LlamaArrayList<T> implements Lista<T>, Serializable{
 	}
 
 	@Override
-	public T getLast() {
+	public synchronized T getLast() {
 		if(posActual!=0)
 			return lista[lista.length-1];
 		return null;
 	}
 
 	@Override
-	public T getFirst() {
+	public synchronized T getFirst() {
 		if(posActual!=0)
 			return lista[0];
 		return null;
 	}
 
 	@Override
-	public int indexOf(T elemento) {
+	public synchronized int indexOf(T elemento) {
 		int pos =0;
 		for(T t:lista)
 		{
@@ -150,7 +153,7 @@ public class LlamaArrayList<T> implements Lista<T>, Serializable{
 	}
 
 	@Override
-	public int lastIndexOf(T elemento) {
+	public synchronized int lastIndexOf(T elemento) {
 
 		for (int i = posActual-1; i >=0; i--) {
 			if(elemento.equals(lista[i]))
@@ -163,17 +166,17 @@ public class LlamaArrayList<T> implements Lista<T>, Serializable{
 	}
 
 	@Override
-	public boolean isEmpty() {
+	public synchronized boolean isEmpty() {
 		return (posActual==0);
 	}
 
 	@Override
-	public LlamaIterator<T> iterator() {
+	public synchronized LlamaIterator<T> iterator() {
 		return new MyIterator<T>(0);
 	}
 
 	@Override
-	public LlamaIterator<T> iterator(int pos) throws IndexOutOfBoundsException {
+	public synchronized LlamaIterator<T> iterator(int pos) throws IndexOutOfBoundsException {
 		return new MyIterator<T>(pos);
 	}
 	
@@ -217,7 +220,7 @@ public class LlamaArrayList<T> implements Lista<T>, Serializable{
 	}
 
 	@Override
-	public T remove(int pos) throws IndexOutOfBoundsException {
+	public synchronized T remove(int pos) throws IndexOutOfBoundsException {
 		if(pos>=posActual||pos<0)
 			throw new IndexOutOfBoundsException();
 		else
@@ -233,18 +236,18 @@ public class LlamaArrayList<T> implements Lista<T>, Serializable{
 	}
 
 	@Override
-	public T removeFirst() throws IndexOutOfBoundsException {
+	public synchronized T removeFirst() throws IndexOutOfBoundsException {
 		return remove(0);
 	}
 
 	@Override
-	public T removeLast() throws IndexOutOfBoundsException {
+	public synchronized T removeLast() throws IndexOutOfBoundsException {
 		return remove(posActual-1);
 	}
 
 	@Override
-	public T remove(T elemento) {
-		int pos =0;
+	public synchronized T remove(T elemento) {
+		int pos = 0;
 		for(T t: lista)
 		{
 			if(t.equals(elemento))
@@ -262,7 +265,7 @@ public class LlamaArrayList<T> implements Lista<T>, Serializable{
 	}
 
 	@Override
-	public T set(int pos, T elemento) throws IndexOutOfBoundsException {
+	public synchronized T set(int pos, T elemento) throws IndexOutOfBoundsException {
 		if(pos>=posActual||pos<0)
 			throw new IndexOutOfBoundsException();
 		else{
@@ -272,18 +275,18 @@ public class LlamaArrayList<T> implements Lista<T>, Serializable{
 	}
 
 	@Override
-	public int size() {
+	public synchronized int size() {
 		return posActual;
 	}
 
 	/**
 	 * Este método agranda el arreglo cuando sea necesario
 	 */
-	private void agrandar()
+	private synchronized void agrandar()
 	{
 		if(posActual==lista.length)
 		{
-			T[] temp = (T[]) new Object[lista.length+100];
+			T[] temp = (T[]) new Object[lista.length+startNumber];
 			System.arraycopy(lista, 0, temp, 0, lista.length);
 			lista = temp;
 		}

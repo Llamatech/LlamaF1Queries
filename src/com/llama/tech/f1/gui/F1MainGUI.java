@@ -29,10 +29,13 @@ import java.awt.EventQueue;
 import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.IOException;
+import java.util.Vector;
+
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+
 import be.pwnt.jflow.Configuration;
 import be.pwnt.jflow.Configuration.VerticalAlignment;
 import be.pwnt.jflow.JFlowPanel;
@@ -40,6 +43,7 @@ import be.pwnt.jflow.Shape;
 import be.pwnt.jflow.event.ShapeEvent;
 import be.pwnt.jflow.event.ShapeListener;
 import be.pwnt.jflow.shape.Picture;
+
 import com.llama.tech.f1.backbone.Carrera;
 import com.llama.tech.f1.backbone.Escuderia;
 import com.llama.tech.f1.backbone.F1;
@@ -66,6 +70,8 @@ public class F1MainGUI extends JFrame implements ShapeListener
 	private F1CircuitPositions f1CircuitPositions;
 	private F1ConstructorInfo f1ConstructorInfo;
 	private F1DriverInfoPanel f1DriverInfoPanel;
+	private boolean constructorsWindowAct;
+	private boolean searchWindowAct;
 	private int min;
 	private int max;
 
@@ -109,11 +115,10 @@ public class F1MainGUI extends JFrame implements ShapeListener
 				mundo = new F1(min, max);
 				System.out.println(min+":"+max);
 				
-				
 			}
 		} catch (Exception e2) {
 			// TODO Auto-generated catch block
-			//e2.printStackTrace();
+			e2.printStackTrace();
 			JOptionPane.showMessageDialog(this, "Ocurrió un error mientras se cargaban los archivos", "Error", JOptionPane.ERROR_MESSAGE);
 		}
 		 
@@ -277,7 +282,7 @@ public class F1MainGUI extends JFrame implements ShapeListener
 			String[] info = new String[infoCarreras.size()];
 			for(int i = 0; i < infoCarreras.size(); i++)
 			{
-				info[i] = infoCarreras.get(i).toString();
+				info[i] = infoCarreras.get(i).getUrlImagen();
 			}
 			
 			reloadJFlow(info);
@@ -289,19 +294,24 @@ public class F1MainGUI extends JFrame implements ShapeListener
 		
 	}
 	
-	public void reloadJFlow(String[] pilots) throws IOException
+	public void reloadJFlow(String[] circuits) throws IOException
 	{
-		File[] files = new File[pilots.length];
+		File[] files = new File[circuits.length];
 		int i = 0;
-		for(String pilot: pilots)
+		for(String circuit: circuits)
 		{
-			String loc = "./data/img/circuits/"+pilot.split(";")[pilot.split(";").length-1];
-			System.out.println(loc);
-			files[i] = new File(loc);
+			//String loc = "./data/img/circuits/"+pilot.split(";")[pilot.split(";").length-1];
+			System.out.println(circuit);
+			files[i] = new File(circuit);
 			i++;
 		}
 		Config config = new Config(files);
 		//Config c = config;
+		//config.shapeWidth = 0.1;
+		config.shapeRotation = Math.PI / 4;
+		//config.shapeSpacing = 0.333333333333333333333;
+		config.scrollScale = 1.0;
+		config.zoomScale = 3.0;
 		config.backgroundColor = new Color(238,238,238);
 		config.activeShapeBorderColor = Color.RED;
 		config.verticalShapeAlignment = VerticalAlignment.MIDDLE;

@@ -18,7 +18,6 @@
  * along with F1ChampionshipQueries. If not, see <http://www.gnu.org/licenses/>.
  */
 
-
 package com.llama.tech.f1.backbone;
 
 import java.io.Serializable;
@@ -29,13 +28,7 @@ import com.llama.tech.utils.list.LlamaIterator;
 import com.llama.tech.utils.list.Lista;
 import com.llama.tech.utils.list.ListaDoblementeEnlazada;
 
-
-
-
-
-
-public class Temporada implements Comparable<Temporada>, Serializable 
-{
+public class Temporada implements Comparable<Temporada>, Serializable {
 	/**
 	 * Constante para la serialización
 	 */
@@ -66,28 +59,36 @@ public class Temporada implements Comparable<Temporada>, Serializable
 	private int year;
 
 	/**
-	 * Este atributo representa si ya se cargaron los pilotos. Si hay un piloto borrado, es falso.
+	 * Este atributo representa si ya se cargaron los pilotos. Si hay un piloto
+	 * borrado, es falso.
 	 */
 	private boolean pilotosCargados;
 
 	/**
-	 * Este atributo representa si ya se cargaron las carreras. Si hay una carrera borrada, es falso.
+	 * Este atributo representa si ya se cargaron las carreras. Si hay una
+	 * carrera borrada, es falso.
 	 */
 	private boolean carrerasCargadas;
 
 	/**
-	 * Este atributo representa si ya se cargaron las escuderias. 
+	 * Este atributo representa si ya se cargaron las escuderias.
 	 */
 	private boolean escuderiasCargadas;
 
+	/**
+	 * El iterador de carreras
+	 */
 	private LlamaIterator<Carrera> itCarrera;
 
+	/**
+	 * El iterador de pilotos
+	 */
 	private LlamaIterator<Piloto> itPiloto;
 
+	/**
+	 * El iterador de escuderias
+	 */
 	private LlamaIterator<Escuderia> itEscuderia;
-
-
-
 
 	// -----------------------------------------------------------------
 	// Metodos Constructores
@@ -95,16 +96,17 @@ public class Temporada implements Comparable<Temporada>, Serializable
 
 	/**
 	 * Este es el metodo constructor de la temporada
-	 * @param anho -el año de la temporada
+	 * 
+	 * @param anho
+	 *            -el año de la temporada
 	 */
-	public Temporada(int anho)
-	{
-		year= anho;
-		pilotosCargados=false;
-		carrerasCargadas=false;
-		escuderiasCargadas= false;
-		pilotos= new LlamaArrayList<Piloto>();
-		escuderias = new LlamaArrayList<Escuderia>();
+	public Temporada(int anho) {
+		year = anho;
+		pilotosCargados = false;
+		carrerasCargadas = false;
+		escuderiasCargadas = false;
+		pilotos = new LlamaArrayList<Piloto>(60);
+		escuderias = new LlamaArrayList<Escuderia>(60);
 		carreras = new ListaDoblementeEnlazada<Carrera>();
 		itCarrera = carreras.iterator();
 		itPiloto = pilotos.iterator();
@@ -173,41 +175,49 @@ public class Temporada implements Comparable<Temporada>, Serializable
 
 	/**
 	 * Este metodo carga los pilotos de la temporada
-	 * @param infoPilotos informacion de los pilotos
+	 * 
+	 * @param infoPilotos
+	 *            informacion de los pilotos
 	 */
-	public void cargarPilotos(String[] infoPilotos)
-	{
-		if(!pilotosCargados){
-			for(String info:infoPilotos)
-			{
-				System.out.println("Loading: "+info);
-				if(info!=null)
-				{
-				String[] infoP = info.split(";");
-				Piloto pilot = new Piloto(infoP[1], infoP[2], infoP[3], infoP[4], infoP[6], 
-						Double.parseDouble(infoP[7]), Integer.parseInt(infoP[8]), 
-						infoP[9], infoP[0], infoP[5]);
-				
-				pilotos.addAlFinal(pilot);
-				
-//				sb.append(driverId);
-//				sb.append(";");
-//				sb.append(driver.getString("givenName"));
-//				sb.append(";");
-//				sb.append(driver.getString("familyName"));
-//				sb.append(";");
-//				sb.append(driver.getString("nationality"));
-//				sb.append(";");
-//				sb.append(driver.getString("dateOfBirth"));
-//				sb.append(";");
-//				sb.append(constructorId);
-//				sb.append(";");
-//				sb.append(constructorName);
-//				sb.append(";");
-//				sb.append(points);
-//				sb.append(";");
-//				sb.append(position);
-//				sb.append(";");
+	public void cargarPilotos(String[] infoPilotos) {
+		if (!pilotosCargados) {
+			for (String info : infoPilotos) {
+				System.out.println("Loading: " + info);
+				if (info != null) {
+					double points = 0.0;
+					int pos = -1;
+					String[] infoP = info.split(";");
+					if (!infoP[7].equals("null")) {
+						points = Double.parseDouble(infoP[7]);
+					}
+					if (!infoP[8].equals("null")) {
+						pos = Integer.parseInt(infoP[8]);
+					}
+
+					Piloto pilot = new Piloto(infoP[1], infoP[2], infoP[3],
+							infoP[4], infoP[6], points, pos, infoP[9],
+							infoP[0], infoP[5]);
+
+					pilotos.addAlFinal(pilot);
+
+					// sb.append(driverId);
+					// sb.append(";");
+					// sb.append(driver.getString("givenName"));
+					// sb.append(";");
+					// sb.append(driver.getString("familyName"));
+					// sb.append(";");
+					// sb.append(driver.getString("nationality"));
+					// sb.append(";");
+					// sb.append(driver.getString("dateOfBirth"));
+					// sb.append(";");
+					// sb.append(constructorId);
+					// sb.append(";");
+					// sb.append(constructorName);
+					// sb.append(";");
+					// sb.append(points);
+					// sb.append(";");
+					// sb.append(position);
+					// sb.append(";");
 				}
 			}
 		}
@@ -218,101 +228,101 @@ public class Temporada implements Comparable<Temporada>, Serializable
 	 * Este metodo carga las carreras de la temporada
 	 * @param infoCarreras informacion carreras
 	 */
-	public void cargarCarreras(String[] infoCarreras)
-	{
+	public void cargarCarreras(String[] infoCarreras) {
 		int pos = 0;
-		if(!carrerasCargadas){
-			for(String info:infoCarreras)
-			{
+		if (!carrerasCargadas) {
+			for (String info : infoCarreras) {
+				System.out.println("Loading:" + info);
 				String[] infoC = info.split(";");
-				
 
-								Carrera race = new Carrera(infoC[2], pos, infoC[4], infoC[5], 
-										                   infoC[0], infoC[6], infoC[7],
-										                   0 , infoC[8],infoC[1]);
-								carreras.addAlFinal(race);
+				Carrera race = new Carrera(infoC[2], pos, infoC[4], infoC[5],
+						infoC[0], infoC[6], infoC[7], 0, infoC[8], infoC[1]);
+				carreras.addAlFinal(race);
 
-				//				sb.append(circuitName);
-				//				sb.append(";");
-				//				sb.append(circuitId);
-				//				sb.append(";");
-				//				sb.append(raceName);
-				//				sb.append(";");
-				//				sb.append(round);
-				//				sb.append(";");
-				//				sb.append(date);
-				//				sb.append(";");
-				//				sb.append(time);
-				//				sb.append(";");
-				//				sb.append(locality);
-				//				sb.append(";");
-				//				sb.append(country);
-				//				sb.append(";");
-				//				sb.append(loc);
-			pos++;
+				// sb.append(circuitName);
+				// sb.append(";");
+				// sb.append(circuitId);
+				// sb.append(";");
+				// sb.append(raceName);
+				// sb.append(";");
+				// sb.append(round);
+				// sb.append(";");
+				// sb.append(date);
+				// sb.append(";");
+				// sb.append(time);
+				// sb.append(";");
+				// sb.append(locality);
+				// sb.append(";");
+				// sb.append(country);
+				// sb.append(";");
+				// sb.append(loc);
+				pos++;
 			}
 		}
 	}
 
 	/**
 	 * Este metodo carga las escudeias de la temporada
-	 * @param infoEscuderias informacion escuderias
+	 * 
+	 * @param infoEscuderias
+	 *            informacion escuderias
 	 */
-	public void cargarEscuderias(String[] infoEscuderias)
-	{
-		if(!escuderiasCargadas){
-			for(String info:infoEscuderias)
-			{
+	public void cargarEscuderias(String[] infoEscuderias) {
+		if (!escuderiasCargadas) {
+			for (String info : infoEscuderias) {
+				System.out.println("Loading: " + info);
 				String[] infoE = info.split(";");
 				int pos = 0;
 				int points = 0;
-				if(!infoE[3].equals("null"))
-				{
+				if (!infoE[3].equals("null")) {
 					pos = Integer.parseInt(infoE[3]);
 				}
-				if(!infoE[4].equals("null"))
-				{
+				if (!infoE[4].equals("null")) {
 					points = Integer.parseInt(infoE[4]);
 				}
-				Escuderia e = new Escuderia(infoE[5], infoE[1], infoE[2], 
-						                    pos, points, infoE[0]);
+				Escuderia e = new Escuderia(infoE[5], infoE[1], infoE[2], pos,
+						points, infoE[0]);
 				escuderias.addAlFinal(e);
-//				sb.append(constructorId);
-//				sb.append(";");
-//				sb.append(constructorName);
-//				sb.append(";");
-//				sb.append(constructorNationality);
-//				sb.append(";");
-//				sb.append(pos);
-//				sb.append(";");
-//				sb.append(points);
-//				sb.append(";");
-//				sb.append(loc);
-				
-				
-				//TODO
-				//				Escuderia escu = new Escuderia(pUrlLogo, pNombre, pPais, pPosFinal, pPuntos, pPilotos, pCarreras);
-				//				escuderias.addAlFinal(escu);
+				// sb.append(constructorId);
+				// sb.append(";");
+				// sb.append(constructorName);
+				// sb.append(";");
+				// sb.append(constructorNationality);
+				// sb.append(";");
+				// sb.append(pos);
+				// sb.append(";");
+				// sb.append(points);
+				// sb.append(";");
+				// sb.append(loc);
+
+				// TODO
+				// Escuderia escu = new Escuderia(pUrlLogo, pNombre, pPais,
+				// pPosFinal, pPuntos, pPilotos, pCarreras);
+				// escuderias.addAlFinal(escu);
 			}
 		}
 	}
 
-	public String[] darInfoEscuderias()
-	{
+	/**
+	 * Devuelva la informacion de las escuderias
+	 * @return info de las escuderias en String
+	 */
+	public String[] darInfoEscuderias() {
 		String[] ret = new String[escuderias.size()];
-		for(int i = 0; i < escuderias.size(); i++)
-		{
+		for (int i = 0; i < escuderias.size(); i++) {
 			Escuderia e = escuderias.get(i);
 			ret[i] = e.toString();
 		}
 		return ret;
 	}
 
-	public String[] darInfoCircuitos()
-	{
+	/**
+	 * Devuelva la informacion de las careras
+	 * @return info de las carreras en String
+	 */
+	public String[] darInfoCircuitos() {
 		String[] ret = new String[carreras.size()];
-		for(int i = 0; i < carreras.size(); i++)
-		{
+		for (int i = 0; i < carreras.size(); i++) {
 			Carrera c = carreras.get(i);
 			ret[i] = c.toString();
 		}
@@ -320,11 +330,13 @@ public class Temporada implements Comparable<Temporada>, Serializable
 		return ret;
 	}
 
-	public String[] darInfoPilotos()
-	{
+	/**
+	 * Devuelva la informacion de las pilotos
+	 * @return info de las pilotos en String
+	 */
+	public String[] darInfoPilotos() {
 		String[] ret = new String[pilotos.size()];
-		for(int i = 0; i < pilotos.size(); i++)
-		{
+		for (int i = 0; i < pilotos.size(); i++) {
 			Piloto p = pilotos.get(i);
 			ret[i] = p.toString();
 		}
@@ -332,75 +344,118 @@ public class Temporada implements Comparable<Temporada>, Serializable
 	}
 
 	@Override
-	public int compareTo(Temporada o) 
-	{
-		if(getYear() == o.getYear())
-		{
+	public int compareTo(Temporada o) {
+		if (getYear() == o.getYear()) {
 			return 0;
-		}
-		else if(getYear() > o.getYear())
-		{
+		} else if (getYear() > o.getYear()) {
 			return 1;
-		}
-		else
-		{
+		} else {
 			return -1;
 		}
 
 	}
 
-	public Carrera darSiguienteCarrera() throws Exception
-	{
-		if(itCarrera.hasNext())
+	/**
+	 * Da la siguiente carrera
+	 * @return la siguiente carrera
+	 * @throws Exception si no hay siguiente
+	 */
+	public Carrera darSiguienteCarrera() throws Exception {
+		if (itCarrera.hasNext())
 			return itCarrera.next();
 		else
 			throw new Exception("No hay siguiente");
 	}
 
-	public Carrera darAnteriorCarrera() throws Exception
-	{
-		if(itCarrera.hasPrevious())
+	/**
+	 * Da la anterior carrera
+	 * @return la anterior carrera
+	 * @throws Exception si no hay anterior
+	 */
+	public Carrera darAnteriorCarrera() throws Exception {
+		if (itCarrera.hasPrevious())
 			return itCarrera.previous();
 		else
 			throw new Exception("No hay anterior");
 	}
 
-	public Piloto darSiguientePiloto() throws Exception
-	{
-		if(itPiloto.hasNext())
+	/**
+	 * Da el siguiente piloto
+	 * @return el siguiente piloto
+	 * @throws Exception si no hay siguiente
+	 */
+	public Piloto darSiguientePiloto() throws Exception {
+		if (itPiloto.hasNext())
 			return itPiloto.next();
 		else
 			throw new Exception("No hay siguiente");
 	}
 
-	public Piloto darAnteriorPiloto() throws Exception
-	{
-		if(itPiloto.hasPrevious())
+	/**
+	 * Da el anterior piloto
+	 * @return el anterior piloto
+	 * @throws Exception si no hay anterior
+	 */
+	public Piloto darAnteriorPiloto() throws Exception {
+		if (itPiloto.hasPrevious())
 			return itPiloto.previous();
 		else
 			throw new Exception("No hay anterior");
 	}
 
-	public Escuderia darSiguienteEscuderia() throws Exception
-	{
-		if(itEscuderia.hasNext())
+	/**
+	 * Da la siguiente escuderia
+	 * @return la siguiente escuderia
+	 * @throws Exception si no hay siguiente
+	 */
+	public Escuderia darSiguienteEscuderia() throws Exception {
+		if (itEscuderia.hasNext())
 			return itEscuderia.next();
 		else
 			throw new Exception("No hay siguiente");
 
 	}
 
-	public Escuderia darAnteriorEscuderia() throws Exception
-	{
-		if(itEscuderia.hasPrevious())
+	/**
+	 * Da la anterior escuderia
+	 * @return la anterior escuderia
+	 * @throws Exception si no hay siguiente
+	 */
+	public Escuderia darAnteriorEscuderia() throws Exception {
+		if (itEscuderia.hasPrevious())
 			return itEscuderia.previous();
 		else
 			throw new Exception("No hay anterior");
 	}
 
-
-
-
-
-
+	/**
+	 * Busca el piloto recibido por parametro en la lista de pilotos
+	 * @param apellido el apellido del piloto a buscar
+	 * @return piloto buscado o null si no existe
+	 */
+	public Piloto buscarPiloto(String apellido)
+	{
+		Piloto piloto = null;
+		
+		LlamaIterator<Piloto> it =pilotos.iterator();
+		
+		while(it.hasNext()&&piloto==null)
+		{
+			Piloto actual = it.next();
+			if(apellido.equals(actual.getApellido()))
+				piloto=actual;
+		}
+		return piloto;
+	}
+	
+	/**
+	 * Quita la información del piloto que recibe por parámetro
+	 * @param apellido delp iloto a borrar
+	 * @return piloto borrado o null si no existe
+	 */
+	public Piloto removePiloto(String apellido){
+		
+		Piloto pil = new Piloto("", apellido, "","", "", 0, 0, "", "", "");
+		return pilotos.remove(pil); 
+	}
 }

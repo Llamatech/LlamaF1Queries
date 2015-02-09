@@ -35,6 +35,8 @@ import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -338,7 +340,7 @@ public class Query
 				{
 					if(f.getName().contains(circuitId))
 					{
-						loc = f.getName();
+						loc = IMG_ROOT+"circuits/"+f.getName();
 						imgExists = true;
 						break;
 					}
@@ -454,7 +456,7 @@ public class Query
 					{
 						if(f.getName().contains(constructorId))
 						{
-							loc = f.getName();
+							loc = IMG_ROOT+"constructors/"+f.getName();
 							imgExists = true;
 							break;
 						}
@@ -463,6 +465,10 @@ public class Query
 				if(!imgExists)
 					loc = ImageContent.getDriverConstructorImageContent(url, "./data/img/constructors/"+constructorId);
 				
+				if(constructorName.contains("&amp;"))
+				{
+					constructorName.replaceAll("&amp;", "&");
+				}
 				
 				sb.append(constructorId);
 				sb.append(";");
@@ -508,7 +514,7 @@ public class Query
 					{
 						if(f.getName().contains(constructorId))
 						{
-							loc = f.getName();
+							loc = IMG_ROOT+"constructors/"+f.getName();
 							imgExists = true;
 							break;
 						}
@@ -516,6 +522,11 @@ public class Query
 				}
 				if(!imgExists)
 					loc = ImageContent.getDriverConstructorImageContent(url, "./data/img/constructors/"+constructorId);
+				
+				if(constructorName.contains("&amp;"))
+				{
+					constructorName = constructorName.replaceAll("&amp;", "&");
+				}
 				
 				sb.append(constructorId);
 				sb.append(";");

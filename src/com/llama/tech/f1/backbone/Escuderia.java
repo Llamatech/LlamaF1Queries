@@ -26,7 +26,7 @@ import java.io.Serializable;
 /**
  * Esta es la clase que modela las escuderias (contructores)
  */
-public class Escuderia implements Serializable {
+public class Escuderia implements Serializable, Comparable<Escuderia> {
 	
 	/**
 	 * 
@@ -188,5 +188,11 @@ public class Escuderia implements Serializable {
 
 	public void setId(String id) {
 		this.id = id;
+	}
+
+	@Override
+	public int compareTo(Escuderia o) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 }

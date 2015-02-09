@@ -223,13 +223,14 @@ public class F1DriverInfoPanel extends JPanel implements ActionListener{
 		textField_5.setText(piloto.getPosFinal()+"");
 //		textField_7
 		textField_6.setText(piloto.getPosicion()+"");
-//		BufferedImage img = null;
-//		try {
-//			System.out.println(piloto.getUrlImagen());
-//		    img = ImageIO.read(new File(piloto.getUrlImagen()));
-//		} catch (IOException e) {
-//		    e.printStackTrace();
-//		}
+		
+		BufferedImage img = null;
+		try {
+			System.out.println(piloto.getUrlImagen());
+		    img = ImageIO.read(new File(piloto.getUrlImagen()));
+		} catch (IOException e) {
+		    e.printStackTrace();
+		}
 //		BufferedImage dimg = (BufferedImage) img.getScaledInstance(lblImage.getWidth(), lblImage.getHeight(),
 //		        Image.SCALE_SMOOTH);
 ////		textField_8
