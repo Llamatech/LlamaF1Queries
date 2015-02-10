@@ -22,6 +22,7 @@ package com.llama.tech.f1.backbone;
 
 import java.io.Serializable;
 
+import com.llama.tech.utils.list.IteradorListaDoblementeEnlazada;
 import com.llama.tech.utils.list.LlamaArrayList;
 import com.llama.tech.utils.list.LlamaArrayList.MyIterator;
 import com.llama.tech.utils.list.LlamaIterator;
@@ -241,8 +242,12 @@ public class Temporada implements Comparable<Temporada>, Serializable {
 			for (String info : infoCarreras) {
 				System.out.println("Loading:" + info);
 				String[] infoC = info.split(";");
+				
+				String[] infoPos = infoC[9].split("|");
+				
+				//TODO armar la lista de pilotos buscando por su apellido. Pasarla por parámetro.
 
-				Carrera race = new Carrera(infoC[2], pos, infoC[4], infoC[5],
+				Carrera race = new Carrera(infoC[2], infoPos, pos, infoC[4], infoC[5],
 						infoC[0], infoC[6], infoC[7], 0, infoC[8], infoC[1]);
 				carreras.addAlFinal(race);
 
@@ -263,6 +268,8 @@ public class Temporada implements Comparable<Temporada>, Serializable {
 				// sb.append(country);
 				// sb.append(";");
 				// sb.append(loc);
+				//URL;|pos1:pilotid:name:lastName:constructorId:pointsWon:(Wins?)|;|pos2: ...|; ... ; |Posn: ... 
+				
 				pos++;
 			}
 		}
@@ -464,5 +471,102 @@ public class Temporada implements Comparable<Temporada>, Serializable {
 		
 		Piloto pil = new Piloto("", apellido, "","", "", 0, 0, "", "", "","");
 		return pilotos.remove(pil); 
+	}
+	
+	public Lista<Carrera> buscarCarrerasDespuesDeFecha(String pfecha)
+	{
+		Lista<Carrera> mandar = new ListaDoblementeEnlazada<Carrera>();
+		LlamaIterator<Carrera> it = carreras.iterator();
+		int pos =0;
+		boolean encontre = false;
+		
+		while(it.hasNext()&&!encontre)
+		{
+			Carrera next = it.next();
+			String[] fechaBusq = pfecha.split("-");
+			String[] fechaAct = next.getFecha().split("-");
+			
+			//TODO poner bien formarto. Las carreras están ordenadas por fecha? Si no, hay que hacer algoritmo de ordenamiento
+			
+			int diaBusq = Integer.parseInt(fechaBusq[2]);
+			int diaAct = Integer.parseInt(fechaAct[2]);
+			
+			int mesBusq = Integer.parseInt(fechaBusq[1]);
+			int mesAct = Integer.parseInt(fechaAct[1]);
+			
+//			boolean encontre = false;
+//			int incio =0;
+//			int fin = carreras.size()-1;
+			//No puedo hacer búsqueda binaria *llora* puedo soñar
+			
+			if(mesBusq==mesAct)
+			{
+				if(diaBusq==diaAct)
+				{
+					encontre = true;
+				}
+				else if(diaAct>diaBusq)
+				{
+					encontre=true;
+				}
+			}
+			else if(mesAct>mesBusq)
+			{
+				encontre=true;
+			}
+			
+			it = carreras.iterator(pos);
+			
+			while(it.hasNext())
+			{
+				mandar.addAlFinal(it.next());
+			}
+		}
+		
+		return mandar; //Si devuelvo lista vacía en F1 tengo que preguntar a siguiente año
+	}
+	
+	public Lista<Carrera> buscarCarrerasAntesDeFecha(String pfecha)
+	{
+		Lista<Carrera> mandar = new ListaDoblementeEnlazada<Carrera>();
+		LlamaIterator<Carrera> it = carreras.iterator();
+		int pos =0;
+		boolean encontre = false;
+		
+		while(it.hasNext()&&!encontre)
+		{
+			Carrera next = it.next();
+			String[] fechaBusq = pfecha.split("-");
+			String[] fechaAct = next.getFecha().split("-");
+			
+			//TODO poner bien formarto. Las carreras están ordenadas por fecha? Si no, hay que hacer algoritmo de ordenamiento
+			
+			int diaBusq = Integer.parseInt(fechaBusq[1]);
+			int diaAct = Integer.parseInt(fechaAct[1]);
+			
+			int mesBusq = Integer.parseInt(fechaBusq[0]);
+			int mesAct = Integer.parseInt(fechaAct[0]);
+			
+//			boolean encontre = false;
+//			int incio =0;
+//			int fin = carreras.size()-1;
+			//No puedo hacer búsqueda binaria *llora* puedo soñar
+			
+			mandar.addAlFinal(next);
+			
+			if(mesBusq>mesAct)
+			{
+				if(diaBusq>diaAct)
+				{
+					encontre = true;
+				}
+			}
+			
+			
+			it = carreras.iterator(pos);
+
+		}
+		
+		return mandar; //Si esta vacía ignoro. 
 	}
 }

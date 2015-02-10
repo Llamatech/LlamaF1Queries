@@ -22,6 +22,8 @@ package com.llama.tech.f1.backbone;
 
 import java.io.Serializable;
 
+import com.llama.tech.utils.list.Lista;
+
 
 /**
  * Esta es la clase que modela la carrera 
@@ -92,7 +94,8 @@ public class Carrera implements Comparable<Carrera>, Serializable
      * Este es el atributo que representa el id de la carrera
      */
     private String carreraId;
-	
+    
+    private Lista<Piloto> pilotos;	
     // -----------------------------------------------------------------
  	// Metodos Construcotres
  	// -----------------------------------------------------------------
@@ -110,8 +113,9 @@ public class Carrera implements Comparable<Carrera>, Serializable
      * @param pDuracion
      * @param pUrlImagen
      * @param pCarreraId;
+     * @param pPilotos
      */
-    public Carrera(String pNombre, int pNumeroCarrera, String pFecha, String pHora, String pCircuito, String pLugar, String pPais, int pDuracion, String pUrlImagen, String pCarreraId )
+    public Carrera(String pNombre,String[] pPosiciones, int pNumeroCarrera, String pFecha, String pHora, String pCircuito, String pLugar, String pPais, int pDuracion, String pUrlImagen, String pCarreraId, Lista<Piloto> pPilotos )
     {
     	nombre = pNombre;
     	numeroCarrera = pNumeroCarrera;
@@ -120,9 +124,12 @@ public class Carrera implements Comparable<Carrera>, Serializable
     	circuito = pCircuito;
     	lugar = pLugar;
     	pais = pPais;
-//    	posiciones = pPosiciones;
+    	posiciones = pPosiciones;
     	urlImagen = pUrlImagen;
     	carreraId = pCarreraId;
+    	pilotos = pPilotos;
+    	
+    	//TODO : hacer la lista de pilotos partiendo de lasp osiciones: buscarlos por su id/apellido y añadirlos.
     	
     }
     

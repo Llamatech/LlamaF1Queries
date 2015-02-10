@@ -37,7 +37,7 @@ public interface IF1 extends Serializable
 	
 	public String[] getConstructorInfo(String name);
 	
-	public String[][] getHistoricalSeasonInfo(String initialDate, String finalDate);
+	public Lista<Carrera> getHistoricalSeasonInfo(String initialDate, String finalDate) throws Exception;
 	
 	public boolean deletePilotRecord(String name);
 	

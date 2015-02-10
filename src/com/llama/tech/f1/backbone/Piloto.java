@@ -25,6 +25,7 @@ import java.io.Serializable;
 import java.util.Arrays;
 
 import com.llama.tech.utils.list.Lista;
+import com.llama.tech.utils.list.LlamaArrayList;
 
 /**
  * Esta es la clase que modela a los pilotos
@@ -113,6 +114,20 @@ public class Piloto implements Serializable, Comparable<Piloto>
 	// Metodos Constructores
 	// -----------------------------------------------------------------
 
+	/**
+	 * Este es el constructor de la clase piloto. Crea un piloto con todos sus atributos.
+	 * @param nombre Nombre de pila del piloto
+	 * @param apellido Apellido del piloto	
+	 * @param nacionalidad Nacionalidad del piloto	
+	 * @param fechaNac Fecha de naciemiento del piloto	
+	 * @param escuderia Escudería a la que pertenecer el piloto
+	 * @param puntos Puntos acumulados del piloto en la temporada
+	 * @param posFinal
+	 * @param urlImagen
+	 * @param driverId
+	 * @param escuderiaId
+	 * @param pInfoCarreras
+	 */
 	public Piloto(String nombre, String apellido, String nacionalidad,
 			String fechaNac, String escuderia, double puntos, int posFinal,
 			String urlImagen, String driverId, String escuderiaId, String pInfoCarreras) 
@@ -127,6 +142,7 @@ public class Piloto implements Serializable, Comparable<Piloto>
 		this.urlImagen = urlImagen;
 		this.driverId = driverId;
 		this.escuderiaId = escuderiaId;
+		infoCarreras = new LlamaArrayList<InfoCarrera>(20);
 
 		String [] infoC = pInfoCarreras.split("|");
 
@@ -135,9 +151,14 @@ public class Piloto implements Serializable, Comparable<Piloto>
 			//TODO No te burles, hay demasiados signos por los cuales dividir TODO TODO TODO TODO! Ackermann(TODO, TODO)
 			if(infoC[i]!=null) 
 			{
-//				String [] iC=infoC[i].split("[$]");
-//				String idC = iC[0];
-//				String [] tiempos = Arrays.copyOfRange(iC, 1, iC.length-1);
+				String [] iCa=infoC[i].split("[$]");
+				String[] iC= iCa[0].split("%");
+				String idC = iC[0];
+				String [] tiempos = Arrays.copyOfRange(iC, 1, iC.length-1);
+				String[] vueltas = iCa[1].split("%");
+				InfoCarrera info = new InfoCarrera(idC, vueltas, tiempos);
+				infoCarreras.addAlFinal(info);
+				
 				
 			}
 		}

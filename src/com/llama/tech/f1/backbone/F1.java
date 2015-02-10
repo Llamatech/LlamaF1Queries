@@ -27,6 +27,8 @@ import java.util.Arrays;
 
 import com.llama.tech.f1.query.Query;
 import com.llama.tech.utils.list.Lista;
+import com.llama.tech.utils.list.LlamaArrayList;
+import com.llama.tech.utils.list.LlamaIterator;
 
 /**
  * Esta es la clase principal del mundo y modela la base de datos de fórmula1
@@ -51,7 +53,7 @@ public class F1 implements IF1, Serializable
 
 	public F1()
 	{
-		
+
 	}
 	public F1(int pMin, int pMax) throws Exception
 	{
@@ -110,10 +112,56 @@ public class F1 implements IF1, Serializable
 	}
 
 	@Override
-	public String[][] getHistoricalSeasonInfo(String initialDate,
-			String finalDate) {
-		// TODO Auto-generated method stub
-		return null;
+	public Lista<Carrera> getHistoricalSeasonInfo(String initialDate,
+			String finalDate) throws Exception {
+		Lista<Carrera> mandar = new LlamaArrayList<Carrera>(60);
+
+		int anho1= Integer.parseInt(initialDate.split("-")[0]);
+		int anho2= Integer.parseInt(finalDate.split("-")[0]);
+
+		boolean vacio= true;
+
+		try{
+			Lista<Carrera> princ=null;
+			while(vacio)
+			{
+				 princ=temporadas[anho1-min].buscarCarrerasDespuesDeFecha(initialDate);
+				if(!princ.isEmpty())
+				{
+					vacio=false;
+					anho1++;
+				}
+			}
+			Lista<Carrera> fin= temporadas[anho2-min].buscarCarrerasAntesDeFecha(finalDate);
+			
+			LlamaIterator<Carrera> it =princ.iterator();
+			while(it.hasNext())
+			{
+				mandar.addAlFinal(it.next());
+			}
+			
+			
+			for(int i = anho1-min+1;i<anho2-min;i++)
+			{
+				it=temporadas[i].getCarreras().iterator();
+				while(it.hasNext())
+				{
+					mandar.addAlFinal(it.next());
+				}
+			}
+			
+			it=fin.iterator();
+			while(it.hasNext())
+			{
+				mandar.addAlFinal(it.next());
+			}
+		}
+		catch(IndexOutOfBoundsException e)
+		{
+			throw new Exception("no hay resultados disponibles");
+		}
+
+		return mandar;
 	}
 
 	public void cargarTemporadas() throws IOException 
@@ -159,9 +207,9 @@ public class F1 implements IF1, Serializable
 	@Override
 	public void cargar(int anho) throws Exception {
 		// TODO Auto-generated method stub
+		cargarPilotosTemporada(anho);
 		cargarCarrerasTemporada(anho);
 		cargarEscuderiasTemporada(anho);
-		cargarPilotosTemporada(anho);
 
 	}
 
@@ -220,13 +268,13 @@ public class F1 implements IF1, Serializable
 	{
 		return temporadas[anho-min].darSiguienteEscuderia();
 	}
-	
+
 	public Temporada darTemporada(int anho)
 	{
 		System.out.println(anho-min + " "+ temporadas.length);
 		return temporadas[anho-min];
 	}
-	
+
 	public Temporada[] darTemporadas()
 	{
 		return temporadas;
