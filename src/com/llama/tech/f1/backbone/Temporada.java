@@ -194,12 +194,13 @@ public class Temporada implements Comparable<Temporada>, Serializable {
 					if (!infoP[8].equals("null")) {
 						pos = Integer.parseInt(infoP[8]);
 					}
-					
+
 
 					Piloto pilot = new Piloto(infoP[1], infoP[2], infoP[3],
 							infoP[4], infoP[6], points, pos, infoP[9],
-							infoP[0], infoP[5],infoP[10]);
+							infoP[0], infoP[5],Integer.parseInt(infoP[10]),infoP[11]);
 
+					System.out.println(pilotos.size());
 					pilotos.addAlFinal(pilot);
 
 					// sb.append(driverId);
@@ -220,12 +221,15 @@ public class Temporada implements Comparable<Temporada>, Serializable {
 					// sb.append(";");
 					// sb.append(position);
 					// sb.append(";");
-//					sb.append(loc);
-//					sb.append(";");
-//					drivers[i] = sb.toString();
-//					sb.setLength(0);
-//					System.out.println(drivers[i]);
-//					
+					//					sb.append(loc);
+					//					sb.append(";");
+					//					drivers[i] = sb.toString();
+					//					sb.setLength(0);
+					//					System.out.println(drivers[i]);
+
+
+					//					nombre; ... ; URL;total;carrera1id%t1%t2%...%tn$"vuelta:t%vuelta2:t%vueltan:tn|
+					//					"carrera2id%..."%...|. 
 				}
 			}
 		}
@@ -237,18 +241,37 @@ public class Temporada implements Comparable<Temporada>, Serializable {
 	 * @param infoCarreras informacion carreras
 	 */
 	public void cargarCarreras(String[] infoCarreras) {
-		int pos = 0;
+		int pos = 1;
 		if (!carrerasCargadas) {
 			for (String info : infoCarreras) {
 				System.out.println("Loading:" + info);
 				String[] infoC = info.split(";");
-				
-				String[] infoPos = infoC[9].split("|");
-				
+
+				String[] infoPos = infoC[9].split("[|]");
+
+				Lista<Piloto> pPilotos = new LlamaArrayList<Piloto>(10);
+
+				for(String pil:infoPos)
+				{
+
+					System.out.println(pil);
+					String [] infoPil = pil.split("[:]");
+					Piloto a = buscarPilotoBinario(infoPil[2]);
+					a.setPuntosInfoCarrera(pos, Double.parseDouble(infoPil[3]));
+					pPilotos.addAlFinal(a);
+
+				}
+
+				//URL;
+				//pos1:total|pilotid:lastName:points|pos2: ...| ...  |Posn: ...
+
+				//URL;total|null
+				//
+
 				//TODO armar la lista de pilotos buscando por su apellido. Pasarla por parámetro.
 
 				Carrera race = new Carrera(infoC[2], infoPos, pos, infoC[4], infoC[5],
-						infoC[0], infoC[6], infoC[7], 0, infoC[8], infoC[1]);
+						infoC[0], infoC[6], infoC[7], 0, infoC[8], infoC[1],pPilotos);
 				carreras.addAlFinal(race);
 
 				// sb.append(circuitName);
@@ -268,8 +291,8 @@ public class Temporada implements Comparable<Temporada>, Serializable {
 				// sb.append(country);
 				// sb.append(";");
 				// sb.append(loc);
-				//URL;|pos1:pilotid:name:lastName:constructorId:pointsWon:(Wins?)|;|pos2: ...|; ... ; |Posn: ... 
-				
+
+
 				pos++;
 			}
 		}
@@ -450,9 +473,9 @@ public class Temporada implements Comparable<Temporada>, Serializable {
 	public Piloto buscarPiloto(String apellido)
 	{
 		Piloto piloto = null;
-		
+
 		LlamaIterator<Piloto> it =pilotos.iterator();
-		
+
 		while(it.hasNext()&&piloto==null)
 		{
 			Piloto actual = it.next();
@@ -461,44 +484,44 @@ public class Temporada implements Comparable<Temporada>, Serializable {
 		}
 		return piloto;
 	}
-	
+
 	/**
 	 * Quita la información del piloto que recibe por parámetro
 	 * @param apellido delp iloto a borrar
 	 * @return piloto borrado o null si no existe
 	 */
 	public Piloto removePiloto(String apellido){
-		
-		Piloto pil = new Piloto("", apellido, "","", "", 0, 0, "", "", "","");
+
+		Piloto pil = new Piloto("", apellido, "", "", "", 0, 0, "", "", "", 0, "");
 		return pilotos.remove(pil); 
 	}
-	
+
 	public Lista<Carrera> buscarCarrerasDespuesDeFecha(String pfecha)
 	{
 		Lista<Carrera> mandar = new ListaDoblementeEnlazada<Carrera>();
 		LlamaIterator<Carrera> it = carreras.iterator();
 		int pos =0;
 		boolean encontre = false;
-		
+
 		while(it.hasNext()&&!encontre)
 		{
 			Carrera next = it.next();
 			String[] fechaBusq = pfecha.split("-");
 			String[] fechaAct = next.getFecha().split("-");
-			
+
 			//TODO poner bien formarto. Las carreras están ordenadas por fecha? Si no, hay que hacer algoritmo de ordenamiento
-			
+
 			int diaBusq = Integer.parseInt(fechaBusq[2]);
 			int diaAct = Integer.parseInt(fechaAct[2]);
-			
+
 			int mesBusq = Integer.parseInt(fechaBusq[1]);
 			int mesAct = Integer.parseInt(fechaAct[1]);
-			
-//			boolean encontre = false;
-//			int incio =0;
-//			int fin = carreras.size()-1;
+
+			//			boolean encontre = false;
+			//			int incio =0;
+			//			int fin = carreras.size()-1;
 			//No puedo hacer búsqueda binaria *llora* puedo soñar
-			
+
 			if(mesBusq==mesAct)
 			{
 				if(diaBusq==diaAct)
@@ -514,46 +537,46 @@ public class Temporada implements Comparable<Temporada>, Serializable {
 			{
 				encontre=true;
 			}
-			
+
 			it = carreras.iterator(pos);
-			
+
 			while(it.hasNext())
 			{
 				mandar.addAlFinal(it.next());
 			}
 		}
-		
+
 		return mandar; //Si devuelvo lista vacía en F1 tengo que preguntar a siguiente año
 	}
-	
+
 	public Lista<Carrera> buscarCarrerasAntesDeFecha(String pfecha)
 	{
 		Lista<Carrera> mandar = new ListaDoblementeEnlazada<Carrera>();
 		LlamaIterator<Carrera> it = carreras.iterator();
 		int pos =0;
 		boolean encontre = false;
-		
+
 		while(it.hasNext()&&!encontre)
 		{
 			Carrera next = it.next();
 			String[] fechaBusq = pfecha.split("-");
 			String[] fechaAct = next.getFecha().split("-");
-			
+
 			//TODO poner bien formarto. Las carreras están ordenadas por fecha? Si no, hay que hacer algoritmo de ordenamiento
-			
+
 			int diaBusq = Integer.parseInt(fechaBusq[1]);
 			int diaAct = Integer.parseInt(fechaAct[1]);
-			
+
 			int mesBusq = Integer.parseInt(fechaBusq[0]);
 			int mesAct = Integer.parseInt(fechaAct[0]);
-			
-//			boolean encontre = false;
-//			int incio =0;
-//			int fin = carreras.size()-1;
+
+			//			boolean encontre = false;
+			//			int incio =0;
+			//			int fin = carreras.size()-1;
 			//No puedo hacer búsqueda binaria *llora* puedo soñar
-			
+
 			mandar.addAlFinal(next);
-			
+
 			if(mesBusq>mesAct)
 			{
 				if(diaBusq>diaAct)
@@ -561,12 +584,88 @@ public class Temporada implements Comparable<Temporada>, Serializable {
 					encontre = true;
 				}
 			}
-			
-			
+
+
 			it = carreras.iterator(pos);
 
 		}
-		
+
 		return mandar; //Si esta vacía ignoro. 
 	}
+
+	public Piloto buscarPilotoBinario(String pApellido)
+	{
+		Piloto param = new Piloto("", pApellido, "", "", "", 0, 0,"", "", "", 0,"");
+		Piloto buscado = null;
+
+		int inicio =0;
+		int fin= pilotos.size()-1;
+		boolean encontre = false;
+
+		while(inicio<=fin&&!encontre)
+		{
+			int medio=(inicio+fin)/2;
+			if(pilotos.get(medio).compareTo(param)==0)
+			{
+				encontre = true;
+				buscado = pilotos.get(medio);
+			}
+			else if(pilotos.get(medio).compareTo(param)<0)
+			{
+				inicio = medio+1;
+			}
+			else
+			{
+				fin=medio-1;
+			}
+		}
+
+
+		return buscado;
+	}
+
+	public Escuderia buscarEscuderiaBinario(String pNombre)
+	{
+		Escuderia param = new Escuderia("", pNombre, "", 0, 0, "");
+		Escuderia buscado = null;
+
+		int inicio =0;
+		int fin= escuderias.size()-1;
+		boolean encontre = false;
+
+		while(inicio<=fin&&!encontre)
+		{
+			int medio=(inicio+fin)/2;
+			if(escuderias.get(medio).compareTo(param)==0)
+			{
+				encontre = true;
+			}
+			else if(escuderias.get(medio).compareTo(param)<0)
+			{
+				inicio = medio+1;
+			}
+			else
+			{
+				fin=medio-1;
+			}
+		}
+
+
+		return buscado;
+	}
+
+	public void eliminarPiloto(String pApellido)
+	{
+		pilotos.remove(new Piloto("", pApellido, "", "", "", 0, 0, "", "", "", 0, ""));
+		for(int i=0; i< carreras.size();i++)
+		{
+			carreras.get(i).eliminarPiloto(pApellido);
+		}
+	}
+
+	public void eliminarEscuderia(String pNombre)
+	{
+		escuderias.remove(new Escuderia("", pNombre, "", 0, 0, ""));
+	}
+
 }

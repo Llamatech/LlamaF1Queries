@@ -279,6 +279,14 @@ public class F1 implements IF1, Serializable
 	{
 		return temporadas;
 	}
+	@Override
+	public Piloto buscarPiloto(int anho, String pApellido) {
+		return temporadas[anho-min].buscarPilotoBinario(pApellido);
+	}
+	@Override
+	public Escuderia buscarEscuderia(int anho, String pNombre) {
+		return temporadas[anho-min].buscarEscuderiaBinario(pNombre);
+	}
 
 
 }

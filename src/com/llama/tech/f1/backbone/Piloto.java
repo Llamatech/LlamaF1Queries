@@ -107,7 +107,12 @@ public class Piloto implements Serializable, Comparable<Piloto>
 	 */
 	private String escuderiaId;
 
+	/**
+	 * Este es el atributo que 
+	 */
 	private Lista<InfoCarrera> infoCarreras;
+
+	private int totalCarreras;
 
 
 	// -----------------------------------------------------------------
@@ -127,10 +132,11 @@ public class Piloto implements Serializable, Comparable<Piloto>
 	 * @param driverId
 	 * @param escuderiaId
 	 * @param pInfoCarreras
+	 * @param pTotalCarreras
 	 */
 	public Piloto(String nombre, String apellido, String nacionalidad,
 			String fechaNac, String escuderia, double puntos, int posFinal,
-			String urlImagen, String driverId, String escuderiaId, String pInfoCarreras) 
+			String urlImagen, String driverId, String escuderiaId, int pTotalCarreras, String pInfoCarreras) 
 	{
 		this.nombre = nombre;
 		this.apellido = apellido;
@@ -143,27 +149,40 @@ public class Piloto implements Serializable, Comparable<Piloto>
 		this.driverId = driverId;
 		this.escuderiaId = escuderiaId;
 		infoCarreras = new LlamaArrayList<InfoCarrera>(20);
+		totalCarreras=pTotalCarreras;
 
 		String [] infoC = pInfoCarreras.split("|");
 
-		for(int i=0; i<infoC.length;i++)
+		if(pInfoCarreras.equals("-1"))
 		{
-			//TODO No te burles, hay demasiados signos por los cuales dividir TODO TODO TODO TODO! Ackermann(TODO, TODO)
-			if(infoC[i]!=null) 
+			for(int i=0; i<infoC.length;i++)
 			{
-				String [] iCa=infoC[i].split("[$]");
-				String[] iC= iCa[0].split("%");
-				String idC = iC[0];
-				String [] tiempos = Arrays.copyOfRange(iC, 1, iC.length-1);
-				String[] vueltas = iCa[1].split("%");
-				InfoCarrera info = new InfoCarrera(idC, vueltas, tiempos);
-				infoCarreras.addAlFinal(info);
-				
-				
+				//TODO No te burles, hay demasiados signos por los cuales dividir TODO TODO TODO TODO! Ackermann(TODO, TODO)
+				if(infoC[i]!=null) 
+				{
+					String [] iCa=infoC[i].split("[$]");
+					String[] iC= iCa[0].split("%");
+					String idC = iC[0];
+					String [] tiempos = Arrays.copyOfRange(iC, 1, iC.length-1);
+					String[] vueltas = iCa[1].split("%");
+					InfoCarrera info = new InfoCarrera(idC, vueltas, tiempos);
+					infoCarreras.addAlFinal(info);
+
+
+				}
 			}
 		}
-//		nombre; ... ; URL; |"carrera1id%t1%t2%...%tn"$"vuelta:t%vuelta2:t%vueltan:tn" |
-//		"carrera2id%..."%...|;. 
+		else
+		{
+			for(int i=0;i<totalCarreras;i++)
+			{
+				infoCarreras.addAlFinal(new InfoCarrera());
+			}
+		}
+		
+		
+		//		nombre; ... ; URL;"carrera1id%t1%t2%...%tn"$"vuelta:t%vuelta2:t%vueltan:tn" |
+		//		"carrera2id%..."%...|. 
 	}
 
 
@@ -379,6 +398,14 @@ public class Piloto implements Serializable, Comparable<Piloto>
 	{
 		return apellido.compareTo(o.getApellido());
 	}
+
+	public void setPuntosInfoCarrera(int numCarrera, double points)
+	{
+		infoCarreras.get(numCarrera-1).setPoints(points);
+		//TODO que está pasanDOOOO
+	}
+	
+
 
 
 

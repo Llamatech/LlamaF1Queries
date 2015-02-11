@@ -66,7 +66,6 @@ public class F1DriverInfoPanel extends JPanel implements ActionListener{
 	private JTable table;
 	private JTextField textField_6;
 	private JTextField textField_7;
-	private JTextField textField_8;
 	private JButton btnAnterior;
 	private JButton btnSiguiente;
 	private F1MainGUI principal;
@@ -183,14 +182,6 @@ public class F1DriverInfoPanel extends JPanel implements ActionListener{
 		textField_7.setEditable(false);
 		panel_1.add(textField_7, "cell 3 0,alignx left");
 		textField_7.setColumns(10);
-		
-		JLabel lblNewLabel_9 = new JLabel("Estado Final:");
-		panel_1.add(lblNewLabel_9, "cell 0 1,alignx trailing");
-		
-		textField_8 = new JTextField();
-		textField_8.setEditable(false);
-		panel_1.add(textField_8, "cell 1 1,alignx left");
-		textField_8.setColumns(10);
 		
 		JLabel lblNewLabel_10 = new JLabel("Tipo Estadísticas:");
 		panel_1.add(lblNewLabel_10, "cell 2 1,alignx right");

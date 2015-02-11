@@ -60,7 +60,7 @@ public class F1MainGUI extends JFrame implements ShapeListener
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
+
 	private JPanel contentPane;
 	private JFlowPanel flowPanel;
 	private F1CircuitInfoPanel f1CircuitInfoPanel;
@@ -114,19 +114,19 @@ public class F1MainGUI extends JFrame implements ShapeListener
 				f1YearRangeChooser.setVisible(true);
 				f1YearRangeChooser.setAlwaysOnTop(true);
 				f1YearRangeChooser.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-				
+
 				mundo = new F1(min, max);
 				System.out.println(min+":"+max);
-				
+
 			}
 		} catch (Exception e2) {
 			// TODO Auto-generated catch block
 			e2.printStackTrace();
 			JOptionPane.showMessageDialog(this, "Ocurrió un error mientras se cargaban los archivos", "Error", JOptionPane.ERROR_MESSAGE);
 		}
-		 
+
 		setTitle("Llamatech's F1 Board");
-		
+
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1200, 489);
 		contentPane = new JPanel();
@@ -134,37 +134,37 @@ public class F1MainGUI extends JFrame implements ShapeListener
 		contentPane.setMinimumSize(new Dimension(674, 600));
 		//contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
-		
+
 		File f = new File("./data/img/circuits/default.png");
 		File[] files = new File[1];
 		files[0] = f;
-		
-		
-		
-//		try (DirectoryStream<Path> stream = Files.newDirectoryStream(dir, "*.png")) 
-//		{
-//		    for (Path file : stream) 
-//		    {
-//		    	System.out.println(file.toString());
-//		        files[i] = file.toAbsolutePath().toFile();
-//		        i++;
-//		    }
-//		} catch (IOException e1) {
-//			// TODO Auto-generated catch block
-//			e1.printStackTrace();
-//		}
-//		try (DirectoryStream<Path> stream = Files.newDirectoryStream(dir, "*.png")) 
-//		{
-//		    for (Path file : stream) 
-//		    {
-//		    	System.out.println(file.toString());
-//		        files[i] = file.toAbsolutePath().toFile();
-//		        i++;
-//		    }
-//		} catch (IOException e1) {
-//			// TODO Auto-generated catch block
-//			e1.printStackTrace();
-//		}
+
+
+
+		//		try (DirectoryStream<Path> stream = Files.newDirectoryStream(dir, "*.png")) 
+		//		{
+		//		    for (Path file : stream) 
+		//		    {
+		//		    	System.out.println(file.toString());
+		//		        files[i] = file.toAbsolutePath().toFile();
+		//		        i++;
+		//		    }
+		//		} catch (IOException e1) {
+		//			// TODO Auto-generated catch block
+		//			e1.printStackTrace();
+		//		}
+		//		try (DirectoryStream<Path> stream = Files.newDirectoryStream(dir, "*.png")) 
+		//		{
+		//		    for (Path file : stream) 
+		//		    {
+		//		    	System.out.println(file.toString());
+		//		        files[i] = file.toAbsolutePath().toFile();
+		//		        i++;
+		//		    }
+		//		} catch (IOException e1) {
+		//			// TODO Auto-generated catch block
+		//			e1.printStackTrace();
+		//		}
 		try {
 			Config c = new Config(files);
 			c.backgroundColor = new Color(238,238,238);
@@ -184,73 +184,73 @@ public class F1MainGUI extends JFrame implements ShapeListener
 		flowPanel.setPreferredSize(new Dimension(674, 200));
 		flowPanel.setMinimumSize(new Dimension(674, 200));
 		contentPane.add(flowPanel);
-		
+
 		JPanel racePanel = new JPanel();
 		racePanel.setBounds(0, 200, 643, 249);
 		contentPane.add(racePanel);
 		racePanel.setLayout(null);
-		
+
 		f1CircuitInfoPanel = new F1CircuitInfoPanel();
 		f1CircuitInfoPanel.setBounds(12, 12, 332, 215);
 		racePanel.add(f1CircuitInfoPanel);
-		
+
 		f1CircuitPositions = new F1CircuitPositions();
 		f1CircuitPositions.setBounds(345, 12, 297, 162);
 		racePanel.add(f1CircuitPositions);
-		
+
 		f1ConstructorInfo = new F1ConstructorInfo(this);
 		//f1ConstructorInfo.setBounds(12, 232, 630, 271);
 		//racePanel.add(f1ConstructorInfo);
-		
+
 		F1LongestRacePanel f1LongestRacePanel = new F1LongestRacePanel();
 		f1LongestRacePanel.setBounds(369, 186, 244, 41);
 		racePanel.add(f1LongestRacePanel);
-		
+
 		f1DriverInfoPanel = new F1DriverInfoPanel(this);
 		f1DriverInfoPanel.setBounds(655, 12, 513, 376);
 		contentPane.add(f1DriverInfoPanel);
-		
+
 		f1BottomSelectionButtons = new F1BottomSelectionButtons(this);
 		f1BottomSelectionButtons.setBounds(642, 390, 549, 39);
 		contentPane.add(f1BottomSelectionButtons);
-		
+
 		f1SearchPanel = new F1SearchPanel(this);
 		//f1SearchPanel.setBounds(680, 398, 458, 306);
 		//contentPane.add(f1SearchPanel);
 		flowPanel.revalidate();
 	}
-	
-	
+
+
 	private class Config extends Configuration 
 	{
 		public Config(File[] files) throws IOException 
 		{
 			shapes = new Shape[files.length];
-//			int num = 0;
-//			for(File f: files)
-//			{
-//				if(f != null)
-//				{
-//					num++;
-//				}
-//			}
+			//			int num = 0;
+			//			for(File f: files)
+			//			{
+			//				if(f != null)
+			//				{
+			//					num++;
+			//				}
+			//			}
 			//shapes = new Shape[num];
 			for (int i = shapes.length-1; i >= 0; i--) 
 			{
-//			    if (files[i] != null)
-//			    {
-				    shapes[i] = new Picture(ImageIO.read(files[i]), String.valueOf(i+1));//+";"+files[i].getName().split("[.]")[0]);
-			    //}
+				//			    if (files[i] != null)
+				//			    {
+				shapes[i] = new Picture(ImageIO.read(files[i]), String.valueOf(i+1));//+";"+files[i].getName().split("[.]")[0]);
+				//}
 			}
 
 		}
 	}
-	
+
 
 	@Override
 	public void shapeActivated(ShapeEvent arg0) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -260,19 +260,19 @@ public class F1MainGUI extends JFrame implements ShapeListener
 		if (!me.isConsumed() && me.getButton() == MouseEvent.BUTTON1
 				&& me.getClickCount() == 1) {
 			//JOptionPane.showMessageDialog(this,
-					//"You clicked on " + arg0.getShape().getShapeName() + ".", "Event Test",
-					//JOptionPane.INFORMATION_MESSAGE);
+			//"You clicked on " + arg0.getShape().getShapeName() + ".", "Event Test",
+			//JOptionPane.INFORMATION_MESSAGE);
 			String anho = f1SearchPanel.darAnhoBusqueda();
 			Temporada temp = mundo.darTemporada(Integer.parseInt(anho));
 			f1CircuitInfoPanel.cambiarInfo(temp.getCarreras().get(Integer.parseInt(arg0.getShape().getShapeName())-1));
 		}
-		
+
 	}
 
 	@Override
 	public void shapeDeactivated(ShapeEvent arg0) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	public void realizarConsulta(int anho)
@@ -289,16 +289,16 @@ public class F1MainGUI extends JFrame implements ShapeListener
 			{
 				info[i] = infoCarreras.get(i).getUrlImagen();
 			}
-			
+
 			reloadJFlow(info);
 		}
 		catch(IOException e)
 		{
 			e.printStackTrace();
 		}
-		
+
 	}
-	
+
 	public void reloadJFlow(String[] circuits) throws IOException
 	{
 		File[] files = new File[circuits.length];
@@ -321,13 +321,13 @@ public class F1MainGUI extends JFrame implements ShapeListener
 		config.activeShapeBorderColor = Color.RED;
 		config.verticalShapeAlignment = VerticalAlignment.MIDDLE;
 		flowPanel.setConfig(config);
-		
+
 		flowPanel.setForeground(Color.BLACK);
 		flowPanel.updateShapes();
 		flowPanel.revalidate();
-		
+
 	}
-	
+
 	public String[] darTemporadas()
 	{
 		Temporada[] temps = mundo.darTemporadas();
@@ -344,79 +344,84 @@ public class F1MainGUI extends JFrame implements ShapeListener
 		this.min = Integer.parseInt(min);
 		this.max = Integer.parseInt(max);
 	}
-	
+
 	public void darAnterior(String tipo)
 	{
-		int anho = Integer.parseInt(f1SearchPanel.darAnhoBusqueda());
-		Temporada temp = mundo.darTemporada(anho);
-		if(tipo.equalsIgnoreCase("Carrera"))
+		if(f1SearchPanel.darAnhoBusqueda()!=null)
 		{
-			try {
-				Carrera carrera = temp.darAnteriorCarrera();
-				f1CircuitInfoPanel.cambiarInfo(carrera);
-			} catch (Exception e) {
-				JOptionPane.showMessageDialog(this, "No hay anterior");
+			int anho = Integer.parseInt(f1SearchPanel.darAnhoBusqueda());
+			Temporada temp = mundo.darTemporada(anho);
+			if(tipo.equalsIgnoreCase("Carrera"))
+			{
+				try {
+					Carrera carrera = temp.darAnteriorCarrera();
+					f1CircuitInfoPanel.cambiarInfo(carrera);
+				} catch (Exception e) {
+					JOptionPane.showMessageDialog(this, "No hay anterior");
+				}
+
 			}
-			
-		}
-		else if(tipo.equalsIgnoreCase("Piloto"))
-		{
-			try {
-				Piloto piloto = temp.darAnteriorPiloto();
-				f1DriverInfoPanel.cambiarInfo(piloto);
-			} catch (Exception e) {
-				JOptionPane.showMessageDialog(this, "No hay anterior");
+			else if(tipo.equalsIgnoreCase("Piloto"))
+			{
+				try {
+					Piloto piloto = temp.darAnteriorPiloto();
+					f1DriverInfoPanel.cambiarInfo(piloto);
+				} catch (Exception e) {
+					JOptionPane.showMessageDialog(this, "No hay anterior");
+				}
+
 			}
-			
-		}
-		else if(tipo.equalsIgnoreCase("Escuderia"))
-		{
-			try {
-				Escuderia escuderia = temp.darAnteriorEscuderia();
-				f1ConstructorInfo.cambiarInfo(escuderia);
-			} catch (Exception e) {
-				JOptionPane.showMessageDialog(this, "No hay anterior");
+			else if(tipo.equalsIgnoreCase("Escuderia"))
+			{
+				try {
+					Escuderia escuderia = temp.darAnteriorEscuderia();
+					f1ConstructorInfo.cambiarInfo(escuderia);
+				} catch (Exception e) {
+					JOptionPane.showMessageDialog(this, "No hay anterior");
+				}
+
 			}
-			
 		}
 	}
-	
+
 	public void darSiguiente(String tipo)
 	{
-		int anho = Integer.parseInt(f1SearchPanel.darAnhoBusqueda());
-		Temporada temp = mundo.darTemporada(anho);
-		if(tipo.equalsIgnoreCase("Carrera"))
-		{
-			try {
-				Carrera carrera = temp.darSiguienteCarrera();
-				f1CircuitInfoPanel.cambiarInfo(carrera);
-			} catch (Exception e) {
-				JOptionPane.showMessageDialog(this, "No hay siguiente");
+		if(f1SearchPanel.darAnhoBusqueda()!=null){
+			int anho = Integer.parseInt(f1SearchPanel.darAnhoBusqueda());
+			Temporada temp = mundo.darTemporada(anho);
+			if(tipo.equalsIgnoreCase("Carrera"))
+			{
+				try {
+					Carrera carrera = temp.darSiguienteCarrera();
+					f1CircuitInfoPanel.cambiarInfo(carrera);
+				} catch (Exception e) {
+					JOptionPane.showMessageDialog(this, "No hay siguiente");
+				}
+
 			}
-			
-		}
-		else if(tipo.equalsIgnoreCase("Piloto"))
-		{
-			try {
-				Piloto piloto = temp.darSiguientePiloto();
-				f1DriverInfoPanel.cambiarInfo(piloto);
-			} catch (Exception e) {
-				JOptionPane.showMessageDialog(this, "No hay siguiente");
+			else if(tipo.equalsIgnoreCase("Piloto"))
+			{
+				try {
+					Piloto piloto = temp.darSiguientePiloto();
+					f1DriverInfoPanel.cambiarInfo(piloto);
+				} catch (Exception e) {
+					JOptionPane.showMessageDialog(this, "No hay siguiente");
+				}
+
 			}
-			
-		}
-		else if(tipo.equalsIgnoreCase("Escuderia"))
-		{
-			try {
-				Escuderia escuderia = temp.darSiguienteEscuderia();
-				f1ConstructorInfo.cambiarInfo(escuderia);
-			} catch (Exception e) {
-				JOptionPane.showMessageDialog(this, "No hay siguiente");
+			else if(tipo.equalsIgnoreCase("Escuderia"))
+			{
+				try {
+					Escuderia escuderia = temp.darSiguienteEscuderia();
+					f1ConstructorInfo.cambiarInfo(escuderia);
+				} catch (Exception e) {
+					JOptionPane.showMessageDialog(this, "No hay siguiente");
+				}
+
 			}
-			
 		}
 	}
-	
+
 	@Override
 	public void dispose()
 	{

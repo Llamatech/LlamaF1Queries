@@ -20,26 +20,32 @@
 
 package com.llama.tech.f1.backbone;
 
-import com.llama.tech.utils.misc.LlamaTuple;
 
 public class InfoCarrera 
 {
      private String id;
+     private double points;
      private String[] timesPerLap;
-     private LlamaTuple[] pitStops;
+     private String[] pitStops;
 
      
-     public InfoCarrera(String id, String[] laps, String[] pitStops)
+     public InfoCarrera(String id, String[] laps, String[] pPitStops)
      {
     	 this.id = id;
     	 timesPerLap = laps;
-    	 this.pitStops = new LlamaTuple[pitStops.length];
-    	 int i = 0;
-    	 for(String pit: pitStops)
-    	 {
-    		 String[] info = pit.split(",");
-    		 int lap = Integer.parseInt(info[0]);
-    		 this.pitStops[i] = new LlamaTuple<Integer, String>(lap, info[1]);
-    	 }
+    	 this.pitStops =pPitStops;
+    	 
+    	
+
+     }
+     
+     public InfoCarrera()
+     {
+    	 
+     }
+     
+     public void setPoints(double points)
+     {
+    	 this.points = points;
      }
 }

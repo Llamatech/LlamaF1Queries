@@ -270,5 +270,10 @@ public class Carrera implements Comparable<Carrera>, Serializable
 		// TODO Auto-generated method stub
 		return 0;
 	}
+	
+	public void eliminarPiloto(String pApellido)
+	{
+		pilotos.remove(new Piloto("", pApellido, "", "", "", 0, 0, "", "", "", 0, ""));
+	}
 
 }

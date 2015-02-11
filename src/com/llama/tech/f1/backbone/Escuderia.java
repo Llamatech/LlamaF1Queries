@@ -191,8 +191,9 @@ public class Escuderia implements Serializable, Comparable<Escuderia> {
 	}
 
 	@Override
-	public int compareTo(Escuderia o) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int compareTo(Escuderia o) 
+	{
+		return nombre.compareTo(o.getNombre());
+
 	}
 }

@@ -68,6 +68,10 @@ public interface IF1 extends Serializable
 	public Temporada darTemporada(int anho);
 	
 	public Temporada[] darTemporadas();
+	
+	public Piloto buscarPiloto(int anho, String pApellido);
+	
+	public Escuderia buscarEscuderia(int anho, String pNombre);
 
 	
 }
