@@ -90,7 +90,7 @@ public class Temporada implements Comparable<Temporada>, Serializable {
 	 * El iterador de escuderias
 	 */
 	private LlamaIterator<Escuderia> itEscuderia;
-	
+
 	/**
 	 * Este atributo guarda la carrera de mayor duración
 	 */
@@ -172,19 +172,19 @@ public class Temporada implements Comparable<Temporada>, Serializable {
 		return carrerasCargadas;
 	}
 
+	/**
+	 * Este es el booleano que confirma si las escuderias ya han sido cargadas.
+	 * Permite la función de persistencia.
+	 * @return true si ya fueron cargadas false de lo contrario
+	 */
 	public boolean isEscuderiasCargadas() {
 		return escuderiasCargadas;
 	}
 
-	public void setEscuderiasCargadas(boolean escuderiasCargadas) {
-		this.escuderiasCargadas = escuderiasCargadas;
-	}
-
 	/**
 	 * Este metodo carga los pilotos de la temporada
-	 * 
-	 * @param infoPilotos
-	 *            informacion de los pilotos
+	 * pos: la lista de pilotos se encuentra actualizada
+	 * @param infoPiloto- de los pilotos
 	 */
 	public void cargarPilotos(String[] infoPilotos) {
 		if (!pilotosCargados) {
@@ -201,15 +201,16 @@ public class Temporada implements Comparable<Temporada>, Serializable {
 						pos = Integer.parseInt(infoP[8]);
 					}
 
-
+					Escuderi
+					
 					Piloto pilot = new Piloto(infoP[1], infoP[2], infoP[3],
 							infoP[4], infoP[6], points, pos, infoP[9],
 							infoP[0], infoP[5],Integer.parseInt(infoP[11]));
-					
+
 					//Piloto(String nombre, String apellido, String nacionalidad,
-//					String fechaNac, String escuderia, double puntos, int posFinal,
-//					String urlImagen, String driverId, String escuderiaId, int pTotalCarreras, String pInfoCarreras) 
-//			
+					//					String fechaNac, String escuderia, double puntos, int posFinal,
+					//					String urlImagen, String driverId, String escuderiaId, int pTotalCarreras, String pInfoCarreras) 
+					//			
 
 					System.out.println(pilotos.size());
 					pilotos.addAlFinal(pilot);
@@ -248,17 +249,19 @@ public class Temporada implements Comparable<Temporada>, Serializable {
 	}
 
 	/**
+	 * pre: la lista de pilotos ya ha sido cargada
 	 * Este metodo carga las carreras de la temporada
+	 * pos: la lista de carreras se encuentra actualizada
 	 * @param infoCarreras informacion carreras
 	 */
 	public void cargarCarreras(Lista<String> infoCarreras) {
 
 		if (!carrerasCargadas) {
 			for (int i =0; i<infoCarreras.size();i++) {
-				
+
 				System.out.println("Loading:" + infoCarreras.get(i));
 				String[] infoC = infoCarreras.get(i).split(";");
-				
+
 				String nombreCirc = infoC[0];
 				String circuitId = infoC[1];
 				String nombreCarr = infoC[2];
@@ -281,9 +284,9 @@ public class Temporada implements Comparable<Temporada>, Serializable {
 				for(String pil:infoPos)
 				{
 					System.out.println(pil);
-					
+
 					String [] infoPil = pil.split("[:]");
-					
+
 					String posicion = infoPil[0];
 					String idPiloto = infoPil[1];
 					String nombreP =infoPil[2];
@@ -292,20 +295,22 @@ public class Temporada implements Comparable<Temporada>, Serializable {
 					int laps =Integer.parseInt(infoPil[5]);
 					String status =infoPil[6];
 					String totalTime=infoPil[7];
-					String bestTime=infoPil[8].split("[#]")[1];
+					String bestTime=infoPil[8];
+					if(bestTime.equals("-1,-1"))
+						bestTime="No disponible";
 					String avgSpeed = infoPil[9];
-					
+
 					if(!totalTime.equals("-1"))
 						tiempoUltimo=totalTime;
-					
+
 					Piloto a = buscarPilotoBinario(apellidoP);
 					a.setInfoCarrera(numeroCarrera, circuitId, puntosEnCarrera, posicion, laps, bestTime, avgSpeed, status);
 					pPilotos.addAlFinal(a);
 
 				}
-				
+
 				//tiempo distinto de -1
-				
+
 				//Carrera(String pNombre, int pNumeroCarrera, String pFecha, 
 				//String pHora, String pCircuito, String pLugar, String pPais, 
 				//int pDuracion, String pUrlImagen, String pCarreraId, Lista<Piloto> pPilotos )
@@ -315,23 +320,39 @@ public class Temporada implements Comparable<Temporada>, Serializable {
 
 				//TODO armar la lista de pilotos buscando por su apellido. Pasarla por parámetro.
 
-				
-				Carrera race = new Carrera(nombreCarr, numeroCarrera, fecha, hora,
-						nombreCirc, lugar, pais, 0, URL, circuitId ,pPilotos);
-				
-				double tiempo1=timeConversionDouble(tiempoPrimero);
-				double tiempo2=timeConversionDouble(tiempoUltimo);
-				
-				double tiempoTotal = tiempo1+tiempo2;
-				
-				String duracion = timeConversionString(tiempoTotal);
+				String duracion = "";
+				if(tiempoPrimero.equals("-1")||tiempoUltimo.equals("-1"))
+				{
+					duracion = "No disponible";
+				}
+				else
+				{
+					double tiempo1=timeConversionDouble(tiempoPrimero);
+					double tiempo2=timeConversionDouble(tiempoUltimo);
 
-				if(timeConversionDouble(duracion)>timeConversionDouble(carreraMayorduracion.getDuracion()))
-					carreraMayorduracion=race;
+					double tiempoTotal = tiempo1+tiempo2;
+
+					duracion = timeConversionString(tiempoTotal);
+				}
 				
+				System.out.println(URL);
+
+				Carrera race = new Carrera(nombreCarr, numeroCarrera, fecha, hora,
+						nombreCirc, lugar, pais, duracion, URL, circuitId ,pPilotos);
+
+				if(!duracion.equals("No disponible"))
+				{
+					if(carreraMayorduracion!=null){
+						if(timeConversionDouble(duracion)>timeConversionDouble(carreraMayorduracion.getDuracion()))
+							carreraMayorduracion=race;
+					}
+					else
+						carreraMayorduracion=race;
+				}
+
 				carreras.addAlFinal(race);
 
-				
+
 				// sb.append(circuitName);
 				// sb.append(";");
 				// sb.append(circuitId);
@@ -356,9 +377,8 @@ public class Temporada implements Comparable<Temporada>, Serializable {
 
 	/**
 	 * Este metodo carga las escudeias de la temporada
-	 * 
-	 * @param infoEscuderias
-	 *            informacion escuderias
+	 * pos: la lista de escuderias esta actualizada
+	 * @param infoEscuderias-informacion escuderias
 	 */
 	public void cargarEscuderias(String[] infoEscuderias) {
 		if (!escuderiasCargadas) {
@@ -550,12 +570,17 @@ public class Temporada implements Comparable<Temporada>, Serializable {
 
 		Piloto pil = new Piloto("", apellido, "", "", "", 0, 0, "", "", "", 0);
 		return pilotos.remove(pil); 
-//		public Piloto(String nombre, String apellido, String nacionalidad,
-//				String fechaNac, String escuderia, double puntos, int posFinal,
-//				String urlImagen, String driverId, String escuderiaId, int pTotalCarreras, String pInfoCarreras) 
-//		
+		//		public Piloto(String nombre, String apellido, String nacionalidad,
+		//				String fechaNac, String escuderia, double puntos, int posFinal,
+		//				String urlImagen, String driverId, String escuderiaId, int pTotalCarreras, String pInfoCarreras) 
+		//		
 	}
 
+	/**
+	 * Este método crea una lista con todas las carreras después de la fecha dada por parámetro
+	 * @param pfecha - fecha después de la cual se quieren las carreras
+	 * @return lista con las carreras después de la fecha que entra por parámetro
+	 */
 	public Lista<Carrera> buscarCarrerasDespuesDeFecha(String pfecha)
 	{
 		Lista<Carrera> mandar = new ListaDoblementeEnlazada<Carrera>();
@@ -609,6 +634,11 @@ public class Temporada implements Comparable<Temporada>, Serializable {
 		return mandar; //Si devuelvo lista vacía en F1 tengo que preguntar a siguiente año
 	}
 
+	/**
+	 * Este método crea una lista con todas las carreras antes de la fecha dada por parámetro
+	 * @param pfecha - fecha antes de la cual se quieren las carreras
+	 * @return lista con las carreras antes de la fecha que entra por parámetro
+	 */
 	public Lista<Carrera> buscarCarrerasAntesDeFecha(String pfecha)
 	{
 		Lista<Carrera> mandar = new ListaDoblementeEnlazada<Carrera>();
@@ -653,6 +683,11 @@ public class Temporada implements Comparable<Temporada>, Serializable {
 		return mandar; //Si esta vacía ignoro. 
 	}
 
+	/**
+	 * Éste método busca un piloto con el método de búsqueda binaria
+	 * @param apellido - apellido del piloto que se busca
+	 * @return Piloto buscado, null si no existe
+	 */
 	public Piloto buscarPilotoBinario(String apellido)
 	{
 		Piloto param = new Piloto("", apellido, "", "", "", 0, 0,"", "", "", 0);
@@ -680,10 +715,15 @@ public class Temporada implements Comparable<Temporada>, Serializable {
 			}
 		}
 
-			return buscado;
+		return buscado;
 
 	}
 
+	/**
+	 * Éste método busca una escuderia con el método de búsqueda binaria
+	 * @param pNombre - nombre de la escuderia que se busca
+	 * @return Escuderia buscada, null si no existe
+	 */
 	public Escuderia buscarEscuderiaBinario(String pNombre)
 	{
 		Escuderia param = new Escuderia("", pNombre, "", 0, 0, "");
@@ -714,6 +754,11 @@ public class Temporada implements Comparable<Temporada>, Serializable {
 		return buscado;
 	}
 
+	/**
+	 * Este método elimina un piloto de la temporada, y de las carreras que lo contengan.
+	 * pos: El piloto ya no existe en temporada ni en ninguna de sus carreras
+	 * @param apellido - apellido del piloto a eliminar
+	 */
 	public void eliminarPiloto(String apellido)
 	{
 		pilotos.remove(new Piloto("", apellido, "", "", "", 0, 0, "", "", "", 0));
@@ -723,71 +768,56 @@ public class Temporada implements Comparable<Temporada>, Serializable {
 		}
 	}
 
+	/**
+	 * Este método elimina una escudería de la escudería
+	 * pos: la escudería no existe en ele sistema
+	 * @param pNombre nombre de la escudría a eliminar
+	 */
 	public void eliminarEscuderia(String pNombre)
 	{
 		escuderias.remove(new Escuderia("", pNombre, "", 0, 0, ""));
 	}
-	
-	public int buscarPosicionPiloto(String apellido)
-	{
-		Piloto param = new Piloto("", apellido, "", "", "", 0, 0,"", "", "",0);
-		Piloto buscado = null;
 
-		int inicio =0;
-		int fin= pilotos.size()-1;
-		boolean encontre = false;
-		int medio=0;
 
-		while(inicio<=fin&&!encontre)
-		{
-			medio=(inicio+fin)/2;
-			if(pilotos.get(medio).compareTo(param)==0)
-			{
-				encontre = true;
-				buscado = pilotos.get(medio);
-			}
-			else if(pilotos.get(medio).compareTo(param)<0)
-			{
-				inicio = medio+1;
-			}
-			else
-			{
-				fin=medio-1;
-			}
-		}
-		
-		return medio;
-	}
-	
+	/**
+	 * Da una matriz con la información de los pilotos en una carrera dada por paramtero
+	 * @param numCarrera numero de carrera 
+	 * @return matriz con la información de los pilotos
+	 */
 	public String[][] darPilotosCarrera(int numCarrera)
 	{
 		Carrera carreris=carreras.get(numCarrera-1);
-		
+
 		Lista<Piloto> lista = carreris.getPilotos();
-		
+
 		String[][] devolver = new String[lista.size()][3];
-		
+
 		for(int i = 0;i<lista.size();i++)
 		{
-			
-				devolver[i][0] = lista.get(i).getNombre() + " " + lista.get(i).getApellido();
-				devolver[i][1]=lista.get(i).darPuntosCarrera(numCarrera)+"";
-				devolver[i][2]=lista.get(i).darPosicionCarrera(numCarrera);
-			
+
+			devolver[i][0] = lista.get(i).getNombre() + " " + lista.get(i).getApellido();
+			devolver[i][1]=lista.get(i).darPuntosCarrera(numCarrera)+"";
+			devolver[i][2]=lista.get(i).darPosicionCarrera(numCarrera);
+
 		}
-		
-		
+
+
 		return devolver;
-		
-		
+
+
 	}
-	
-	
+
+	/**
+	 * pre: El String tiene el formato adecuado
+	 * Método que Convierte un String a segundos para poder utilizarlo como número
+	 * @param t - String a convertir
+	 * @return segundos del tiempo representado en el String
+	 */
 	private static double timeConversionDouble(String t)
 	{
 		//	2:13:23.6
 		double totalTime = 0.0;
-		
+
 		if(t.charAt(0) == '+')
 		{
 			t = t.substring(1);
@@ -811,46 +841,57 @@ public class Temporada implements Comparable<Temporada>, Serializable {
 			double seconds = Double.parseDouble(t);
 			totalTime = seconds;
 		}
-		
+
 		return totalTime;
 	}
-	
+
+	/**
+	 * pre: El tiempo que ingresa por parámetro es positivo.
+	 * Método que convierte segundos a un formato hh:mm:ss tipo String
+	 * @param t - número de segundos que se quieren representar en el formato
+	 * @return String con el formato convertido
+	 */
 	private static String timeConversionString(Double t)
 	{
 		//String format = "%d:%d:%g";
 		String time = null;
-		if(t >= 3600)
+		if (t >= 3600) 
 		{
 			String format = "%d:%d:%g";
-			int hours = t.intValue()/3600;
+			int hours = t.intValue() / 3600;
 			t = t % 3600;
-			int minutes = t.intValue()/60;
+			int minutes = t.intValue() / 60;
 			t = t % 60;
 			double seconds = t;
 			time = String.format(format, hours, minutes, seconds);
-		}
-		else if(t >= 60)
+		} 
+		else if (t >= 60) 
 		{
 			String format = "%d:%g";
-			int minutes = t.intValue()/60;
+			int minutes = t.intValue() / 60;
 			t = t % 60;
 			double seconds = t;
 			time = String.format(format, minutes, seconds);
-		}
-		else
+		} 
+		else 
 		{
 			String format = "%g";
 			time = String.format(format, t);
 		}
-		
+
 		return time;
+
 	}
-	
+
+	/**
+	 * Este método devuelve la carrera con mayor duración
+	 * @return carrera con mayor duración
+	 */
 	public Carrera darCarreraMayorDuracion()
 	{
 		return carreraMayorduracion;
 	}
-	
+
 
 
 }

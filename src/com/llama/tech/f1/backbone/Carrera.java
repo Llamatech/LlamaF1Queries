@@ -111,7 +111,7 @@ public class Carrera implements Comparable<Carrera>, Serializable
      * @param pCarreraId;
      * @param pPilotos
      */
-    public Carrera(String pNombre, int pNumeroCarrera, String pFecha, String pHora, String pCircuito, String pLugar, String pPais, int pDuracion, String pUrlImagen, String pCarreraId, Lista<Piloto> pPilotos )
+    public Carrera(String pNombre, int pNumeroCarrera, String pFecha, String pHora, String pCircuito, String pLugar, String pPais, String pDuracion, String pUrlImagen, String pCarreraId, Lista<Piloto> pPilotos )
     {
     	nombre = pNombre;
     	numeroCarrera = pNumeroCarrera;
@@ -123,6 +123,7 @@ public class Carrera implements Comparable<Carrera>, Serializable
     	urlImagen = pUrlImagen;
     	carreraId = pCarreraId;
     	pilotos = pPilotos;
+    	duracion = pDuracion;
     	
     	//TODO : hacer la lista de pilotos partiendo de lasp osiciones: buscarlos por su id/apellido y añadirlos.
     	
