@@ -20,8 +20,10 @@
 
 package com.llama.tech.f1.backbone;
 
+import java.io.Serializable;
 
-public class InfoCarrera 
+
+public class InfoCarrera implements Serializable
 {
      private String id;
      private double points;

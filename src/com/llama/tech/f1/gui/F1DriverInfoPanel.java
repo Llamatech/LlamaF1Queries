@@ -51,6 +51,7 @@ import net.miginfocom.swing.MigLayout;
 import javax.swing.JList;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
+import java.awt.Dimension;
 
 public class F1DriverInfoPanel extends JPanel implements ActionListener{
 	/**
@@ -75,6 +76,9 @@ public class F1DriverInfoPanel extends JPanel implements ActionListener{
 	 * Create the panel.
 	 */
 	public F1DriverInfoPanel(F1MainGUI v) {
+		setPreferredSize(new Dimension(522, 384));
+		setMaximumSize(new Dimension(522, 384));
+		setMinimumSize(new Dimension(522, 384));
 		principal = v;
 		setBorder(new TitledBorder(null, "Informaci\u00F3n Piloto", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		setLayout(null);
@@ -226,11 +230,11 @@ public class F1DriverInfoPanel extends JPanel implements ActionListener{
 		} catch (IOException e) {
 		    e.printStackTrace();
 		}
-//		BufferedImage dimg = (BufferedImage) img.getScaledInstance(lblImage.getWidth(), lblImage.getHeight(),
-//		        Image.SCALE_SMOOTH);
+		Image dimg = img.getScaledInstance(lblImage.getWidth(), lblImage.getHeight(),
+		        Image.SCALE_SMOOTH);
 ////		textField_8
-//		ImageIcon imageIcon = new ImageIcon(dimg);
-//		lblImage.setIcon(imageIcon);
+	    ImageIcon imageIcon = new ImageIcon(dimg);
+		lblImage.setIcon(imageIcon);
 		
 	}
 

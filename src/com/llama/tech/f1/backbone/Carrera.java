@@ -197,48 +197,24 @@ public class Carrera implements Comparable<Carrera>, Serializable
 		return fecha;
 	}
 
-	public void setFecha(String fecha) {
-		this.fecha = fecha;
-	}
-
 	public String getHora() {
 		return hora;
-	}
-
-	public void setHora(String hora) {
-		this.hora = hora;
 	}
 
 	public String getCircuito() {
 		return circuito;
 	}
 
-	public void setCircuito(String circuito) {
-		this.circuito = circuito;
-	}
-
 	public String getLugar() {
 		return lugar;
-	}
-
-	public void setLugar(String lugar) {
-		this.lugar = lugar;
 	}
 
 	public String getPais() {
 		return pais;
 	}
 
-	public void setPais(String pais) {
-		this.pais = pais;
-	}
-
 	public String[] getPosiciones() {
 		return posiciones;
-	}
-
-	public void setPosiciones(String[] posiciones) {
-		this.posiciones = posiciones;
 	}
 
 	public String getDuracion() {
@@ -247,6 +223,10 @@ public class Carrera implements Comparable<Carrera>, Serializable
 
 	public void setDuracion(String duracion) {
 		this.duracion = duracion;
+	}
+
+	public Lista<Piloto> getPilotos() {
+		return pilotos;
 	}
 
 	public String getUrlImagen() {
@@ -271,9 +251,9 @@ public class Carrera implements Comparable<Carrera>, Serializable
 		return 0;
 	}
 	
-	public void eliminarPiloto(String pApellido)
+	public void eliminarPiloto(String apellido)
 	{
-		pilotos.remove(new Piloto("", pApellido, "", "", "", 0, 0, "", "", "", 0, ""));
+		pilotos.remove(new Piloto("", apellido, "", "", "", 0, 0, "", "", "", 0, "-1"));
 	}
 
 }

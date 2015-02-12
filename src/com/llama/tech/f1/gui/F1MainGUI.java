@@ -26,6 +26,7 @@ package com.llama.tech.f1.gui;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.EventQueue;
+import java.awt.Toolkit;
 import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.IOException;
@@ -60,6 +61,7 @@ public class F1MainGUI extends JFrame implements ShapeListener
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	private final static String IMG_ROOT = "./data/img/";
 
 	private JPanel contentPane;
 	private JFlowPanel flowPanel;
@@ -126,6 +128,14 @@ public class F1MainGUI extends JFrame implements ShapeListener
 		}
 
 		setTitle("Llamatech's F1 Board");
+		try 
+		{
+			setIconImage(ImageIO.read(new File(IMG_ROOT+"drivers/default.png")));
+		} 
+		catch (IOException e1) 
+		{
+			// TODO Auto-generated catch block
+		}
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1200, 489);
@@ -195,7 +205,7 @@ public class F1MainGUI extends JFrame implements ShapeListener
 		racePanel.add(f1CircuitInfoPanel);
 
 		f1CircuitPositions = new F1CircuitPositions();
-		f1CircuitPositions.setBounds(345, 12, 297, 162);
+		f1CircuitPositions.setBounds(345, 12, 286, 170);
 		racePanel.add(f1CircuitPositions);
 
 		f1ConstructorInfo = new F1ConstructorInfo(this);
@@ -262,7 +272,7 @@ public class F1MainGUI extends JFrame implements ShapeListener
 			//JOptionPane.showMessageDialog(this,
 			//"You clicked on " + arg0.getShape().getShapeName() + ".", "Event Test",
 			//JOptionPane.INFORMATION_MESSAGE);
-			String anho = f1SearchPanel.darAnhoBusqueda();
+			String anho = f1BottomSelectionButtons.darAnhoBusqueda();
 			Temporada temp = mundo.darTemporada(Integer.parseInt(anho));
 			f1CircuitInfoPanel.cambiarInfo(temp.getCarreras().get(Integer.parseInt(arg0.getShape().getShapeName())-1));
 		}
@@ -347,9 +357,9 @@ public class F1MainGUI extends JFrame implements ShapeListener
 
 	public void darAnterior(String tipo)
 	{
-		if(f1SearchPanel.darAnhoBusqueda()!=null)
+		if(f1BottomSelectionButtons.darAnhoBusqueda()!=null)
 		{
-			int anho = Integer.parseInt(f1SearchPanel.darAnhoBusqueda());
+			int anho = Integer.parseInt(f1BottomSelectionButtons.darAnhoBusqueda());
 			Temporada temp = mundo.darTemporada(anho);
 			if(tipo.equalsIgnoreCase("Carrera"))
 			{
@@ -386,8 +396,8 @@ public class F1MainGUI extends JFrame implements ShapeListener
 
 	public void darSiguiente(String tipo)
 	{
-		if(f1SearchPanel.darAnhoBusqueda()!=null){
-			int anho = Integer.parseInt(f1SearchPanel.darAnhoBusqueda());
+		if(f1BottomSelectionButtons.darAnhoBusqueda()!=null){
+			int anho = Integer.parseInt(f1BottomSelectionButtons.darAnhoBusqueda());
 			Temporada temp = mundo.darTemporada(anho);
 			if(tipo.equalsIgnoreCase("Carrera"))
 			{

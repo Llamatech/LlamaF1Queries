@@ -134,26 +134,26 @@ public class Piloto implements Serializable, Comparable<Piloto>
 	 * @param pInfoCarreras
 	 * @param pTotalCarreras
 	 */
-	public Piloto(String nombre, String apellido, String nacionalidad,
-			String fechaNac, String escuderia, double puntos, int posFinal,
-			String urlImagen, String driverId, String escuderiaId, int pTotalCarreras, String pInfoCarreras) 
+	public Piloto(String pnombre, String papellido, String pnacionalidad,
+			String pfechaNac, String pescuderia, double ppuntos, int pposFinal,
+			String purlImagen, String pdriverId, String pescuderiaId, int pTotalCarreras, String pInfoCarreras) 
 	{
-		this.nombre = nombre;
-		this.apellido = apellido;
-		this.nacionalidad = nacionalidad;
-		this.fechaNac = fechaNac;
-		this.escuderia = escuderia;
-		this.puntos = puntos;
-		this.posFinal = posFinal;
-		this.urlImagen = urlImagen;
-		this.driverId = driverId;
-		this.escuderiaId = escuderiaId;
+		this.nombre = pnombre;
+		this.apellido = papellido;
+		this.nacionalidad = pnacionalidad;
+		this.fechaNac = pfechaNac;
+		this.escuderia = pescuderia;
+		this.puntos = ppuntos;
+		this.posFinal = pposFinal;
+		this.urlImagen = purlImagen;
+		this.driverId = pdriverId;	
+		this.escuderiaId = pescuderiaId;
 		infoCarreras = new LlamaArrayList<InfoCarrera>(20);
 		totalCarreras=pTotalCarreras;
 
 		String [] infoC = pInfoCarreras.split("|");
 
-		if(pInfoCarreras.equals("-1"))
+		if(!pInfoCarreras.equals("-1"))
 		{
 			for(int i=0; i<infoC.length;i++)
 			{
@@ -396,13 +396,17 @@ public class Piloto implements Serializable, Comparable<Piloto>
 	@Override
 	public int compareTo(Piloto o)
 	{
-		return apellido.compareTo(o.getApellido());
+		String pApellido1 = apellido.toLowerCase();
+		String pApellido2 = o.getApellido().toLowerCase();
+		
+		return pApellido1.compareTo(pApellido2);
+				
+//		return apellido.compareTo(o.getApellido());
 	}
 
 	public void setPuntosInfoCarrera(int numCarrera, double points)
 	{
 		infoCarreras.get(numCarrera-1).setPoints(points);
-		//TODO que está pasanDOOOO
 	}
 	
 

@@ -165,7 +165,7 @@ public class Query
 //	nombre; ... ; URL;"carrera1id%t1%t2%...%tn"$"vuelta:t%vuelta2:t%vueltan:tn" |
 //	"carrera2id%..."%...|. 
 	
-	private static int getCircuitsPerSeason(String year) throws Exception
+	public static int getCircuitsPerSeason(String year) throws Exception
 	{
 		URL urlReq = new URL(ROOT+year+".json?limit=1");
 		String content = getJSONFormat(urlReq);
@@ -256,7 +256,7 @@ public class Query
 				constructorId = constructor.getString("constructorId");
 				constructorName = constructor.getString("name");
 			}
-			catch(JSONException j)
+			catch(JSONException j) 
 			{
 				
 			}
@@ -285,9 +285,9 @@ public class Query
 			
 			sb.append(driverId);
 			sb.append(";");
-			sb.append(driver.getString("givenName"));
+			sb.append(convertStringCanonicalForm(driver.getString("givenName")));
 			sb.append(";");
-			sb.append(driver.getString("familyName"));
+			sb.append(convertStringCanonicalForm(driver.getString("familyName")));
 			sb.append(";");
 			sb.append(driver.getString("nationality"));
 			sb.append(";");
@@ -511,11 +511,14 @@ public class Query
 				JSONObject driver = positionInfo.getJSONObject("Driver");
 				String pilotId = driver.getString("driverId");
 				String driverLastName = driver.getString("familyName");
+				String driverGivenName = driver.getString("givenName");
 				sb.append(position);
 				sb.append(":");
 				sb.append(pilotId);
 				sb.append(":");
-				sb.append(driverLastName);
+				sb.append(convertStringCanonicalForm(driverGivenName));
+				sb.append(":");
+				sb.append(convertStringCanonicalForm(driverLastName));
 				sb.append(":");
 				sb.append(points);
 				if(j != lenPositions-1)
@@ -596,7 +599,7 @@ public class Query
 				
 				sb.append(constructorId);
 				sb.append(";");
-				sb.append(constructorName);
+				sb.append(convertStringCanonicalForm(constructorName));
 				sb.append(";");
 				sb.append(constructorNationality);
 				sb.append(";");
@@ -604,6 +607,10 @@ public class Query
 				sb.append(";");
 				sb.append(points);
 				sb.append(";");
+				
+				if(loc == null)
+					loc = IMG_ROOT+"constructors/default.png";
+				
 				sb.append(loc);
 				constructors[i] = sb.toString();
 				sb.setLength(0);
@@ -654,7 +661,7 @@ public class Query
 				
 				sb.append(constructorId);
 				sb.append(";");
-				sb.append(constructorName);
+				sb.append(convertStringCanonicalForm(constructorName));
 				sb.append(";");
 				sb.append(constructorNationality);
 				sb.append(";");
@@ -713,6 +720,14 @@ public class Query
 		}
 		
 		return null;
+	}
+	
+	private static String convertStringCanonicalForm(String input)
+	{
+		String normalized = java.text.Normalizer.normalize(input, java.text.Normalizer.Form.NFD);
+		String accentsgone = normalized.replaceAll("\\p{InCombiningDiacriticalMarks}+", "");
+		
+		return accentsgone;
 	}
 	
 

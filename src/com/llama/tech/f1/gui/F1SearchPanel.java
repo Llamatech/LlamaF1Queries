@@ -45,6 +45,7 @@ import com.llama.tech.f1.backbone.IF1;
 import com.llama.tech.utils.list.Lista;
 
 import javax.swing.JButton;
+import java.awt.Dimension;
 
 public class F1SearchPanel extends JFrame implements ActionListener {
 	private JTextField textField_1;
@@ -61,6 +62,9 @@ public class F1SearchPanel extends JFrame implements ActionListener {
 	 * Create the panel.
 	 */
 	public F1SearchPanel(F1MainGUI v) {
+		setPreferredSize(new Dimension(433, 364));
+		setMaximumSize(new Dimension(433, 364));
+		setMinimumSize(new Dimension(433, 364));
 
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		principal = v;
@@ -73,7 +77,7 @@ public class F1SearchPanel extends JFrame implements ActionListener {
 		getContentPane().add(lblNewLabel);
 
 		String[] temp = principal.darTemporadas();
-		comboBox = new JComboBox<String>(temp);
+		comboBox = new JComboBox(temp);
 		comboBox.setBounds(224, 23, 158, 24);
 		//comboBox.addItemListener(new ItemChangeListener());
 		comboBox.setSelectedItem(null);
@@ -139,7 +143,7 @@ public class F1SearchPanel extends JFrame implements ActionListener {
 		getContentPane().add(btnNewButton_1);
 
 		String[] tipo = new String[]{"Carreras","Escuderias","Pilotos"};
-		comboBox_1 = new JComboBox<String>(tipo);
+		comboBox_1 = new JComboBox(tipo);
 		comboBox_1.setBounds(224, 61, 158, 24);
 		getContentPane().add(comboBox_1);
 

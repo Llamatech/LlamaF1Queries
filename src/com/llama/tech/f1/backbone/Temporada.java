@@ -198,7 +198,12 @@ public class Temporada implements Comparable<Temporada>, Serializable {
 
 					Piloto pilot = new Piloto(infoP[1], infoP[2], infoP[3],
 							infoP[4], infoP[6], points, pos, infoP[9],
-							infoP[0], infoP[5],Integer.parseInt(infoP[10]),infoP[11]);
+							infoP[0], infoP[5],Integer.parseInt(infoP[11]),infoP[10]);
+					
+					//Piloto(String nombre, String apellido, String nacionalidad,
+//					String fechaNac, String escuderia, double puntos, int posFinal,
+//					String urlImagen, String driverId, String escuderiaId, int pTotalCarreras, String pInfoCarreras) 
+//			
 
 					System.out.println(pilotos.size());
 					pilotos.addAlFinal(pilot);
@@ -253,17 +258,21 @@ public class Temporada implements Comparable<Temporada>, Serializable {
 
 				for(String pil:infoPos)
 				{
-
+					String idPiloto = "";
+					String apellido ="";
 					System.out.println(pil);
 					String [] infoPil = pil.split("[:]");
-					Piloto a = buscarPilotoBinario(infoPil[2]);
-					a.setPuntosInfoCarrera(pos, Double.parseDouble(infoPil[3]));
+					idPiloto=infoPil[1];
+					apellido=infoPil[3];
+					String nombre = infoPil[2];
+					Piloto a = buscarPilotoBinario(apellido);
+					a.setPuntosInfoCarrera(pos, Double.parseDouble(infoPil[4]));
 					pPilotos.addAlFinal(a);
 
 				}
 
 				//URL;
-				//pos1:total|pilotid:lastName:points|pos2: ...| ...  |Posn: ...
+				//pos1:total|pilotid:nombre:lastName:points|pos2: ...| ...  |Posn: ...
 
 				//URL;total|null
 				//
@@ -492,8 +501,12 @@ public class Temporada implements Comparable<Temporada>, Serializable {
 	 */
 	public Piloto removePiloto(String apellido){
 
-		Piloto pil = new Piloto("", apellido, "", "", "", 0, 0, "", "", "", 0, "");
+		Piloto pil = new Piloto("", apellido, "", "", "", 0, 0, "", "", "", 0, "-1");
 		return pilotos.remove(pil); 
+//		public Piloto(String nombre, String apellido, String nacionalidad,
+//				String fechaNac, String escuderia, double puntos, int posFinal,
+//				String urlImagen, String driverId, String escuderiaId, int pTotalCarreras, String pInfoCarreras) 
+//		
 	}
 
 	public Lista<Carrera> buscarCarrerasDespuesDeFecha(String pfecha)
@@ -593,9 +606,9 @@ public class Temporada implements Comparable<Temporada>, Serializable {
 		return mandar; //Si esta vacía ignoro. 
 	}
 
-	public Piloto buscarPilotoBinario(String pApellido)
+	public Piloto buscarPilotoBinario(String apellido)
 	{
-		Piloto param = new Piloto("", pApellido, "", "", "", 0, 0,"", "", "", 0,"");
+		Piloto param = new Piloto("", apellido, "", "", "", 0, 0,"", "", "", 0,"-1");
 		Piloto buscado = null;
 
 		int inicio =0;
@@ -620,8 +633,8 @@ public class Temporada implements Comparable<Temporada>, Serializable {
 			}
 		}
 
+			return buscado;
 
-		return buscado;
 	}
 
 	public Escuderia buscarEscuderiaBinario(String pNombre)
@@ -654,18 +667,50 @@ public class Temporada implements Comparable<Temporada>, Serializable {
 		return buscado;
 	}
 
-	public void eliminarPiloto(String pApellido)
+	public void eliminarPiloto(String apellido)
 	{
-		pilotos.remove(new Piloto("", pApellido, "", "", "", 0, 0, "", "", "", 0, ""));
+		pilotos.remove(new Piloto("", apellido, "", "", "", 0, 0, "", "", "", 0, "-1"));
 		for(int i=0; i< carreras.size();i++)
 		{
-			carreras.get(i).eliminarPiloto(pApellido);
+			carreras.get(i).eliminarPiloto(apellido);
 		}
 	}
 
 	public void eliminarEscuderia(String pNombre)
 	{
 		escuderias.remove(new Escuderia("", pNombre, "", 0, 0, ""));
+	}
+	
+	public int buscarPosicionPiloto(String apellido)
+	{
+		Piloto param = new Piloto("", apellido, "", "", "", 0, 0,"", "", "", 0,"-1");
+		Piloto buscado = null;
+
+		int inicio =0;
+		int fin= pilotos.size()-1;
+		boolean encontre = false;
+		int medio=0;
+
+		while(inicio<=fin&&!encontre)
+		{
+			medio=(inicio+fin)/2;
+			if(pilotos.get(medio).compareTo(param)==0)
+			{
+				encontre = true;
+				buscado = pilotos.get(medio);
+			}
+			else if(pilotos.get(medio).compareTo(param)<0)
+			{
+				inicio = medio+1;
+			}
+			else
+			{
+				fin=medio-1;
+			}
+		}
+
+
+		return medio;
 	}
 
 }

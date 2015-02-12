@@ -26,6 +26,8 @@ import java.awt.BorderLayout;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.UIManager;
+import javax.swing.JTable;
+import java.awt.Dimension;
 
 public class F1CircuitPositions extends JPanel {
 
@@ -33,23 +35,21 @@ public class F1CircuitPositions extends JPanel {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	private JTable table;
 
 	/**
 	 * Create the panel.
 	 */
 	public F1CircuitPositions() {
+		setSize(new Dimension(286, 170));
+		setMaximumSize(new Dimension(286, 170));
+		setMinimumSize(new Dimension(286, 170));
 		setBorder(new TitledBorder(null, "Posiciones ", TitledBorder.TRAILING, TitledBorder.TOP, null, null));
-		setLayout(new BorderLayout(0, 0));
+		setLayout(null);
 		
-		JScrollPane scrollPane = new JScrollPane();
-		add(scrollPane, BorderLayout.CENTER);
-		
-		JTextArea txtrLoremIpsumDolor = new JTextArea();
-		txtrLoremIpsumDolor.setEditable(false);
-		txtrLoremIpsumDolor.setLineWrap(true);
-		txtrLoremIpsumDolor.setForeground(UIManager.getColor("Button.foreground"));
-		txtrLoremIpsumDolor.setBackground(UIManager.getColor("CheckBox.background"));
-		scrollPane.setViewportView(txtrLoremIpsumDolor);
+		table = new JTable();
+		table.setBounds(10, 21, 264, 137);
+		add(table);
 
 	}
 

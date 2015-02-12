@@ -21,9 +21,13 @@
 package com.llama.tech.f1.gui;
 
 import java.awt.Color;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
 
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -35,13 +39,17 @@ import javax.swing.border.TitledBorder;
 
 import com.llama.tech.f1.backbone.Escuderia;
 
+import java.awt.Dimension;
+import java.io.File;
+import java.io.IOException;
+
 public class F1ConstructorInfo extends JFrame implements ActionListener 
 {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private JLabel lblNewLabel;
+	private JLabel lblImage;
 	private JLabel lblNewLabel_1;
 	private JTextField textField;
 	private JLabel lblPas;
@@ -62,16 +70,19 @@ public class F1ConstructorInfo extends JFrame implements ActionListener
 	 */
 	public F1ConstructorInfo(F1MainGUI v) 
 	{
+		setPreferredSize(new Dimension(640, 365));
+		setMaximumSize(new Dimension(640, 365));
+		setMinimumSize(new Dimension(640, 365));
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		principal = v;
 		setTitle("Informaci\u00F3n Escuder\u00EDa");
 		//setBorder(new TitledBorder(new LineBorder(new Color(184, 207, 229)), "Informaci\u00F3n Escuder\u00EDa", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(51, 51, 51)));
 		getContentPane().setLayout(null);
 		
-		lblNewLabel = new JLabel("");
-		lblNewLabel.setBorder(new TitledBorder(null, "Logo", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		lblNewLabel.setBounds(23, 36, 181, 100);
-		getContentPane().add(lblNewLabel);
+		lblImage = new JLabel("");
+		lblImage.setBorder(new TitledBorder(null, "Logo", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		lblImage.setBounds(23, 36, 181, 100);
+		getContentPane().add(lblImage);
 		
 		lblNewLabel_1 = new JLabel("Nombre:");
 		lblNewLabel_1.setBounds(216, 40, 70, 15);
@@ -153,6 +164,21 @@ public class F1ConstructorInfo extends JFrame implements ActionListener
 		textField_1.setText(escuderia.getPais());
 		textField_2.setText(escuderia.getPosFinal()+"");
 		textField_3.setText(escuderia.getPuntos()+"");
+		
+		
+		BufferedImage img = null;
+		try {
+			System.out.println(escuderia.getUrlLogo());
+		    img = ImageIO.read(new File(escuderia.getUrlLogo()));
+		} catch (IOException e) {
+		    e.printStackTrace();
+		}
+		Image dimg = img.getScaledInstance(lblImage.getWidth(), lblImage.getHeight(),
+		        Image.SCALE_SMOOTH);
+////		textField_8
+	    ImageIcon imageIcon = new ImageIcon(dimg);
+		lblImage.setIcon(imageIcon);
+		
 	}
 
 	@Override

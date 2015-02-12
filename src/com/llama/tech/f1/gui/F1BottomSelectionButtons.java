@@ -52,8 +52,8 @@ public class F1BottomSelectionButtons extends JPanel implements ActionListener
 	{
 		setLayout(null);
 		this.main = main;
-		//String[] temp = principal.darTemporadas();
-		seasonsCombo = new JComboBox<String>();
+		String[] temp = main.darTemporadas();
+		seasonsCombo = new JComboBox<String>(temp);
 		seasonsCombo.setBounds(118, 12, 133, 24);
 		seasonsCombo.addItemListener(new ItemChangeListener());
 		seasonsCombo.setSelectedItem(null);
