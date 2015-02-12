@@ -178,6 +178,7 @@ public class F1SearchPanel extends JFrame implements ActionListener, ItemListene
 		comboBox_1 = new JComboBox(tipo);
 		comboBox_1.addItemListener(icl);
 		comboBox_1.setBounds(224, 61, 158, 24);
+		comboBox_1.setSelectedItem(null);
 		getContentPane().add(comboBox_1);
 
 
@@ -206,6 +207,7 @@ public class F1SearchPanel extends JFrame implements ActionListener, ItemListene
 				{
 					String item = (String) event.getItem(); //→ Año
 					if(item!=null)
+						principal.transferYearIndex(comboBox.getSelectedIndex());
 						principal.realizarConsulta(Integer.parseInt(item));
 				}
 			}

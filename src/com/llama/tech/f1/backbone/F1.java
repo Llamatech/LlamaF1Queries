@@ -70,19 +70,28 @@ public class F1 implements IF1, Serializable
 
 
 	@Override
-	public void deletePilotRecord(String apellido) {
+	public Piloto deletePilotRecord(String apellido) {
+		Piloto remove = null;
 		for(Temporada t:temporadas)
 		{
-			t.eliminarPiloto(apellido);
+			Piloto temp = t.eliminarPiloto(apellido);
+			if(temp!=null)
+				remove = temp;
 		}
+		return remove;
 	}
 
 	@Override
-	public void deleteCircuitRecord(String idCarrera) {
+	public Carrera deleteCircuitRecord(String idCarrera) {
+		Carrera remove = null;
 		for(Temporada t:temporadas)
 		{
-			t.eliminarCarrera(idCarrera);
+			
+			Carrera temp = t.eliminarCarrera(idCarrera);
+			if(temp!=null)
+				remove = temp;
 		}
+		return remove;
 	}
 
 
@@ -274,9 +283,25 @@ public class F1 implements IF1, Serializable
 		return temporadas[anho-min].getEscuderias();
 	}
 	@Override
-	public Carrera darCarreraMayorduracion(int anho) {
-		return temporadas[anho-min].darCarreraMayorDuracion();
+	public Carrera darCarreraMayorduracion() {
+		Carrera mayor = null;
+		
+		
+		for(Temporada t: temporadas)
+		{
+			Carrera comparar = t.darCarreraMayorDuracion();
+			if(comparar!=null)
+			{
+				if(mayor == null)
+					mayor=comparar;
+				else if(Double.parseDouble(comparar.getDuracion())>Double.parseDouble(mayor.getDuracion()))
+					mayor=comparar;
+			}
+		}
+		
+		return mayor;
 	}
-
+	
+	
 
 }

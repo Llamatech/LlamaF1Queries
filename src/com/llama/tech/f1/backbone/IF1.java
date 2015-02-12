@@ -42,14 +42,15 @@ public interface IF1 extends Serializable
 	/**
 	 * Borra un piloto del sistema
 	 * @param apellido apellido del piloto a borrar
+	 * @return Piloto borrado null si no encontró
 	 */
-	public void deletePilotRecord(String apellido);
+	public Piloto deletePilotRecord(String apellido);
 	
 	/**
 	 * Borra un circuito del sistema
 	 * @param nombre del circuito a eliminar
 	 */
-	public void deleteCircuitRecord(String nombre);
+	public Carrera deleteCircuitRecord(String nombre);
 	
 	/**
 	 * Da las temporadas completas
@@ -172,6 +173,6 @@ public interface IF1 extends Serializable
 	 * @param anho amho de búsqueda
 	 * @return carrera con mayor duración en ese año
 	 */
-	public Carrera darCarreraMayorduracion(int anho);
+	public Carrera darCarreraMayorduracion();
 	
 }

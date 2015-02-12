@@ -147,7 +147,7 @@ public class Carrera implements Comparable<Carrera>, Serializable
 //    		s.append(c+";");
 //    	}
     	//s.append(duracion+";"+urlImagen);
-    	s.append(urlImagen);
+    	
     	
     	return s.toString();
     }
@@ -270,13 +270,21 @@ public class Carrera implements Comparable<Carrera>, Serializable
 		return nombre.compareTo(o.getNombre());
 	}
 	
+	@Override
+	public boolean equals(Object o)
+	{
+		return this.compareTo((Carrera)o)==0;
+	}
+	
 	/**
 	 * Elimina un piloto de la lista de pilotos segun el apellido dado por parametro
 	 * @param apellido apellido de piloto a eliminar
 	 */
-	public void eliminarPiloto(String apellido)
+	public Piloto eliminarPiloto(String apellido)
 	{
-		pilotos.remove(new Piloto("", apellido, "", "", "", 0, 0, "", "", "", 0));
+		 return pilotos.remove(new Piloto("", apellido, "", "", "", 0, 0, "", "", "", 0));
 	}
+	
+	
 
 }

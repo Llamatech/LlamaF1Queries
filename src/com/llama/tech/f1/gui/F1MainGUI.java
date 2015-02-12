@@ -73,6 +73,7 @@ public class F1MainGUI extends JFrame implements ShapeListener
 	private F1CircuitPositions f1CircuitPositions;
 	private F1ConstructorInfo f1ConstructorInfo;
 	private F1DriverInfoPanel f1DriverInfoPanel;
+	private F1LongestRacePanel f1LongestRacePanel;
 	private boolean constructorsWindowAct;
 	private boolean searchWindowAct;
 	private int min;
@@ -213,7 +214,7 @@ public class F1MainGUI extends JFrame implements ShapeListener
 		//f1ConstructorInfo.setBounds(12, 232, 630, 271);
 		//racePanel.add(f1ConstructorInfo);
 
-		F1LongestRacePanel f1LongestRacePanel = new F1LongestRacePanel();
+		f1LongestRacePanel = new F1LongestRacePanel(this);
 		f1LongestRacePanel.setBounds(369, 186, 244, 41);
 		racePanel.add(f1LongestRacePanel);
 
@@ -281,6 +282,11 @@ public class F1MainGUI extends JFrame implements ShapeListener
 			
 		}
 
+	}
+	
+	public void transferYearIndex(int index)
+	{
+		f1BottomSelectionButtons.changeSelectedItem(index);
 	}
 	
 	public void refreshDriverInfo(Piloto p)
@@ -510,14 +516,25 @@ public class F1MainGUI extends JFrame implements ShapeListener
 		{
 			if(tipoBusqueda.equals(SearchType.PILOTOS))
 			{
-				mundo.deletePilotRecord(argumentoBusqueda);
+				Piloto rem = mundo.deletePilotRecord(argumentoBusqueda);
+				if(rem==null)
+				{
+					JOptionPane.showMessageDialog(this, "No se encontró el piloto. Porfavor escriba solo el apellido");
+				}
 			}
 			else if(tipoBusqueda.equals(SearchType.CARRERAS))
 			{
-				mundo.deleteCircuitRecord(argumentoBusqueda);
+				Carrera rem =mundo.deleteCircuitRecord(argumentoBusqueda);
+				if(rem==null)
+				{
+					JOptionPane.showMessageDialog(this, "No se encontró la carrera. Porfavor revise que escribe bien el nombre de la carrera");
+				}
+				
 			}
 			else if(tipoBusqueda.equals(SearchType.ESCUDERIAS))
 				JOptionPane.showMessageDialog(this, "No puede borrar escuderías");
+			
+			realizarConsulta(Integer.parseInt(f1SearchPanel.darAnhoBusqueda()));
 		}
 		else
 		{
@@ -531,6 +548,17 @@ public class F1MainGUI extends JFrame implements ShapeListener
 			}
 			else if(tipoBusqueda.equals(SearchType.CARRERAS))
 				JOptionPane.showMessageDialog(this, "No puede hacer búsqueda de carreras");
+		}
+	}
+	
+	public void darCarreraMayorDuracion()
+	{
+		Carrera mayor = mundo.darCarreraMayorduracion();
+		if(mayor==null||mayor.getDuracion().equals("No disponible")||mayor.getDuracion().equals(""))
+			JOptionPane.showMessageDialog(this, "Esta información no esta disponible en este periodo");
+		else{
+			JOptionPane.showMessageDialog(this, "Año: "+mayor.getFecha().split("[-]")[0]+", Nombre: "+mayor.getNombre()+" ,Duracion: "+mayor.getDuracion()+" s."+", Piloto ganador: "+mayor.getPilotos().get(0).getNombre()+" "+mayor.getPilotos().get(0).getApellido());
+			f1DriverInfoPanel.cambiarInfo(mayor.getPilotos().get(0), mayor);
 		}
 	}
 }

@@ -108,5 +108,11 @@ public class F1BottomSelectionButtons extends JPanel implements ActionListener
 		}       
 	}
 	
+	public void changeSelectedItem(int index)
+	{
+		seasonsCombo.setSelectedIndex(index);
+		main.realizarConsulta(Integer.parseInt(seasonsCombo.getItemAt(index)));
+	}
+	
 	
 }

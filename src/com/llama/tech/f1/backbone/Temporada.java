@@ -95,9 +95,9 @@ public class Temporada implements Comparable<Temporada>, Serializable {
 	 * Este atributo guarda la carrera de mayor duración
 	 */
 	private Carrera carreraMayorduracion;
-	
+
 	private Carrera carreraActual;
-	
+
 	private Piloto pilotoActual;
 
 	// -----------------------------------------------------------------
@@ -206,8 +206,11 @@ public class Temporada implements Comparable<Temporada>, Serializable {
 					}
 
 					Escuderia buscada = buscarEscuderia(infoP[6]);
-					buscada.setPiloto(infoP[1]+" "+infoP[2]+", "+infoP[3]);
-					
+					if(buscada!=null)
+					{
+						buscada.setPiloto(infoP[1]+" "+infoP[2]+", "+infoP[3]);
+					}
+
 					Piloto pilot = new Piloto(infoP[1], infoP[2], infoP[3],
 							infoP[4], infoP[6], points, pos, infoP[9],
 							infoP[0], infoP[5],Integer.parseInt(infoP[11]));
@@ -333,14 +336,19 @@ public class Temporada implements Comparable<Temporada>, Serializable {
 				}
 				else
 				{
-					double tiempo1=timeConversionDouble(tiempoPrimero);
-					double tiempo2=timeConversionDouble(tiempoUltimo);
-
+					System.out.println("tiempos1: "+tiempoPrimero+" "+tiempoUltimo);
+					double tiempo1 = Double.parseDouble(tiempoPrimero.replace("+", "0"));
+					double tiempo2 = Double.parseDouble(tiempoUltimo.replace("+", "0"));
+//					double tiempo1=timeConversionDouble(tiempoPrimero);
+//					double tiempo2=timeConversionDouble(tiempoUltimo);
+//
+					System.out.println("tiempos2: "+tiempo1+" "+tiempo2);
 					double tiempoTotal = tiempo1+tiempo2;
-
-					duracion = timeConversionString(tiempoTotal);
+					System.out.println("tiempos:3 "+tiempoTotal);
+					duracion = tiempoTotal+"";
+					System.out.println("duracion: "+duracion);
 				}
-				
+
 				System.out.println(URL);
 
 				Carrera race = new Carrera(nombreCarr, numeroCarrera, fecha, hora,
@@ -423,7 +431,7 @@ public class Temporada implements Comparable<Temporada>, Serializable {
 		}
 	}
 
-	
+
 
 	@Override
 	public int compareTo(Temporada o) {
@@ -541,7 +549,7 @@ public class Temporada implements Comparable<Temporada>, Serializable {
 		}
 		return piloto;
 	}
-	
+
 	/**
 	 * Busca la escuderia recibida por parametro en la lista de escuderias
 	 * @param nombre el nombre de la escuderia a buscar
@@ -761,13 +769,18 @@ public class Temporada implements Comparable<Temporada>, Serializable {
 	 * pos: El piloto ya no existe en temporada ni en ninguna de sus carreras
 	 * @param apellido - apellido del piloto a eliminar
 	 */
-	public void eliminarPiloto(String apellido)
+	public Piloto eliminarPiloto(String apellido)
 	{
-		pilotos.remove(new Piloto("", apellido, "", "", "", 0, 0, "", "", "", 0));
+		Piloto remove = null;
+		remove= pilotos.remove(new Piloto("", apellido, "", "", "", 0, 0, "", "", "", 0));
 		for(int i=0; i< carreras.size();i++)
 		{
-			carreras.get(i).eliminarPiloto(apellido);
+			Piloto ush = carreras.get(i).eliminarPiloto(apellido);
+			if(ush!=null)
+				remove=ush;
+
 		}
+		return remove;
 	}
 
 	/**
@@ -775,10 +788,10 @@ public class Temporada implements Comparable<Temporada>, Serializable {
 	 * pos: la carrera no existe en ele sistema
 	 * @param pNombre nombre de la carrera a eliminar
 	 */
-	public void eliminarCarrera(String nombre)
+	public Carrera eliminarCarrera(String nombre)
 	{
 		Lista<Piloto> lista = new LlamaArrayList<Piloto>(1);
-		carreras.remove(new Carrera(nombre, 0, "", "", "", "", "", "", "", "", lista));
+		return carreras.remove(new Carrera(nombre, 0, "", "", "", "", "", "", "", "", lista));
 	}
 
 
@@ -894,7 +907,7 @@ public class Temporada implements Comparable<Temporada>, Serializable {
 	{
 		return carreraMayorduracion;
 	}
-	
+
 	/**
 	 * Este método devuelve la carrera actual
 	 * @return carrera actual
@@ -903,7 +916,7 @@ public class Temporada implements Comparable<Temporada>, Serializable {
 	{
 		return carreraActual;
 	}
-	
+
 	/**
 	 * Este metodo retorna el piloto actual
 	 * @return piloto actual
@@ -912,7 +925,12 @@ public class Temporada implements Comparable<Temporada>, Serializable {
 	{
 		return pilotoActual;
 	}
-
+	
+	public void remodelarIteradorPiloto(){
+		
+		itPiloto=pilotos.iterator(pilotos.indexOf(pilotoActual));
+		
+	}
 
 
 }

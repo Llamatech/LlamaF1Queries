@@ -20,32 +20,51 @@
 
 package com.llama.tech.f1.gui;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.JPanel;
+
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.RowSpec;
 import com.jgoodies.forms.factories.FormFactory;
+
 import javax.swing.JLabel;
 import javax.swing.JButton;
 
-public class F1LongestRacePanel extends JPanel {
+public class F1LongestRacePanel extends JPanel implements ActionListener {
 	private JButton raceButton;
+	private F1MainGUI principal;
 
 	/**
 	 * Create the panel.
 	 */
-	public F1LongestRacePanel() {
+	public F1LongestRacePanel(F1MainGUI v) {
+		principal = v;
 		setLayout(new FormLayout(new ColumnSpec[] {
 				FormFactory.RELATED_GAP_COLSPEC,
 				FormFactory.DEFAULT_COLSPEC,
 				FormFactory.RELATED_GAP_COLSPEC,
 				FormFactory.DEFAULT_COLSPEC,},
-			new RowSpec[] {
+				new RowSpec[] {
 				FormFactory.RELATED_GAP_ROWSPEC,
 				FormFactory.DEFAULT_ROWSPEC,}));
-		
+
 		raceButton = new JButton("Carrera de Mayor Duración");
+		raceButton.setActionCommand("CARRERA");
+		raceButton.addActionListener(this);
 		add(raceButton, "2, 2");
+
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		if(e.getActionCommand().equals("CARRERA"))
+		{
+			principal.darCarreraMayorDuracion();
+		}
+
 
 	}
 

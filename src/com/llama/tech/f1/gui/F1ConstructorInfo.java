@@ -36,6 +36,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
@@ -77,7 +78,7 @@ public class F1ConstructorInfo extends JFrame implements ActionListener
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		principal = v;
 		setTitle("Informaci\u00F3n Escuder\u00EDa");
-		
+
 		try 
 		{
 			setIconImage(ImageIO.read(new File(F1MainGUI.IMG_ROOT+"constructors/default.png")));
@@ -86,76 +87,76 @@ public class F1ConstructorInfo extends JFrame implements ActionListener
 		{
 			// TODO Auto-generated catch block
 		}
-		
-		
+
+
 		//setBorder(new TitledBorder(new LineBorder(new Color(184, 207, 229)), "Informaci\u00F3n Escuder\u00EDa", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(51, 51, 51)));
 		getContentPane().setLayout(null);
-		
+
 		lblImage = new JLabel("");
 		lblImage.setBorder(new TitledBorder(null, "Logo", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		lblImage.setBounds(27, 148, 245, 109);
 		getContentPane().add(lblImage);
-		
+
 		lblNewLabel_1 = new JLabel("Nombre:");
 		lblNewLabel_1.setBounds(216, 40, 70, 15);
 		getContentPane().add(lblNewLabel_1);
-		
+
 		textField = new JTextField();
 		textField.setEditable(false);
 		textField.setBounds(341, 36, 265, 19);
 		getContentPane().add(textField);
 		textField.setColumns(10);
-		
+
 		lblPas = new JLabel("País:");
 		lblPas.setBounds(216, 67, 70, 15);
 		getContentPane().add(lblPas);
-		
+
 		textField_1 = new JTextField();
 		textField_1.setEditable(false);
 		textField_1.setBounds(341, 63, 265, 19);
 		getContentPane().add(textField_1);
 		textField_1.setColumns(10);
-		
+
 		lblNewLabel_2 = new JLabel("Posición final:");
 		lblNewLabel_2.setBounds(216, 94, 107, 15);
 		getContentPane().add(lblNewLabel_2);
-		
+
 		textField_2 = new JTextField();
 		textField_2.setEditable(false);
 		textField_2.setColumns(10);
 		textField_2.setBounds(341, 90, 265, 19);
 		getContentPane().add(textField_2);
-		
+
 		lblPuntos = new JLabel("Puntos:");
 		lblPuntos.setBounds(216, 121, 107, 15);
 		getContentPane().add(lblPuntos);
-		
+
 		textField_3 = new JTextField();
 		textField_3.setEditable(false);
 		textField_3.setColumns(10);
 		textField_3.setBounds(341, 117, 265, 19);
 		getContentPane().add(textField_3);
-		
+
 		scrollPane = new JScrollPane();
 		scrollPane.setBorder(new TitledBorder(null, "Pilotos", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(51, 51, 51)));
 		scrollPane.setBounds(290, 148, 316, 109);
 		getContentPane().add(scrollPane);
-		
+
 		//list = new JList<Piloto>();
 		list.setBackground(UIManager.getColor("Button.background"));
 		scrollPane.setViewportView(list);
-		
+
 		JPanel panel = new JPanel();
 		panel.setBounds(27, 36, 146, 92);
 		getContentPane().add(panel);
 		panel.setLayout(null);
-		
+
 		btnSiguiente = new JButton("\u2192");
 		btnSiguiente.setActionCommand("SIGUIENTE");
 		btnSiguiente.addActionListener(this);
 		btnSiguiente.setBounds(17, 55, 117, 25);
 		panel.add(btnSiguiente);
-		
+
 		btnAnterior = new JButton("\u2190");
 		btnAnterior.setActionCommand("ANTERIOR");
 		btnAnterior.addActionListener(this);
@@ -163,34 +164,41 @@ public class F1ConstructorInfo extends JFrame implements ActionListener
 		panel.add(btnAnterior);
 
 	}
-	
+
 	public void cambiarInfo(Escuderia escuderia)
 	{
-		textField.setText(escuderia.getNombre());
-		textField_1.setText(escuderia.getPais());
-		textField_2.setText(escuderia.getPosFinal()+"");
-		textField_3.setText(escuderia.getPuntos()+"");
-		
-		
-		BufferedImage img = null;
-		try {
-			System.out.println(escuderia.getUrlLogo());
-		    img = ImageIO.read(new File(escuderia.getUrlLogo()));
-		} catch (IOException e) {
-		    e.printStackTrace();
-		}
-		Image dimg = img.getScaledInstance(lblImage.getWidth(), lblImage.getHeight(),
-		        Image.SCALE_SMOOTH);
-////		textField_8
-	    ImageIcon imageIcon = new ImageIcon(dimg);
-		lblImage.setIcon(imageIcon);
-		
-		listModel.clear();
-		for(int i = 0; i < escuderia.getPilotos().size(); i++)
+		if(escuderia==null)
 		{
-		      listModel.addElement(escuderia.getPilotos().get(i));
+			JOptionPane.showMessageDialog(this, "No se encontró la escuderí. Asegurese de introducir bien el nombre");
 		}
-		
+		else
+		{
+			textField.setText(escuderia.getNombre());
+			textField_1.setText(escuderia.getPais());
+			textField_2.setText(escuderia.getPosFinal()+"");
+			textField_3.setText(escuderia.getPuntos()+"");
+
+
+			BufferedImage img = null;
+			try {
+				System.out.println(escuderia.getUrlLogo());
+				img = ImageIO.read(new File(escuderia.getUrlLogo()));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			Image dimg = img.getScaledInstance(lblImage.getWidth(), lblImage.getHeight(),
+					Image.SCALE_SMOOTH);
+			////		textField_8
+			ImageIcon imageIcon = new ImageIcon(dimg);
+			lblImage.setIcon(imageIcon);
+
+			listModel.clear();
+			for(int i = 0; i < escuderia.getPilotos().size(); i++)
+			{
+				listModel.addElement(escuderia.getPilotos().get(i));
+			}
+		}
+
 	}
 
 	@Override
@@ -199,15 +207,15 @@ public class F1ConstructorInfo extends JFrame implements ActionListener
 			principal.darAnterior("Escuderia");
 		else if(e.getActionCommand().equals("SIGUIENTE"))
 			principal.darSiguiente("Escuderia");
-		
+
 	}
-	
+
 	@Override
 	public void dispose()
 	{
 		principal.setConstructorsInfo(false);
 		this.setVisible(false);
 	}
-	
+
 
 }

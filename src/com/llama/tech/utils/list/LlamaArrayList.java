@@ -179,7 +179,7 @@ public class LlamaArrayList<T> implements Lista<T>, Serializable{
 	public synchronized LlamaIterator<T> iterator(int pos) throws IndexOutOfBoundsException {
 		return new MyIterator<T>(pos);
 	}
-	
+
 	/**
 	 * Esta clase modela el iterador del ArrayList
 	 * @param <T> el parámetro que representa la clase generica
@@ -204,14 +204,14 @@ public class LlamaArrayList<T> implements Lista<T>, Serializable{
 			x++;
 			return ret;
 		}
-		
+
 		public boolean hasPrevious(){
 			if((x-1)>=0)
 				return true;
 			return false;
-			
+
 		}
-		
+
 		public T previous(){
 			T ret=(T) lista[x-1];
 			x--;
@@ -250,15 +250,26 @@ public class LlamaArrayList<T> implements Lista<T>, Serializable{
 		int pos = 0;
 		for(T t: lista)
 		{
-			if(t.equals(elemento))
+			if(t==null)
 			{
 				for(int i=pos;i<posActual-1;i++)
 				{
-					lista[i]=lista[i++];
+					lista[i]=lista[i+1];
 				}
-				return elemento;
 			}
-			pos++;
+			else
+			{
+				if(t.equals(elemento))
+				{
+					for(int i=pos;i<posActual-1;i++)
+					{
+						lista[i]=lista[i+1];
+					}
+					return elemento;
+				}
+				pos++;
+			}
+			
 		}
 		return null;
 
@@ -297,6 +308,6 @@ public class LlamaArrayList<T> implements Lista<T>, Serializable{
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
+
 
 }
