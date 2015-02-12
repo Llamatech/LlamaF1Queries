@@ -21,27 +21,28 @@
 package com.llama.tech.f1.gui;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 import javax.imageio.ImageIO;
+import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.UIManager;
 import javax.swing.border.TitledBorder;
 
 import com.llama.tech.f1.backbone.Escuderia;
-
-import java.awt.Dimension;
-import java.io.File;
-import java.io.IOException;
 
 public class F1ConstructorInfo extends JFrame implements ActionListener 
 {
@@ -59,21 +60,20 @@ public class F1ConstructorInfo extends JFrame implements ActionListener
 	private JLabel lblPuntos;
 	private JTextField textField_3;
 	private JScrollPane scrollPane;
-	private JScrollPane scrollPane_1;
-	private JTable table;
-	private JTable table_1;
 	private JButton btnSiguiente;
 	private F1MainGUI principal;
 	private JButton btnAnterior;
+	private DefaultListModel<String> listModel = new DefaultListModel<String>();
+	private JList<String> list = new JList<String>(listModel);
 
 	/**
 	 * Create the panel.
 	 */
 	public F1ConstructorInfo(F1MainGUI v) 
 	{
-		setPreferredSize(new Dimension(640, 365));
-		setMaximumSize(new Dimension(640, 365));
-		setMinimumSize(new Dimension(640, 365));
+		setPreferredSize(new Dimension(640, 322));
+		setMaximumSize(new Dimension(640, 322));
+		setMinimumSize(new Dimension(640, 322));
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		principal = v;
 		setTitle("Informaci\u00F3n Escuder\u00EDa");
@@ -93,7 +93,7 @@ public class F1ConstructorInfo extends JFrame implements ActionListener
 		
 		lblImage = new JLabel("");
 		lblImage.setBorder(new TitledBorder(null, "Logo", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		lblImage.setBounds(23, 36, 181, 100);
+		lblImage.setBounds(27, 148, 245, 109);
 		getContentPane().add(lblImage);
 		
 		lblNewLabel_1 = new JLabel("Nombre:");
@@ -138,35 +138,28 @@ public class F1ConstructorInfo extends JFrame implements ActionListener
 		
 		scrollPane = new JScrollPane();
 		scrollPane.setBorder(new TitledBorder(null, "Pilotos", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(51, 51, 51)));
-		scrollPane.setBounds(23, 155, 232, 109);
+		scrollPane.setBounds(290, 148, 316, 109);
 		getContentPane().add(scrollPane);
 		
-		table = new JTable();
-		scrollPane.setViewportView(table);
-		
-		scrollPane_1 = new JScrollPane();
-		scrollPane_1.setBorder(new TitledBorder(null, "Carreras", TitledBorder.RIGHT, TitledBorder.TOP, null, null));
-		scrollPane_1.setBounds(274, 155, 332, 109);
-		getContentPane().add(scrollPane_1);
-		
-		table_1 = new JTable();
-		scrollPane_1.setViewportView(table_1);
+		//list = new JList<Piloto>();
+		list.setBackground(UIManager.getColor("Button.background"));
+		scrollPane.setViewportView(list);
 		
 		JPanel panel = new JPanel();
-		panel.setBounds(331, 276, 275, 26);
+		panel.setBounds(27, 36, 146, 92);
 		getContentPane().add(panel);
 		panel.setLayout(null);
 		
 		btnSiguiente = new JButton("\u2192");
 		btnSiguiente.setActionCommand("SIGUIENTE");
 		btnSiguiente.addActionListener(this);
-		btnSiguiente.setBounds(141, 0, 117, 25);
+		btnSiguiente.setBounds(17, 55, 117, 25);
 		panel.add(btnSiguiente);
 		
 		btnAnterior = new JButton("\u2190");
 		btnAnterior.setActionCommand("ANTERIOR");
 		btnAnterior.addActionListener(this);
-		btnAnterior.setBounds(12, 0, 117, 25);
+		btnAnterior.setBounds(17, 12, 117, 25);
 		panel.add(btnAnterior);
 
 	}
@@ -191,6 +184,12 @@ public class F1ConstructorInfo extends JFrame implements ActionListener
 ////		textField_8
 	    ImageIcon imageIcon = new ImageIcon(dimg);
 		lblImage.setIcon(imageIcon);
+		
+		listModel.clear();
+		for(int i = 0; i < escuderia.getPilotos().size(); i++)
+		{
+		      listModel.addElement(escuderia.getPilotos().get(i));
+		}
 		
 	}
 

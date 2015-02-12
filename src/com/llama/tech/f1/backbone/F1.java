@@ -70,25 +70,20 @@ public class F1 implements IF1, Serializable
 
 
 	@Override
-	public boolean deletePilotRecord(String name) {
-		// TODO Auto-generated method stub
-		return false;
+	public void deletePilotRecord(String apellido) {
+		for(Temporada t:temporadas)
+		{
+			t.eliminarPiloto(apellido);
+		}
 	}
 
 	@Override
-	public boolean deleteCircuitRecord(String name) {
-		// TODO Auto-generated method stub
-		return false;
+	public void deleteCircuitRecord(String nombre) {
+		for(Temporada t:temporadas)
+		{
+			t.eliminarEscuderia(nombre);
+		}
 	}
-
-
-
-	@Override
-	public String[] getSeasonList() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 	
 
 	@Override
@@ -187,9 +182,10 @@ public class F1 implements IF1, Serializable
 	@Override
 	public void cargar(int anho) throws Exception {
 		// TODO Auto-generated method stub
+		cargarEscuderiasTemporada(anho);
 		cargarPilotosTemporada(anho);
 		cargarCarrerasTemporada(anho);
-		cargarEscuderiasTemporada(anho);
+		
 
 	}
 

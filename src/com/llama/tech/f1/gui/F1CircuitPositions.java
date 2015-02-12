@@ -20,37 +20,75 @@
 
 package com.llama.tech.f1.gui;
 
-import javax.swing.JPanel;
-import javax.swing.border.TitledBorder;
-import java.awt.BorderLayout;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
-import javax.swing.UIManager;
-import javax.swing.JTable;
 import java.awt.Dimension;
 
-public class F1CircuitPositions extends JPanel {
+import javax.swing.DefaultListModel;
+import javax.swing.JList;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.UIManager;
+import javax.swing.border.TitledBorder;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+
+import com.llama.tech.f1.backbone.Carrera;
+import com.llama.tech.f1.backbone.Piloto;
+import com.llama.tech.utils.list.Lista;
+
+public class F1CircuitPositions extends JPanel implements ListSelectionListener{
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private JTable table;
+	private F1MainGUI main;
+	private DefaultListModel<Piloto> listModel = new DefaultListModel<Piloto>();
+	private JList<Piloto> list = new JList<Piloto>(listModel);
 
 	/**
 	 * Create the panel.
 	 */
-	public F1CircuitPositions() {
-		setSize(new Dimension(286, 170));
+	public F1CircuitPositions(F1MainGUI main) 
+	{
+		this.main = main;
+		setSize(new Dimension(284, 170));
 		setMaximumSize(new Dimension(286, 170));
 		setMinimumSize(new Dimension(286, 170));
 		setBorder(new TitledBorder(null, "Posiciones ", TitledBorder.TRAILING, TitledBorder.TOP, null, null));
 		setLayout(null);
 		
-		table = new JTable();
-		table.setBounds(10, 21, 264, 137);
-		add(table);
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(12, 24, 262, 134);
+		add(scrollPane);
+		
+		//list = new JList<Piloto>();
+		list.addListSelectionListener(this);
+		list.setBackground(UIManager.getColor("Button.background"));
+		scrollPane.setViewportView(list);
 
 	}
 
+	
+	public void setListInfo(Carrera carrera)
+	{
+		listModel.clear();
+		Lista<Piloto> l = carrera.getPilotos();
+		//Piloto[] lm = new Piloto[l.size()];
+		for(int i = 0; i < l.size(); i++)
+		{
+			listModel.addElement(l.get(i));
+		}
+		//listModel.clear();
+		
+	}
+
+
+	@Override
+	public void valueChanged(ListSelectionEvent e) 
+	{
+		Piloto p = list.getSelectedValue();
+		main.refreshDriverInfo(p);
+		
+	}
+	
 }

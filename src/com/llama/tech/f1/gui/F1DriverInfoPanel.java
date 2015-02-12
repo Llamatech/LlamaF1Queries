@@ -39,6 +39,7 @@ import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.RowSpec;
 import com.jgoodies.forms.factories.FormFactory;
+import com.llama.tech.f1.backbone.Carrera;
 import com.llama.tech.f1.backbone.Piloto;
 
 import javax.swing.ImageIcon;
@@ -51,6 +52,7 @@ import net.miginfocom.swing.MigLayout;
 import javax.swing.JList;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
+
 import java.awt.Dimension;
 
 public class F1DriverInfoPanel extends JPanel implements ActionListener{
@@ -64,32 +66,28 @@ public class F1DriverInfoPanel extends JPanel implements ActionListener{
 	private JTextField textField_3;
 	private JTextField textField_4;
 	private JTextField textField_5;
-	private JTextField textField_6;
-	private JTextField textField_7;
+	private JTextField textField_pos;
+	private JTextField textField_points;
 	private JButton btnAnterior;
 	private JButton btnSiguiente;
 	private F1MainGUI principal;
 	private JLabel lblImage;
-	private JTextField textField_8;
+	private JTextField textField_finalState;
 	private JLabel lblNewLabel;
 	private JLabel lblNewLabel_9;
-	private JTextField textField_9;
-	private JTextField textField_10;
+	private JTextField textField_laps;
 	private JLabel lblNewLabel_11;
-	private JTextField textField_11;
-	private JLabel lblNewLabel_12;
+	private JTextField textField_speed;
 	private JLabel lblNewLabel_13;
-	private JTextField textField_12;
-	private JTextField textField_13;
-	private JLabel lblTiempoTotal;
+	private JTextField textField_fastTime;
 
 	/**
 	 * Create the panel.
 	 */
 	public F1DriverInfoPanel(F1MainGUI v) {
-		setPreferredSize(new Dimension(510, 385));
-		setMaximumSize(new Dimension(510, 367));
-		setMinimumSize(new Dimension(510, 367));
+		setPreferredSize(new Dimension(510, 362));
+		setMaximumSize(new Dimension(510, 362));
+		setMinimumSize(new Dimension(510, 362));
 		principal = v;
 		setBorder(new TitledBorder(null, "Informaci\u00F3n Piloto", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		setLayout(null);
@@ -171,70 +169,60 @@ public class F1DriverInfoPanel extends JPanel implements ActionListener{
 		
 		JPanel panel_1 = new JPanel();
 		panel_1.setBorder(new TitledBorder(null, "Informaci\u00F3n Carrera Actual", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		panel_1.setBounds(23, 192, 465, 134);
+		panel_1.setBounds(23, 192, 465, 105);
 		add(panel_1);
 		panel_1.setLayout(new MigLayout("", "[99.00px][122.00px,grow][72.00][grow]", "[19px][][][][grow]"));
 		
 		JLabel lblNewLabel_7 = new JLabel("Posición:");
 		panel_1.add(lblNewLabel_7, "cell 0 0,alignx left,aligny center");
 		
-		textField_6 = new JTextField();
-		textField_6.setEditable(false);
-		panel_1.add(textField_6, "cell 1 0,alignx left,aligny top");
-		textField_6.setColumns(10);
+		textField_pos = new JTextField();
+		textField_pos.setEditable(false);
+		panel_1.add(textField_pos, "cell 1 0,alignx left,aligny top");
+		textField_pos.setColumns(10);
 		
 		JLabel lblNewLabel_8 = new JLabel("Puntos:");
 		panel_1.add(lblNewLabel_8, "cell 2 0,alignx left");
 		
-		textField_7 = new JTextField();
-		textField_7.setEditable(false);
-		panel_1.add(textField_7, "cell 3 0,alignx left");
-		textField_7.setColumns(10);
+		textField_points = new JTextField();
+		textField_points.setEditable(false);
+		panel_1.add(textField_points, "cell 3 0,alignx left");
+		textField_points.setColumns(10);
 		
 		lblNewLabel = new JLabel("Estado Final:");
 		panel_1.add(lblNewLabel, "cell 0 1,alignx left");
 		
-		textField_8 = new JTextField();
-		panel_1.add(textField_8, "cell 1 1,alignx left");
-		textField_8.setColumns(10);
+		textField_finalState = new JTextField();
+		textField_finalState.setEditable(false);
+		panel_1.add(textField_finalState, "cell 1 1,alignx left");
+		textField_finalState.setColumns(10);
 		
-		lblTiempoTotal = new JLabel("Tiempo Total:");
-		panel_1.add(lblTiempoTotal, "cell 2 1,alignx trailing");
+		lblNewLabel_11 = new JLabel("Velocidad:");
+		panel_1.add(lblNewLabel_11, "cell 2 1,alignx left");
 		
-		textField_10 = new JTextField();
-		panel_1.add(textField_10, "cell 3 1,growx");
-		textField_10.setColumns(10);
+		textField_speed = new JTextField();
+		textField_speed.setEditable(false);
+		panel_1.add(textField_speed, "cell 3 1,growx");
+		textField_speed.setColumns(10);
 		
 		lblNewLabel_9 = new JLabel("Vueltas:");
 		panel_1.add(lblNewLabel_9, "cell 0 2,alignx left");
 		
-		textField_9 = new JTextField();
-		panel_1.add(textField_9, "cell 1 2,alignx left");
-		textField_9.setColumns(10);
-		
-		lblNewLabel_11 = new JLabel("Velocidad:");
-		panel_1.add(lblNewLabel_11, "cell 2 2,alignx left");
-		
-		textField_11 = new JTextField();
-		panel_1.add(textField_11, "cell 3 2,growx");
-		textField_11.setColumns(10);
-		
-		lblNewLabel_12 = new JLabel("Más rápida:");
-		panel_1.add(lblNewLabel_12, "cell 0 3,alignx left");
-		
-		textField_12 = new JTextField();
-		panel_1.add(textField_12, "cell 1 3,alignx left");
-		textField_12.setColumns(10);
+		textField_laps = new JTextField();
+		textField_laps.setEditable(false);
+		panel_1.add(textField_laps, "cell 1 2,alignx left");
+		textField_laps.setColumns(10);
 		
 		lblNewLabel_13 = new JLabel("Tiempo:");
-		panel_1.add(lblNewLabel_13, "cell 2 3,alignx left");
+		panel_1.add(lblNewLabel_13, "cell 2 2,alignx left");
 		
-		textField_13 = new JTextField();
-		panel_1.add(textField_13, "cell 3 3,growx");
-		textField_13.setColumns(10);
+		textField_fastTime = new JTextField();
+		textField_fastTime.setEditable(false);
+		panel_1.add(textField_fastTime, "cell 3 2,growx");
+		textField_fastTime.setColumns(10);
 		
 		JPanel panel_2 = new JPanel();
-		panel_2.setBounds(24, 338, 462, 35);
+		panel_2.setBounds(24, 309, 462, 35);
 		add(panel_2);
 		panel_2.setLayout(null);
 		
@@ -252,7 +240,7 @@ public class F1DriverInfoPanel extends JPanel implements ActionListener{
 
 	}
 	
-	public void cambiarInfo(Piloto piloto)
+	public void cambiarInfo(Piloto piloto, Carrera carrera)
 	{
 		textField.setText(piloto.getFechaNac());
 		textField_1.setText(piloto.getNacionalidad());
@@ -261,7 +249,6 @@ public class F1DriverInfoPanel extends JPanel implements ActionListener{
 		textField_4.setText(piloto.getPuntos()+"");
 		textField_5.setText(piloto.getPosFinal()+"");
 //		textField_7
-		textField_6.setText(piloto.getPosicion()+"");
 		
 		BufferedImage img = null;
 		try {
@@ -275,6 +262,18 @@ public class F1DriverInfoPanel extends JPanel implements ActionListener{
 ////		textField_8
 	    ImageIcon imageIcon = new ImageIcon(dimg);
 		lblImage.setIcon(imageIcon);
+		
+		textField_pos.setText(piloto.darPosicionCarrera(carrera.getNumeroCarrera()));
+		textField_points.setText(String.valueOf(piloto.darPuntosCarrera(carrera.getNumeroCarrera())));
+		textField_finalState.setText(String.valueOf(piloto.darEstado(carrera.getNumeroCarrera())));
+		textField_speed.setText(String.valueOf(piloto.darAvgSpeed(carrera.getNumeroCarrera())));
+		textField_laps.setText(String.valueOf(piloto.darVueltas(carrera.getNumeroCarrera())));
+		textField_fastTime.setText(String.valueOf(piloto.darBestTime(carrera.getNumeroCarrera())));
+		
+		
+		
+		
+		
 		
 	}
 

@@ -95,6 +95,10 @@ public class Temporada implements Comparable<Temporada>, Serializable {
 	 * Este atributo guarda la carrera de mayor duración
 	 */
 	private Carrera carreraMayorduracion;
+	
+	private Carrera carreraActual;
+	
+	private Piloto pilotoActual;
 
 	// -----------------------------------------------------------------
 	// Metodos Constructores
@@ -201,7 +205,8 @@ public class Temporada implements Comparable<Temporada>, Serializable {
 						pos = Integer.parseInt(infoP[8]);
 					}
 
-					Escuderi
+					Escuderia buscada = buscarEscuderia(infoP[6]);
+					buscada.setPiloto(infoP[1]+" "+infoP[2]+", "+infoP[3]);
 					
 					Piloto pilot = new Piloto(infoP[1], infoP[2], infoP[3],
 							infoP[4], infoP[6], points, pos, infoP[9],
@@ -245,6 +250,7 @@ public class Temporada implements Comparable<Temporada>, Serializable {
 				}
 			}
 		}
+		pilotoActual=pilotos.get(0);
 
 	}
 
@@ -291,7 +297,7 @@ public class Temporada implements Comparable<Temporada>, Serializable {
 					String idPiloto = infoPil[1];
 					String nombreP =infoPil[2];
 					String apellidoP =infoPil[3];
-					int puntosEnCarrera =Integer.parseInt(infoPil[4]);
+					double puntosEnCarrera =Double.parseDouble(infoPil[4]);
 					int laps =Integer.parseInt(infoPil[5]);
 					String status =infoPil[6];
 					String totalTime=infoPil[7];
@@ -373,6 +379,7 @@ public class Temporada implements Comparable<Temporada>, Serializable {
 
 			}
 		}
+		carreraActual=carreras.get(0);
 	}
 
 	/**
@@ -385,8 +392,8 @@ public class Temporada implements Comparable<Temporada>, Serializable {
 			for (String info : infoEscuderias) {
 				System.out.println("Loading: " + info);
 				String[] infoE = info.split(";");
-				int pos = 0;
-				int points = 0;
+				int pos = -1;
+				int points = -1;
 				if (!infoE[3].equals("null")) {
 					pos = Integer.parseInt(infoE[3]);
 				}
@@ -475,7 +482,10 @@ public class Temporada implements Comparable<Temporada>, Serializable {
 	 */
 	public Carrera darSiguienteCarrera() throws Exception {
 		if (itCarrera.hasNext())
-			return itCarrera.next();
+		{
+			carreraActual= itCarrera.next();
+			return carreraActual;
+		}
 		else
 			throw new Exception("No hay siguiente");
 	}
@@ -487,7 +497,10 @@ public class Temporada implements Comparable<Temporada>, Serializable {
 	 */
 	public Carrera darAnteriorCarrera() throws Exception {
 		if (itCarrera.hasPrevious())
-			return itCarrera.previous();
+		{
+			carreraActual=itCarrera.previous();
+			return carreraActual;
+		}
 		else
 			throw new Exception("No hay anterior");
 	}
@@ -499,7 +512,10 @@ public class Temporada implements Comparable<Temporada>, Serializable {
 	 */
 	public Piloto darSiguientePiloto() throws Exception {
 		if (itPiloto.hasNext())
-			return itPiloto.next();
+		{
+			pilotoActual= itPiloto.next();
+			return pilotoActual;
+		}
 		else
 			throw new Exception("No hay siguiente");
 	}
@@ -511,7 +527,10 @@ public class Temporada implements Comparable<Temporada>, Serializable {
 	 */
 	public Piloto darAnteriorPiloto() throws Exception {
 		if (itPiloto.hasPrevious())
-			return itPiloto.previous();
+		{
+			pilotoActual = itPiloto.previous();
+			return pilotoActual;
+		}
 		else
 			throw new Exception("No hay anterior");
 	}
@@ -559,6 +578,26 @@ public class Temporada implements Comparable<Temporada>, Serializable {
 				piloto=actual;
 		}
 		return piloto;
+	}
+	
+	/**
+	 * Busca la escuderia recibida por parametro en la lista de escuderias
+	 * @param nombre el nombre de la escuderia a buscar
+	 * @return escuderia buscada o null si no existe
+	 */
+	public Escuderia buscarEscuderia(String nombre)
+	{
+		Escuderia escu = null;
+
+		LlamaIterator<Escuderia> it =escuderias.iterator();
+
+		while(it.hasNext()&&escu==null)
+		{
+			Escuderia actual = it.next();
+			if(nombre.equals(actual.getNombre()))
+				escu=actual;
+		}
+		return escu;
 	}
 
 	/**
@@ -739,6 +778,7 @@ public class Temporada implements Comparable<Temporada>, Serializable {
 			if(escuderias.get(medio).compareTo(param)==0)
 			{
 				encontre = true;
+				buscado=escuderias.get(medio);
 			}
 			else if(escuderias.get(medio).compareTo(param)<0)
 			{
@@ -890,6 +930,24 @@ public class Temporada implements Comparable<Temporada>, Serializable {
 	public Carrera darCarreraMayorDuracion()
 	{
 		return carreraMayorduracion;
+	}
+	
+	/**
+	 * Este método devuelve la carrera actual
+	 * @return carrera actual
+	 */
+	public Carrera darCarreraActual()
+	{
+		return carreraActual;
+	}
+	
+	/**
+	 * Este metodo retorna el piloto actual
+	 * @return piloto actual
+	 */
+	public Piloto darPilotoActual()
+	{
+		return pilotoActual;
 	}
 
 

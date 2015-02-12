@@ -141,7 +141,7 @@ public class Carrera implements Comparable<Carrera>, Serializable
     public String toString()
     {
     	StringBuilder s = new StringBuilder(512);
-    	s.append(nombre+";"+numeroCarrera+";"+fecha+";"+hora+";"+circuito+";"+lugar+";"+pais+";");
+    	s.append("Fecha: "+fecha+", Nombre carrera: "+nombre+", Nombre circuito: "+circuito+", Ciudad: "+lugar+", Pais: "+pais);
 //    	for(String c:posiciones)
 //    	{
 //    		s.append(c+";");
@@ -186,64 +186,94 @@ public class Carrera implements Comparable<Carrera>, Serializable
 	}
 
 	/**
-	 * 
-	 * @return
+	 * Este metodo devuelve la fecha
+	 * @return fecha
 	 */
 	public String getFecha() {
 		return fecha;
 	}
 
+	/**
+	 * Este metodo devuelve la hora
+	 * @return hora
+	 */
 	public String getHora() {
 		return hora;
 	}
 
+	/**
+	 * Este metodo devuelve el circuito
+	 * @return circuito
+	 */
 	public String getCircuito() {
 		return circuito;
 	}
 
+	/**
+	 * Este metodo devuelve el lugar
+	 * @return lugar
+	 */
 	public String getLugar() {
 		return lugar;
 	}
 
+	/**
+	 * Este metodo devuelve el pais
+	 * @return pais
+	 */
 	public String getPais() {
 		return pais;
 	}
 
-
+	/**
+	 * Este metodo devuelve la duracion
+	 * @return duracion
+	 */
 	public String getDuracion() {
 		return duracion;
 	}
 
+	/**
+	 * Este metodo permite cambiar la duracion
+	 * @param duracion nueva duracion
+	 */
 	public void setDuracion(String duracion) {
 		this.duracion = duracion;
 	}
 
+	/**
+	 * Este metodo devuelve la lista de pilotos ordenados por posicion
+	 * @return lista de pilotos
+	 */
 	public Lista<Piloto> getPilotos() {
 		return pilotos;
 	}
 
+	/**
+	 * Este metodo retorna la ruta de la imagen
+	 * @return ruta de imagen
+	 */
 	public String getUrlImagen() {
 		return urlImagen;
 	}
 
-	public void setUrlImagen(String urlImagen) {
-		this.urlImagen = urlImagen;
-	}
-
+	/**
+	 * Este metodo retorna el id de la carrera
+	 * @return id de carrera
+	 */
 	public String getCarreraId() {
 		return carreraId;
 	}
 
-	public void setCarreraId(String carreraId) {
-		this.carreraId = carreraId;
-	}
-
 	@Override
 	public int compareTo(Carrera o) {
-		// TODO Auto-generated method stub
-		return 0;
+		return this.compareTo(o);
 	}
 	
+	/**
+	 * Elimina un piloto de la lista de pilotos segun el apellido dado por parametro
+	 * @param apellido apellido de piloto a eliminar
+	 */
 	public void eliminarPiloto(String apellido)
 	{
 		pilotos.remove(new Piloto("", apellido, "", "", "", 0, 0, "", "", "", 0));

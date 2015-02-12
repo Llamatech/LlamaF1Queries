@@ -78,21 +78,6 @@ public class Piloto implements Serializable, Comparable<Piloto>
 	private int posFinal;
 
 	/**
-	 * Este es el atributo que representa la posicion del piloto
-	 */
-	private int posicion;
-
-	/**
-	 * Este es el atributo que representa el estado final del piloto
-	 */
-	private String estado;
-
-	/**
-	 * Este es el atributo que representa la Estadística del piloto
-	 */
-	private String estadistica;
-
-	/**
 	 * Este es el atributo donde se guarda el url de la imagen del piloto
 	 */
 	private String urlImagen;
@@ -171,197 +156,96 @@ public class Piloto implements Serializable, Comparable<Piloto>
 	// -----------------------------------------------------------------
 
 
+	/**
+	 * Este método devuelve el nombre del piloto
+	 * @return nombre del piloto
+	 */
 	public String getNombre() {
 		return nombre;
 	}
 
 
 
-
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
-
-
-
-
+	/**
+	 * Este metodo devuelve el apellido del pilto
+	 * @return apellido del piloto
+	 */
 	public String getApellido() {
 		return apellido;
 	}
 
-
-
-
-	public void setApellido(String apellido) {
-		this.apellido = apellido;
-	}
-
-
-
-
+	/**
+	 * Este metodo devuelve la nacionalidad del piloto
+	 * @return nacionalidad del piloto
+	 */
 	public String getNacionalidad() {
 		return nacionalidad;
 	}
 
-
-
-
-	public void setNacionalidad(String nacionalidad) {
-		this.nacionalidad = nacionalidad;
-	}
-
-
-
-
+	/**
+	 * Este metodo devuelve la fecha de nacimiento del piloto
+	 * @return fecha de nacimiento en formato dd-mm-aaaa
+	 */
 	public String getFechaNac() {
 		return fechaNac;
 	}
 
-
-
-
-	public void setFechaNac(String fechaNac) {
-		this.fechaNac = fechaNac;
-	}
-
-
-
-
+	/**
+	 * Este metodo devuelve la escuderia a la que pertenece el piloto
+	 * @return escuderia del piloto
+	 */
 	public String getEscuderia() {
 		return escuderia;
 	}
 
-
-
-
-	public void setEscuderia(String escuderia) {
-		this.escuderia = escuderia;
-	}
-
-
-
-
+	/**
+	 * Este metodo devuelve el total de puntos del piloto en la temporada
+	 * @return puntos en la temporada
+	 */
 	public double getPuntos() {
 		return puntos;
 	}
 
 
-
-
-	public void setPuntos(int puntos) {
-		this.puntos = puntos;
-	}
-
-
-
-
-	public int getPosicion() {
-		return posicion;
-	}
-
-
-
-
-	public void setPosicion(int posicion) {
-		this.posicion = posicion;
-	}
-
-
-
-
+	/**
+	 * Este metodo devuelve el url de la imagen
+	 * @return url de la imagen
+	 */
 	public String getUrlImagen() {
 		return urlImagen;
 	}
 
-
-
-
-	public void setUrlImagen(String urlImagen) {
-		this.urlImagen = urlImagen;
-	}
-
-
-
-
+	/**
+	 * Este metodo devuelve el id del piloto
+	 * @return id piloto
+	 */
 	public String getDriverId() {
 		return driverId;
 	}
 
-
-
-
-	public void setDriverId(String driverId) {
-		this.driverId = driverId;
-	}
-
-
-
-
+	/**
+	 * Este metodo devuelve el id de la escuderia del piloto
+	 * @return id de escuderia del piloto
+	 */
 	public String getEscuderiaId() {
 		return escuderiaId;
 	}
 
-
-
-
-	public void setEscuderiaId(String escuderiaId) {
-		this.escuderiaId = escuderiaId;
-	}
-
-
-
-
+	/**
+	 * Este metodo retorna la posicion general del piloto en la temporada
+	 * @return posicion final iloto
+	 */
 	public int getPosFinal() {
 		return posFinal;
 	}
+	
 
-
-
-
-	public void setPosFinal(int posFinal) {
-		this.posFinal = posFinal;
-	}
-
-
-
-
-	public String getEstado() {
-		return estado;
-	}
-
-
-
-
-	public void setEstado(String estado) {
-		this.estado = estado;
-	}
-
-
-
-
-	public String getEstadistica() {
-		return estadistica;
-	}
-
-
-
-
-	public void setEstadistica(String estadistica) {
-		this.estadistica = estadistica;
-	}    	
-
-
-	/**
-	 * Este método transforma la informacion a una cadena de carácteres separada por ";" para enviarla en el siguiente orden:
-	 * nombre;nacionalidad;fechaNac;escuderia;puntos;posFinal;posicion;estado;estadistica;urlImagen
-	 * @return cadena de caracteres con informacion
-	 */
+	
 	@Override 
 	public String toString()
 	{
 		StringBuilder s = new StringBuilder(512);
-		s.append(driverId+";"+nombre+";"+apellido+";"+nacionalidad+";"+fechaNac+";"+escuderiaId+";"+escuderia+";"+puntos+";"+posicion+";"+urlImagen);
-
+		s.append(nombre+" "+apellido);
 		return s.toString();
 	}
 
@@ -379,9 +263,19 @@ public class Piloto implements Serializable, Comparable<Piloto>
 
 		return pApellido1.compareTo(pApellido2);
 
-		//		return apellido.compareTo(o.getApellido());
 	}
 
+	/**
+	 * Este método actualiza la información de una carrera dada por parámetro
+	 * @param numCarrera numero de carrera a actualizar
+	 * @param idCarrera id de carrera a actualizar
+	 * @param puntosCarrera puntos de carrera a actualizar
+	 * @param posicion posicion  de carrera a actualizar
+	 * @param vueltasLaps vueltas de de carrera a actualizar
+	 * @param bestTime mejor tiempo de de carrera a actualizar
+	 * @param avgSpeed velocidad promedio de carrera a actualizar
+	 * @param estado estado del piloto  de carrera a actualizar
+	 */
 	public void setInfoCarrera(int numCarrera, String idCarrera, double puntosCarrera,
 			String posicion, int vueltasLaps, String bestTime, String avgSpeed, String estado)
 	{
@@ -396,14 +290,64 @@ public class Piloto implements Serializable, Comparable<Piloto>
 	}
 
 
+	/**
+	 * Da los puntos de una carrera dada por parametro
+	 * @param numCarrera carrera de averiguar
+	 * @return puntos de una carrera dada por parametro
+	 */
 	public double darPuntosCarrera(int numCarrera)
 	{
 		return infoCarreras.get(numCarrera-1).getPoints();
 	}
 
+	/**
+	 * Da la posicion de una carrera dada por parametro
+	 * @param numCarrera carrera de averiguar
+	 * @return posicion de una carrera dada por parametro
+	 */
 	public String darPosicionCarrera(int numCarrera)
 	{
 		return infoCarreras.get(numCarrera-1).getPosicion();
+	}
+	
+	/**
+	 * Da las vueltas de una carrera dada por parametro
+	 * @param numCarrera carrera de averiguar
+	 * @return vueltas de una carrera dada por parametro
+	 */
+	public int darVueltas(int numCarrera)
+	{
+		return infoCarreras.get(numCarrera-1).getVueltasCompletadas();
+	}
+	
+	/**
+	 * Da el mejor tiempo de una carrera dada por parametro
+	 * @param numCarrera carrera de averiguar
+	 * @return mejor tiempo de una carrera dada por parametro
+	 */
+	public String darBestTime(int numCarrera)
+	{
+		return infoCarreras.get(numCarrera-1).getBestTime();
+	}
+	
+	/**
+	 * Da la velocidad promedio de una carrera dada por parametro
+	 * @param numCarrera carrera a averiguar
+	 * @return velocidad promedio de una carrera dada por parametro
+	 */
+	public String darAvgSpeed(int numCarrera)
+	{
+		return infoCarreras.get(numCarrera-1).getAvgSpeed();
+	}
+	
+	/**
+	 * Da el estado de una carrera dada por parametro
+	 * @param numCarrera carrera a averiguar
+	 * @return estado de una carrera dada por parametro
+	 */
+	public String darEstado(int numCarrera)
+	{
+		return infoCarreras.get(numCarrera-1).getEstado();
 	}
 
 

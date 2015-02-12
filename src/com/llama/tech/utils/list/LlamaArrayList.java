@@ -297,4 +297,6 @@ public class LlamaArrayList<T> implements Lista<T>, Serializable{
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+
 }

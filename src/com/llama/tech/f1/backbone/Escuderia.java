@@ -23,6 +23,9 @@ package com.llama.tech.f1.backbone;
 
 import java.io.Serializable;
 
+import com.llama.tech.utils.list.Lista;
+import com.llama.tech.utils.list.LlamaArrayList;
+
 /**
  * Esta es la clase que modela las escuderias (contructores)
  */
@@ -65,13 +68,8 @@ public class Escuderia implements Serializable, Comparable<Escuderia> {
 	/**
 	 * Este es el atributo que representa los pilotos de la escuderia
 	 */
-	private String[] pilotos;
-	
-	/**
-	 * Este es el atributo que representa las carreras de la escuderia
-	 */
-	private String[] carreras;
-	
+	private Lista<String> pilotos;
+
 	/**
 	 * Este es el atributo que representa el id de la escuderia
 	 */
@@ -81,18 +79,19 @@ public class Escuderia implements Serializable, Comparable<Escuderia> {
  	// -----------------------------------------------------------------
     
 	/**
-	 * 
-	 * @param pUrlLogo
+	 * Este es el metodo constructor de la clase escuderia
+	 * pos: se construyó una nueva escudería
+	 * @param pUrlLogo 
 	 * @param pNombre
 	 * @param pPais
 	 * @param pPosFinal
 	 * @param pPuntos
 	 * @param pPilotos
-	 * @param pCarreras
 	 * @param pId
 	 */
 	public Escuderia(String pUrlLogo, String pNombre, String pPais, int pPosFinal, int pPuntos, String pId)
 	{
+		pilotos = new LlamaArrayList<String>(10);
 		urlLogo=pUrlLogo;
 		nombre=pNombre;
 		pais=pPais;
@@ -104,91 +103,74 @@ public class Escuderia implements Serializable, Comparable<Escuderia> {
  	// Metodos
  	// -----------------------------------------------------------------
 
-    /**
-     * Este método transforma la informacion a una cadena de carácteres separada por ";" para enviarla en el siguiente orden:
-     * id;nombre;pais;posFinal;puntos;pilotos...;carreras...;urlLogo
-     * @return cadena de caracteres con informacion
-     */
-    public String toString()
-    {
-    	StringBuilder s = new StringBuilder(512);
-    	s.append(id+";"+nombre+";"+pais+";"+posFinal+";"+puntos+";");
-    	for(String c:pilotos)
-    	{
-    		s.append(c+";");
-    	}
-    	for(String c:carreras)
-    	{
-    		s.append(c+";");
-    	}
-    	s.append(urlLogo);
-    	
-    	return s.toString();
-    }
+   
 
+	/**
+	 * Este metodo permite conseguir la ruta del logo
+	 * @return ruta dellogo
+	 */
 	public String getUrlLogo() {
 		return urlLogo;
 	}
 
-	public void setUrlLogo(String urlLogo) {
-		this.urlLogo = urlLogo;
-	}
-
+	/**
+	 * Este metodo devuelve el nombre de la escuderia
+	 * @return nombre escuderia
+	 */
 	public String getNombre() {
 		return nombre;
 	}
 
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
-
+	/**
+	 * Este metodo retorna el pais de la escuderia
+	 * @return pais de la escuderia
+	 */
 	public String getPais() {
 		return pais;
 	}
 
-	public void setPais(String pais) {
-		this.pais = pais;
-	}
-
+	/**
+	 * Este metodo retorna la posicion final de la escuderia
+	 * @return posicion final escuderia
+	 */
 	public int getPosFinal() {
 		return posFinal;
 	}
 
-	public void setPosFinal(int posFinal) {
-		this.posFinal = posFinal;
-	}
 
+	/**
+	 * Este metodo retorna los puntos de la escuderia
+	 * @return puntos de la escuderia
+	 */
 	public int getPuntos() {
 		return puntos;
 	}
 
-	public void setPuntos(int puntos) {
-		this.puntos = puntos;
-	}
 
-	public String[] getPilotos() {
+	/**
+	 * Este metodo retorna una lista con los nombres de los pilotos que pertenecen a la escuderia
+	 * @return lista con nombres de pilotos
+	 */
+	public Lista<String> getPilotos() {
 		return pilotos;
 	}
 
-	public void setPilotos(String[] pilotos) {
-		this.pilotos = pilotos;
+	/**
+	 * Este metodo agrega el nombre de un piloto a la lista de nombres de pilotos
+	 * @param piloto nombre del piloto
+	 */
+	public void setPiloto(String piloto) {
+		pilotos.addAlFinal(piloto);
 	}
 
-	public String[] getCarreras() {
-		return carreras;
-	}
-
-	public void setCarreras(String[] carreras) {
-		this.carreras = carreras;
-	}
-
+	/**
+	 * Este metodo retorna el id de la escuderia
+	 * @return id de la escuderia
+	 */
 	public String getId() {
 		return id;
 	}
 
-	public void setId(String id) {
-		this.id = id;
-	}
 
 	@Override
 	public int compareTo(Escuderia o) 

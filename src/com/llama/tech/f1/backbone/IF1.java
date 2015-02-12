@@ -28,13 +28,11 @@ import com.llama.tech.utils.list.Lista;
 public interface IF1 extends Serializable
 {	
 	
-	public String[] getSeasonList();
-	
 	public Lista<Carrera> getHistoricalSeasonInfo(String initialDate, String finalDate) throws Exception;
 	
-	public boolean deletePilotRecord(String name);
+	public void deletePilotRecord(String apellido);
 	
-	public boolean deleteCircuitRecord(String name);
+	public void deleteCircuitRecord(String nombre);
 	
 	public String[] darTemporadasCompletas();
 	

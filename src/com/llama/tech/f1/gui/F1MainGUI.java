@@ -204,7 +204,7 @@ public class F1MainGUI extends JFrame implements ShapeListener
 		f1CircuitInfoPanel.setBounds(12, 12, 332, 215);
 		racePanel.add(f1CircuitInfoPanel);
 
-		f1CircuitPositions = new F1CircuitPositions();
+		f1CircuitPositions = new F1CircuitPositions(this);
 		f1CircuitPositions.setBounds(345, 12, 286, 170);
 		racePanel.add(f1CircuitPositions);
 
@@ -275,8 +275,18 @@ public class F1MainGUI extends JFrame implements ShapeListener
 			String anho = f1BottomSelectionButtons.darAnhoBusqueda();
 			Temporada temp = mundo.darTemporada(Integer.parseInt(anho));
 			f1CircuitInfoPanel.cambiarInfo(temp.getCarreras().get(Integer.parseInt(arg0.getShape().getShapeName())-1));
+			f1DriverInfoPanel.cambiarInfo(temp.darPilotoActual(), temp.getCarreras().get(Integer.parseInt(arg0.getShape().getShapeName())-1));
+			f1CircuitPositions.setListInfo(temp.getCarreras().get(Integer.parseInt(arg0.getShape().getShapeName())-1));
+			
 		}
 
+	}
+	
+	public void refreshDriverInfo(Piloto p)
+	{
+		int anho = Integer.parseInt(f1BottomSelectionButtons.darAnhoBusqueda());
+		Temporada temp = mundo.darTemporada(anho);
+		f1DriverInfoPanel.cambiarInfo(p, temp.darCarreraActual());
 	}
 
 	@Override
@@ -291,7 +301,8 @@ public class F1MainGUI extends JFrame implements ShapeListener
 		Lista<Carrera> infoCarreras = mundo.darCarrerasTemporada(anho);
 		f1CircuitInfoPanel.cambiarInfo(mundo.darCarrerasTemporada(anho).get(0));
 		f1ConstructorInfo.cambiarInfo(mundo.darEscuderiasTemporada(anho).get(0));
-		f1DriverInfoPanel.cambiarInfo(mundo.darPilotosTemporada(anho).get(0));
+		f1DriverInfoPanel.cambiarInfo(mundo.darPilotosTemporada(anho).get(0), mundo.darCarrerasTemporada(anho).get(0));
+		f1CircuitPositions.setListInfo(mundo.darCarrerasTemporada(anho).get(0));
 		try
 		{
 			String[] info = new String[infoCarreras.size()];
@@ -375,7 +386,8 @@ public class F1MainGUI extends JFrame implements ShapeListener
 			{
 				try {
 					Piloto piloto = temp.darAnteriorPiloto();
-					f1DriverInfoPanel.cambiarInfo(piloto);
+					Carrera carrera = temp.darCarreraActual();
+					f1DriverInfoPanel.cambiarInfo(piloto, carrera);
 				} catch (Exception e) {
 					JOptionPane.showMessageDialog(this, "No hay anterior");
 				}
@@ -413,7 +425,8 @@ public class F1MainGUI extends JFrame implements ShapeListener
 			{
 				try {
 					Piloto piloto = temp.darSiguientePiloto();
-					f1DriverInfoPanel.cambiarInfo(piloto);
+					Carrera carrera = temp.darCarreraActual();
+					f1DriverInfoPanel.cambiarInfo(piloto, carrera);
 				} catch (Exception e) {
 					JOptionPane.showMessageDialog(this, "No hay siguiente");
 				}
@@ -466,6 +479,14 @@ public class F1MainGUI extends JFrame implements ShapeListener
 	public void setSearchPanel(boolean b) 
 	{
 		searchWindowAct = b;	
+	}
+	
+	public Lista<Piloto> getCurrentRacePilots()
+	{
+		String anho = f1BottomSelectionButtons.darAnhoBusqueda();
+		Temporada temp = mundo.darTemporada(Integer.parseInt(anho));
+		return temp.darCarreraActual().getPilotos();
+		
 	}
 }
 
