@@ -423,45 +423,7 @@ public class Temporada implements Comparable<Temporada>, Serializable {
 		}
 	}
 
-	/**
-	 * Devuelva la informacion de las escuderias
-	 * @return info de las escuderias en String
-	 */
-	public String[] darInfoEscuderias() {
-		String[] ret = new String[escuderias.size()];
-		for (int i = 0; i < escuderias.size(); i++) {
-			Escuderia e = escuderias.get(i);
-			ret[i] = e.toString();
-		}
-		return ret;
-	}
-
-	/**
-	 * Devuelva la informacion de las careras
-	 * @return info de las carreras en String
-	 */
-	public String[] darInfoCircuitos() {
-		String[] ret = new String[carreras.size()];
-		for (int i = 0; i < carreras.size(); i++) {
-			Carrera c = carreras.get(i);
-			ret[i] = c.toString();
-		}
-
-		return ret;
-	}
-
-	/**
-	 * Devuelva la informacion de las pilotos
-	 * @return info de las pilotos en String
-	 */
-	public String[] darInfoPilotos() {
-		String[] ret = new String[pilotos.size()];
-		for (int i = 0; i < pilotos.size(); i++) {
-			Piloto p = pilotos.get(i);
-			ret[i] = p.toString();
-		}
-		return ret;
-	}
+	
 
 	@Override
 	public int compareTo(Temporada o) {
@@ -630,13 +592,13 @@ public class Temporada implements Comparable<Temporada>, Serializable {
 		while(it.hasNext()&&!encontre)
 		{
 			Carrera next = it.next();
-			String[] fechaBusq = pfecha.split("-");
-			String[] fechaAct = next.getFecha().split("-");
+			String[] fechaBusq = pfecha.split("[-]");
+			String[] fechaAct = next.getFecha().split("[-]");
 
 			//TODO poner bien formarto. Las carreras están ordenadas por fecha? Si no, hay que hacer algoritmo de ordenamiento
 
-			int diaBusq = Integer.parseInt(fechaBusq[2]);
-			int diaAct = Integer.parseInt(fechaAct[2]);
+			int diaBusq = Integer.parseInt(fechaBusq[0]);
+			int diaAct = Integer.parseInt(fechaAct[0]);
 
 			int mesBusq = Integer.parseInt(fechaBusq[1]);
 			int mesAct = Integer.parseInt(fechaAct[1]);
@@ -688,16 +650,16 @@ public class Temporada implements Comparable<Temporada>, Serializable {
 		while(it.hasNext()&&!encontre)
 		{
 			Carrera next = it.next();
-			String[] fechaBusq = pfecha.split("-");
-			String[] fechaAct = next.getFecha().split("-");
+			String[] fechaBusq = pfecha.split("[-]");
+			String[] fechaAct = next.getFecha().split("[-]");
 
 			//TODO poner bien formarto. Las carreras están ordenadas por fecha? Si no, hay que hacer algoritmo de ordenamiento
 
-			int diaBusq = Integer.parseInt(fechaBusq[1]);
-			int diaAct = Integer.parseInt(fechaAct[1]);
+			int diaBusq=Integer.parseInt(fechaBusq[0]);
+			int diaAct = Integer.parseInt(fechaAct[0]);
 
-			int mesBusq = Integer.parseInt(fechaBusq[0]);
-			int mesAct = Integer.parseInt(fechaAct[0]);
+			int mesBusq = Integer.parseInt(fechaBusq[1]);
+			int mesAct = Integer.parseInt(fechaAct[1]);
 
 			//			boolean encontre = false;
 			//			int incio =0;
@@ -809,13 +771,14 @@ public class Temporada implements Comparable<Temporada>, Serializable {
 	}
 
 	/**
-	 * Este método elimina una escudería de la escudería
-	 * pos: la escudería no existe en ele sistema
-	 * @param pNombre nombre de la escudría a eliminar
+	 * Este método elimina una carrera de la escudería
+	 * pos: la carrera no existe en ele sistema
+	 * @param pNombre nombre de la carrera a eliminar
 	 */
-	public void eliminarEscuderia(String pNombre)
+	public void eliminarCarrera(String nombre)
 	{
-		escuderias.remove(new Escuderia("", pNombre, "", 0, 0, ""));
+		Lista<Piloto> lista = new LlamaArrayList<Piloto>(1);
+		carreras.remove(new Carrera(nombre, 0, "", "", "", "", "", "", "", "", lista));
 	}
 
 

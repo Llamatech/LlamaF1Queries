@@ -78,21 +78,22 @@ public class F1 implements IF1, Serializable
 	}
 
 	@Override
-	public void deleteCircuitRecord(String nombre) {
+	public void deleteCircuitRecord(String idCarrera) {
 		for(Temporada t:temporadas)
 		{
-			t.eliminarEscuderia(nombre);
+			t.eliminarCarrera(idCarrera);
 		}
 	}
-	
+
 
 	@Override
 	public Lista<Carrera> getHistoricalSeasonInfo(String initialDate,
 			String finalDate) throws Exception {
 		Lista<Carrera> mandar = new LlamaArrayList<Carrera>(60);
 
-		int anho1= Integer.parseInt(initialDate.split("-")[2]);
-		int anho2= Integer.parseInt(finalDate.split("-")[2]);
+		int anho1= Integer.parseInt(initialDate.split("[-]")[2]);
+		int anho2= Integer.parseInt(finalDate.split("[-]")[2]);
+
 
 		boolean vacio= true;
 
@@ -100,35 +101,43 @@ public class F1 implements IF1, Serializable
 			Lista<Carrera> princ=null;
 			while(vacio)
 			{
-				 princ=temporadas[anho1-min].buscarCarrerasDespuesDeFecha(initialDate);
+				System.out.println("CICLOO");
+				princ=temporadas[anho1-min].buscarCarrerasDespuesDeFecha(initialDate);
 				if(!princ.isEmpty())
 				{
 					vacio=false;
-					anho1++;
+					anho1--;
 				}
+				anho1++;
 			}
-			Lista<Carrera> fin= temporadas[anho2-min].buscarCarrerasAntesDeFecha(finalDate);
-			
+			Lista<Carrera> fin = null;
+
+
 			LlamaIterator<Carrera> it =princ.iterator();
 			while(it.hasNext())
 			{
 				mandar.addAlFinal(it.next());
 			}
-			
-			
-			for(int i = anho1-min+1;i<anho2-min;i++)
+			if(anho1!=anho2)
 			{
-				it=temporadas[i].getCarreras().iterator();
+
+				fin = temporadas[anho2-min].buscarCarrerasAntesDeFecha(finalDate);
+
+
+				for(int i = anho1-min+1;i<anho2-min;i++)
+				{
+					it=temporadas[i].getCarreras().iterator();
+					while(it.hasNext())
+					{
+						mandar.addAlFinal(it.next());
+					}
+				}
+
+				it = fin.iterator();
 				while(it.hasNext())
 				{
 					mandar.addAlFinal(it.next());
 				}
-			}
-			
-			it=fin.iterator();
-			while(it.hasNext())
-			{
-				mandar.addAlFinal(it.next());
 			}
 		}
 		catch(IndexOutOfBoundsException e)
@@ -185,7 +194,7 @@ public class F1 implements IF1, Serializable
 		cargarEscuderiasTemporada(anho);
 		cargarPilotosTemporada(anho);
 		cargarCarrerasTemporada(anho);
-		
+
 
 	}
 
@@ -245,7 +254,7 @@ public class F1 implements IF1, Serializable
 	public Escuderia buscarEscuderia(int anho, String pNombre) {
 		return temporadas[anho-min].buscarEscuderiaBinario(pNombre);
 	}
-	
+
 	@Override
 	public String[][] darPilotosCarrera(int numCarrera, int anho)
 	{
@@ -253,7 +262,7 @@ public class F1 implements IF1, Serializable
 	}
 	@Override
 	public Lista<Carrera> darCarrerasTemporada(int anho) {
-		
+
 		return temporadas[anho-min].getCarreras();
 	}
 	@Override

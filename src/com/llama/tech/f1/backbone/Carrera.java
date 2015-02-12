@@ -267,7 +267,7 @@ public class Carrera implements Comparable<Carrera>, Serializable
 
 	@Override
 	public int compareTo(Carrera o) {
-		return this.compareTo(o);
+		return nombre.compareTo(o.getNombre());
 	}
 	
 	/**

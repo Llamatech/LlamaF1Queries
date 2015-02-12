@@ -27,8 +27,10 @@ import java.awt.event.ItemListener;
 
 import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
+import javax.swing.text.DateFormatter;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JSpinner;
 import javax.swing.JComboBox;
 import javax.swing.JTextField;
@@ -40,20 +42,32 @@ import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.factories.FormFactory;
 import com.jgoodies.forms.layout.RowSpec;
+import com.llama.tech.f1.backbone.Carrera;
 import com.llama.tech.f1.backbone.F1;
 import com.llama.tech.f1.backbone.IF1;
 import com.llama.tech.utils.list.Lista;
 
 import javax.swing.JButton;
+
 import java.awt.Dimension;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 
 public class F1SearchPanel extends JFrame implements ActionListener, ItemListener
 {
 	
+	public enum SearchType
+	{
+		NONE,
+		CARRERAS,
+		ESCUDERIAS,
+		PILOTOS
+	}
+	
 	private final static String ELIMINAR = "Eliminar";
 	private final static String CONSULTAR = "Consultar"; 
 	
-	
+	private SearchType search = SearchType.NONE;
 	private JTextField textField_1;
     private JComboBox<String> comboBox_1;
 	private JComboBox<String> comboBox;
@@ -62,7 +76,10 @@ public class F1SearchPanel extends JFrame implements ActionListener, ItemListene
 	private JDateChooser dateChooser;
 	private JDateChooser dateChooser_1;
 	private JCheckBox chckbxNewCheckBox;
-	private JButton btnNewButton_1;
+	private JButton btnNewButton_1;	
+	
+	private boolean historical = false;
+	private JLabel lblNewLabel_2;
 
 
 	/**
@@ -86,7 +103,8 @@ public class F1SearchPanel extends JFrame implements ActionListener, ItemListene
 		String[] temp = principal.darTemporadas();
 		comboBox = new JComboBox(temp);
 		comboBox.setBounds(224, 23, 158, 24);
-		//comboBox.addItemListener(new ItemChangeListener());
+		ItemChangeListener icl = new ItemChangeListener();
+		comboBox.addItemListener(icl);
 		comboBox.setSelectedItem(null);
 		getContentPane().add(comboBox);
 
@@ -100,7 +118,7 @@ public class F1SearchPanel extends JFrame implements ActionListener, ItemListene
 		textField_1.setBounds(224, 98, 158, 24);
 		getContentPane().add(textField_1);
 
-		JLabel lblNewLabel_2 = new JLabel("(Seleccione el tipo)");
+		lblNewLabel_2 = new JLabel("(Seleccione el tipo)");
 		lblNewLabel_2.setBounds(31, 102, 158, 15);
 		getContentPane().add(lblNewLabel_2);
 
@@ -158,6 +176,7 @@ public class F1SearchPanel extends JFrame implements ActionListener, ItemListene
 
 		String[] tipo = new String[]{"Carreras","Escuderias","Pilotos"};
 		comboBox_1 = new JComboBox(tipo);
+		comboBox_1.addItemListener(icl);
 		comboBox_1.setBounds(224, 61, 158, 24);
 		getContentPane().add(comboBox_1);
 
@@ -177,20 +196,116 @@ public class F1SearchPanel extends JFrame implements ActionListener, ItemListene
 	//addItemListener(new ItemChangeListener());
 	class ItemChangeListener implements ItemListener{
 		@Override
-		public void itemStateChanged(ItemEvent event) {
-			if (event.getStateChange() == ItemEvent.SELECTED) 
+		public void itemStateChanged(ItemEvent event) 
+		{
+			System.out.println((String) event.getItem());
+			
+			if(event.getSource().equals(comboBox))
 			{
-				String item = (String) event.getItem(); //→ Año
-				if(item!=null)
-					principal.realizarConsulta(Integer.parseInt(item));
+				if (event.getStateChange() == ItemEvent.SELECTED) 
+				{
+					String item = (String) event.getItem(); //→ Año
+					if(item!=null)
+						principal.realizarConsulta(Integer.parseInt(item));
+				}
+			}
+			else if(event.getSource().equals(comboBox_1))
+			{
+				if(event.getStateChange() == ItemEvent.SELECTED)
+				{
+					String item = (String) event.getItem();
+					if(item != null)
+					{
+						if(item.equals("Carreras"))
+						{
+							search = SearchType.CARRERAS;
+							lblNewLabel_2.setText("Nombre Carrera:");
+							btnNewButton.setEnabled(false);
+							btnNewButton_1.setEnabled(true);
+							textField_1.setEditable(true);
+							textField_1.setEnabled(true);
+						}
+						else if(item.equals("Escuderias"))
+						{
+							search = SearchType.ESCUDERIAS;
+							lblNewLabel_2.setText("Nombre Escudería:");
+							btnNewButton_1.setEnabled(false);
+							btnNewButton.setEnabled(true);
+							textField_1.setEditable(true);
+							textField_1.setEnabled(true);
+						}
+						else if(item.equals("Pilotos"))
+						{
+							search = SearchType.PILOTOS;
+							lblNewLabel_2.setText("Apellido Piloto:");
+							btnNewButton_1.setEnabled(true);
+							btnNewButton.setEnabled(true);
+							textField_1.setEditable(true);
+							textField_1.setEnabled(true);
+						}
+					}
+				}
+				else if(event.getStateChange() == ItemEvent.DESELECTED)
+				{
+					lblNewLabel_2.setText("(Seleccione el tipo)");
+				}
 			}
 		}       
 	}
 	@Override
 	public void actionPerformed(ActionEvent e) 
 	{
+		if(e.getActionCommand().equals(CONSULTAR))
+		{
+			if(historical)
+			{
+				SimpleDateFormat sdf = new SimpleDateFormat("dd-mm-yyyy");
+				if(dateChooser.getDate() == null || dateChooser_1.getDate() == null)
+				{
+					JOptionPane.showMessageDialog(this, "Debe ingresar una fecha de inicio y/o de final válidas", "Error", JOptionPane.ERROR_MESSAGE);
+				}
+				else
+				{
+					
+					if(dateChooser.getDate().compareTo(dateChooser_1.getDate()) < 0)
+					{
+						String initial_date = sdf.format(dateChooser.getDate());
+						String final_date = sdf.format(dateChooser_1.getDate());
+						principal.historicalQuery(initial_date, final_date);
+					}
+					else
+					{
+						JOptionPane.showMessageDialog(this, "La fecha de inicio debe ser previa a la final", "Error", JOptionPane.ERROR_MESSAGE);
+					}
+					//System.out.println(date);
+				}
+			}
+			else
+			{
+				String criterion = textField_1.getText();
+				if(criterion.length() > 0)
+				{
+					principal.buscar(criterion, search, false);
+				}
+				else
+				{
+					JOptionPane.showMessageDialog(this, "Debe ingresar un criterio de Búsqueda", "Error", JOptionPane.ERROR_MESSAGE);
+				}
+			}
+		}
+		else if(e.getActionCommand().equals(ELIMINAR))
+		{
+			String criterion = textField_1.getText();
+			if(criterion.length() > 0)
+			{
+				principal.buscar(criterion, search, true);
+			}
+			else
+			{
+				JOptionPane.showMessageDialog(this, "Debe ingresar un criterio de eliminación", "Error", JOptionPane.ERROR_MESSAGE);
+			}
+		}
 		
-
 	}
 	
 	@Override
@@ -205,6 +320,7 @@ public class F1SearchPanel extends JFrame implements ActionListener, ItemListene
 	{
 		if(chckbxNewCheckBox.isSelected())
 		{
+			historical = true;
 			dateChooser.setEnabled(true);
 			dateChooser_1.setEnabled(true);
 			comboBox.setEnabled(false);
@@ -214,6 +330,7 @@ public class F1SearchPanel extends JFrame implements ActionListener, ItemListene
 		}
 		else
 		{
+			historical = false;
 			dateChooser.setEnabled(false);
 			dateChooser_1.setEnabled(false);
 			comboBox.setEnabled(true);
@@ -222,5 +339,10 @@ public class F1SearchPanel extends JFrame implements ActionListener, ItemListene
 			btnNewButton_1.setEnabled(true);
 		}
 		
+	}
+
+	public void displayResults(Lista<Carrera> listaCarrerasH) 
+	{
+	     new F1HistoricalCircuitFrame(this, listaCarrerasH);
 	}
 }

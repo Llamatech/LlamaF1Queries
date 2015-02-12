@@ -51,6 +51,7 @@ import com.llama.tech.f1.backbone.F1;
 import com.llama.tech.f1.backbone.IF1;
 import com.llama.tech.f1.backbone.Piloto;
 import com.llama.tech.f1.backbone.Temporada;
+import com.llama.tech.f1.gui.F1SearchPanel.SearchType;
 import com.llama.tech.f1.query.Query;
 import com.llama.tech.utils.list.Lista;
 
@@ -487,6 +488,50 @@ public class F1MainGUI extends JFrame implements ShapeListener
 		Temporada temp = mundo.darTemporada(Integer.parseInt(anho));
 		return temp.darCarreraActual().getPilotos();
 		
+	}
+
+	public void historicalQuery(String initial_date, String final_date) 
+	{
+		try 
+		{
+			Lista<Carrera> listaCarrerasH = mundo.getHistoricalSeasonInfo(initial_date, final_date);
+			f1SearchPanel.displayResults(listaCarrerasH);
+		} 
+		catch (Exception e) 
+		{
+			e.printStackTrace();
+			JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+		}
+	}
+	
+	public void buscar(String argumentoBusqueda, SearchType tipoBusqueda, boolean eliminar)
+	{
+		if(eliminar)
+		{
+			if(tipoBusqueda.equals(SearchType.PILOTOS))
+			{
+				mundo.deletePilotRecord(argumentoBusqueda);
+			}
+			else if(tipoBusqueda.equals(SearchType.CARRERAS))
+			{
+				mundo.deleteCircuitRecord(argumentoBusqueda);
+			}
+			else if(tipoBusqueda.equals(SearchType.ESCUDERIAS))
+				JOptionPane.showMessageDialog(this, "No puede borrar escuderías");
+		}
+		else
+		{
+			if(tipoBusqueda.equals(SearchType.ESCUDERIAS))
+			{
+				f1ConstructorInfo.cambiarInfo(mundo.buscarEscuderia(Integer.parseInt(f1SearchPanel.darAnhoBusqueda()), argumentoBusqueda));
+			}
+			else if(tipoBusqueda.equals(SearchType.PILOTOS))
+			{
+				f1DriverInfoPanel.cambiarInfo(mundo.buscarPiloto(Integer.parseInt(f1SearchPanel.darAnhoBusqueda()), argumentoBusqueda), mundo.darTemporada(Integer.parseInt(f1BottomSelectionButtons.darAnhoBusqueda())).darCarreraActual());
+			}
+			else if(tipoBusqueda.equals(SearchType.CARRERAS))
+				JOptionPane.showMessageDialog(this, "No puede hacer búsqueda de carreras");
+		}
 	}
 }
 

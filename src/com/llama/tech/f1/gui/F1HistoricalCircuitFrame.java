@@ -16,6 +16,7 @@ import javax.swing.border.TitledBorder;
 
 import com.llama.tech.f1.backbone.Carrera;
 import com.llama.tech.utils.list.Lista;
+import java.awt.Dimension;
 
 public class F1HistoricalCircuitFrame extends JDialog 
 {
@@ -32,14 +33,18 @@ public class F1HistoricalCircuitFrame extends JDialog
 
 	/**
 	 * Create the dialog.
+	 * @param listaCarrerasH 
 	 */
-	public F1HistoricalCircuitFrame(F1SearchPanel main)
+	public F1HistoricalCircuitFrame(F1SearchPanel main, Lista<Carrera> listaCarrerasH)
 	{
+		setPreferredSize(new Dimension(449, 305));
+		setMaximumSize(new Dimension(449, 305));
+		setMinimumSize(new Dimension(449, 305));
 		setVisible(true);
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		this.main = main;
 		setTitle("Informaci\u00F3n de Circuitos (Hist\u00F3rico)");
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 449, 305);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -65,6 +70,8 @@ public class F1HistoricalCircuitFrame extends JDialog
 				list.setBackground(UIManager.getColor("Button.background"));
 				scrollPane.setViewportView(list);
 			}
+			
+			updateList(listaCarrerasH);
 		}
 	}
 	
@@ -75,5 +82,12 @@ public class F1HistoricalCircuitFrame extends JDialog
 		{
 			listModel.addElement(l.get(i));
 		}
+	}
+	
+	
+	@Override
+	public void dispose()
+	{
+		setVisible(false);
 	}
 }
