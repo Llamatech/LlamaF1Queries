@@ -61,7 +61,7 @@ public class F1MainGUI extends JFrame implements ShapeListener
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private final static String IMG_ROOT = "./data/img/";
+	final static String IMG_ROOT = "./data/img/";
 
 	private JPanel contentPane;
 	private JFlowPanel flowPanel;
@@ -287,11 +287,11 @@ public class F1MainGUI extends JFrame implements ShapeListener
 
 	public void realizarConsulta(int anho)
 	{
-		Temporada temp = mundo.darTemporada(anho);
-		Lista<Carrera> infoCarreras = temp.getCarreras();
-		f1CircuitInfoPanel.cambiarInfo(temp.getCarreras().get(0));
-		f1ConstructorInfo.cambiarInfo(temp.getEscuderias().get(0));
-		f1DriverInfoPanel.cambiarInfo(temp.getPilotos().get(0));
+		//Temporada temp = mundo.darTemporada(anho);
+		Lista<Carrera> infoCarreras = mundo.darCarrerasTemporada(anho);
+		f1CircuitInfoPanel.cambiarInfo(mundo.darCarrerasTemporada(anho).get(0));
+		f1ConstructorInfo.cambiarInfo(mundo.darEscuderiasTemporada(anho).get(0));
+		f1DriverInfoPanel.cambiarInfo(mundo.darPilotosTemporada(anho).get(0));
 		try
 		{
 			String[] info = new String[infoCarreras.size()];

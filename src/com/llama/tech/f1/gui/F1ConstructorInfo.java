@@ -64,6 +64,7 @@ public class F1ConstructorInfo extends JFrame implements ActionListener
 	private JTable table_1;
 	private JButton btnSiguiente;
 	private F1MainGUI principal;
+	private JButton btnAnterior;
 
 	/**
 	 * Create the panel.
@@ -76,6 +77,17 @@ public class F1ConstructorInfo extends JFrame implements ActionListener
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		principal = v;
 		setTitle("Informaci\u00F3n Escuder\u00EDa");
+		
+		try 
+		{
+			setIconImage(ImageIO.read(new File(F1MainGUI.IMG_ROOT+"constructors/default.png")));
+		} 
+		catch (IOException e1) 
+		{
+			// TODO Auto-generated catch block
+		}
+		
+		
 		//setBorder(new TitledBorder(new LineBorder(new Color(184, 207, 229)), "Informaci\u00F3n Escuder\u00EDa", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(51, 51, 51)));
 		getContentPane().setLayout(null);
 		
@@ -151,10 +163,11 @@ public class F1ConstructorInfo extends JFrame implements ActionListener
 		btnSiguiente.setBounds(141, 0, 117, 25);
 		panel.add(btnSiguiente);
 		
-		JButton button = new JButton("\u2190");
-		button.setActionCommand("SIGUIENTE");
-		button.setBounds(12, 0, 117, 25);
-		panel.add(button);
+		btnAnterior = new JButton("\u2190");
+		btnAnterior.setActionCommand("ANTERIOR");
+		btnAnterior.addActionListener(this);
+		btnAnterior.setBounds(12, 0, 117, 25);
+		panel.add(btnAnterior);
 
 	}
 	
@@ -196,4 +209,6 @@ public class F1ConstructorInfo extends JFrame implements ActionListener
 		principal.setConstructorsInfo(false);
 		this.setVisible(false);
 	}
+	
+
 }

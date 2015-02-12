@@ -136,7 +136,7 @@ public class Piloto implements Serializable, Comparable<Piloto>
 	 */
 	public Piloto(String pnombre, String papellido, String pnacionalidad,
 			String pfechaNac, String pescuderia, double ppuntos, int pposFinal,
-			String purlImagen, String pdriverId, String pescuderiaId, int pTotalCarreras, String pInfoCarreras) 
+			String purlImagen, String pdriverId, String pescuderiaId, int pTotalCarreras) 
 	{
 		this.nombre = pnombre;
 		this.apellido = papellido;
@@ -151,36 +151,14 @@ public class Piloto implements Serializable, Comparable<Piloto>
 		infoCarreras = new LlamaArrayList<InfoCarrera>(20);
 		totalCarreras=pTotalCarreras;
 
-		String [] infoC = pInfoCarreras.split("|");
 
-		if(!pInfoCarreras.equals("-1"))
+		for(int i=0;i<totalCarreras;i++)
 		{
-			for(int i=0; i<infoC.length;i++)
-			{
-				//TODO No te burles, hay demasiados signos por los cuales dividir TODO TODO TODO TODO! Ackermann(TODO, TODO)
-				if(infoC[i]!=null) 
-				{
-					String [] iCa=infoC[i].split("[$]");
-					String[] iC= iCa[0].split("%");
-					String idC = iC[0];
-					String [] tiempos = Arrays.copyOfRange(iC, 1, iC.length-1);
-					String[] vueltas = iCa[1].split("%");
-					InfoCarrera info = new InfoCarrera(idC, vueltas, tiempos);
-					infoCarreras.addAlFinal(info);
+			infoCarreras.addAlFinal(new InfoCarrera());
+		}
 
 
-				}
-			}
-		}
-		else
-		{
-			for(int i=0;i<totalCarreras;i++)
-			{
-				infoCarreras.addAlFinal(new InfoCarrera());
-			}
-		}
-		
-		
+
 		//		nombre; ... ; URL;"carrera1id%t1%t2%...%tn"$"vuelta:t%vuelta2:t%vueltan:tn" |
 		//		"carrera2id%..."%...|. 
 	}
@@ -398,19 +376,35 @@ public class Piloto implements Serializable, Comparable<Piloto>
 	{
 		String pApellido1 = apellido.toLowerCase();
 		String pApellido2 = o.getApellido().toLowerCase();
-		
+
 		return pApellido1.compareTo(pApellido2);
-				
-//		return apellido.compareTo(o.getApellido());
+
+		//		return apellido.compareTo(o.getApellido());
 	}
 
-	public void setPuntosInfoCarrera(int numCarrera, double points)
+	public void setInfoCarrera(int numCarrera, String idCarrera, double puntosCarrera,
+			String posicion, int vueltasLaps, String bestTime, String avgSpeed, String estado)
 	{
-		infoCarreras.get(numCarrera-1).setPoints(points);
+		InfoCarrera usar = infoCarreras.get(numCarrera-1);
+		usar.setPoints(puntosCarrera);
+		usar.setIdCarrera(idCarrera);
+		usar.setPosicion(posicion);
+		usar.setVueltasCompletadas(vueltasLaps);
+		usar.setBestTime(bestTime);
+		usar.setAvgSpeed(avgSpeed);
+		usar.setEstado(estado);
 	}
-	
 
 
+	public double darPuntosCarrera(int numCarrera)
+	{
+		return infoCarreras.get(numCarrera-1).getPoints();
+	}
+
+	public String darPosicionCarrera(int numCarrera)
+	{
+		return infoCarreras.get(numCarrera-1).getPosicion();
+	}
 
 
 

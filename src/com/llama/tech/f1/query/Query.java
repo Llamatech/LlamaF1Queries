@@ -39,6 +39,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.llama.tech.f1.backbone.IF1;
+import com.llama.tech.utils.list.Lista;
+import com.llama.tech.utils.list.LlamaArrayList;
 
 public class Query 
 {
@@ -358,7 +360,6 @@ public class Query
 						for(int k = 0; k < pitStopsList.length(); k++)
 						{
 							JSONObject lap = pitStopsList.getJSONObject(k);
-							
 							String l = lap.getString("lap");
 							String time = lap.getString("time");
 							sb.append(l);
@@ -374,6 +375,7 @@ public class Query
 					}
 					catch(JSONException je)
 					{
+						je.printStackTrace();
 						continue;
 					}
 					
@@ -391,8 +393,9 @@ public class Query
 		return drivers;
 		
 	}
-		
-	public static String[] getCircuitsSeason(String year) throws Exception
+
+	@Deprecated
+	public static String[] getCircuitsPSeason(String year) throws Exception
 	{
 		URL urlReq = new URL(ROOT+year+".json?limit=200");
 		String[] circuits = null;
@@ -437,7 +440,7 @@ public class Query
 			}
 			catch(JSONException j)
 			{
-				
+				time = "No Disponible";
 			}
 			
 			String loc = null;
@@ -534,6 +537,148 @@ public class Query
 		return circuits;
 	}
 
+	
+	public static Lista<String> getCircuitsSeason(String year) throws Exception
+	{
+		//http://ergast.com/api/f1/2008/results/
+		Lista<String> circuits = new LlamaArrayList<String>(40);
+		StringBuilder sb = new StringBuilder();
+		StringBuilder sb2 = new StringBuilder();
+		URL req = new URL(ROOT+year+"/results.json?limit=500");
+		String contents = getJSONFormat(req);
+		JSONObject mainInfo = new JSONObject(contents);
+		JSONObject resultsT = mainInfo.getJSONObject("MRData");
+		JSONObject raceTable = resultsT.getJSONObject("RaceTable");
+		JSONArray races = raceTable.getJSONArray("Races");
+		
+		File dir = new File(IMG_ROOT+"circuits/");
+		
+		//First list:
+		//{"season":"2008","round":"1","url":"http:\/\/en.wikipedia.org\/wiki\/2008_Australian_Grand_Prix","raceName":"Australian Grand Prix","Circuit":{"circuitId":"albert_park","url":"http://en.wikipedia.org/wiki/Melbourne_Grand_Prix_Circuit","circuitName":"Albert Park Grand Pri
+		//"circuitName":"Albert Park Grand Prix Circuit","Location":{"lat":"-37.8497","long":"144.968","locality":"Melbourne","country":"Australia"}},"date":"2008-03-16","time":"04:30:00Z","Results":
+		for(int i = 0; i < races.length(); i++)
+		{
+			JSONObject totalRaceInfo = races.getJSONObject(i);
+			String round = totalRaceInfo.getString("round");
+			String raceName = totalRaceInfo.getString("raceName");
+			String url = totalRaceInfo.getString("url");
+			JSONObject circuit = totalRaceInfo.getJSONObject("Circuit");
+			String circuitId = circuit.getString("circuitId");
+			String circuitName = circuit.getString("circuitName");
+			JSONObject location = circuit.getJSONObject("Location");
+			String locality = location.getString("locality");
+			String country = location.getString("country");
+			String date = circuit.getString("date");
+			String time = circuit.getString("time");
+			String loc = null;
+			boolean imgExists = false;
+			
+			for(File f: dir.listFiles())
+			{
+				if(!f.isDirectory())
+				{
+					if(f.getName().contains(circuitId))
+					{
+						loc = IMG_ROOT+"circuits/"+f.getName();
+						imgExists = true;
+						break;
+					}
+				}
+			}
+			
+			if(!imgExists)
+			{
+				loc = ImageContent.getDriverConstructorImageContent(url, "./data/img/circuits/"+circuitId);
+			}
+			
+			sb.append(circuitName);
+			sb.append(";");
+			sb.append(circuitId);
+			sb.append(";");
+			sb.append(raceName);
+			sb.append(";");
+			sb.append(round);
+			sb.append(";");
+			sb.append(date);
+			sb.append(";");
+			sb.append(time);
+			sb.append(";");
+			sb.append(locality);
+			sb.append(";");
+			sb.append(country);
+			sb.append(";");
+			sb.append(loc);
+			sb.append(";");
+			
+			/**
+			 * {"number":"22","position":"1","positionText":"1","points":"10","Driver":{"driverId":"hamilton","permanentNumber":"44","code":"HAM","url":"http:\/\/en.wikipedia.org\/wiki\/Lewis_Hamilton","givenName":"Lewis","familyName":"Hamilton","dateOfBirth":"1985-01-07","nationality":"British"},"Constructor":{"constructorId":"mclaren","url":"http:\/\/en.wikipedia.org\/wiki\/McLaren","name":"McLaren","nationality":"British"},"grid":"1","laps":"58","status":"Finished","Time":{"millis":"5690616","time":"1:34:50.616"},"FastestLap":{"rank":"2","lap":"39","Time":{"time":"1:27.452"},"AverageSpeed":{"units":"kph","speed":"218.300"}}}
+			 */
+			
+			JSONArray results = circuit.getJSONArray("Results");
+			for(int j = 0; j < results.length(); j++)
+			{
+				//pos1:pilotid:firstName:lastName:points:laps:status:totalTime:#lap,time#:AvgSpeed
+				JSONObject driverA = results.getJSONObject(j);
+				String pos = driverA.getString("position");
+				String points = driverA.getString("points");
+				JSONObject driver = driverA.getJSONObject("Driver");
+				String driverId = driver.getString("driverId");
+				String givenName = driver.getString("givenName");
+				String lastName = driver.getString("lastName");
+				String laps = driverA.getString("laps");
+				String status = driverA.getString("status");
+				JSONObject timeInfo = driverA.getJSONObject("Time");
+				String fastLap = "-1";
+				String fastTime = "-1";
+				String avgSpeed = "-1";
+				time = "-1";
+				try
+				{
+					time = timeInfo.getString("time");
+				}
+				catch(JSONException r)
+				{
+				}
+				try
+				{
+					JSONObject fastestLap = driverA.getJSONObject("FastestLap");
+					fastLap = fastestLap.getString("lap");
+					fastTime = fastestLap.getJSONObject("Time").getString("time");
+					JSONObject averageSpeed = fastestLap.getJSONObject("AverageSpeed");
+					avgSpeed = averageSpeed.getString("speed")+averageSpeed.getString("units");    	
+				}
+				catch(JSONException t)
+				{
+					
+				}
+				
+				
+				sb2.append(pos);
+				sb2.append(":");
+				sb2.append(driverId);
+				sb2.append(":");
+				sb2.append(driverId);
+				sb2.append(":");
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+			}
+			
+			
+			
+		}
+		
+	}
+	
+	
 	public static String[] getConstructorsSeason(String year) throws Exception
 	{
 		String[] constructors;
@@ -728,6 +873,16 @@ public class Query
 		String accentsgone = normalized.replaceAll("\\p{InCombiningDiacriticalMarks}+", "");
 		
 		return accentsgone;
+	}
+	
+	public static void main(String... args)
+	{
+		try {
+			getDriversSeason("2012");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 

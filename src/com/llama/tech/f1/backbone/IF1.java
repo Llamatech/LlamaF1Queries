@@ -27,15 +27,8 @@ import com.llama.tech.utils.list.Lista;
 
 public interface IF1 extends Serializable
 {	
-	public String[] getSeasonInfo(String year);
 	
 	public String[] getSeasonList();
-	
-	public String[] getCircuitInfo(String name, String year);
-	
-	public String[] getPilotInfo(String name, String year);
-	
-	public String[] getConstructorInfo(String name);
 	
 	public Lista<Carrera> getHistoricalSeasonInfo(String initialDate, String finalDate) throws Exception;
 	
@@ -46,13 +39,7 @@ public interface IF1 extends Serializable
 	public String[] darTemporadasCompletas();
 	
 	public void cargar(int anho) throws Exception;
-	
-	public String[] darInfoCarreras(int anho);
-	
-	public String[] darInfoPilotos(int anho);
-	
-	public String[] darInfoEscuderias(int anho);
-	
+		
 	public Piloto darAnteriorPiloto(int anho) throws Exception;
 
 	public Piloto darSiguientePiloto(int anho) throws Exception;
@@ -72,6 +59,15 @@ public interface IF1 extends Serializable
 	public Piloto buscarPiloto(int anho, String pApellido);
 	
 	public Escuderia buscarEscuderia(int anho, String pNombre);
-
+	
+	public String[][] darPilotosCarrera(int numCarrera, int anho);
+	
+	public Lista<Carrera >darCarrerasTemporada(int anho);
+	
+	public Lista <Piloto >darPilotosTemporada(int anho);
+	
+	public Lista<Escuderia> darEscuderiasTemporada(int anho);
+	
+	public Carrera darCarreraMayorduracion(int anho);
 	
 }

@@ -81,11 +81,7 @@ public class F1 implements IF1, Serializable
 		return false;
 	}
 
-	@Override
-	public String[] getSeasonInfo(String year) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+
 
 	@Override
 	public String[] getSeasonList() {
@@ -93,23 +89,7 @@ public class F1 implements IF1, Serializable
 		return null;
 	}
 
-	@Override
-	public String[] getCircuitInfo(String name, String year) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public String[] getPilotInfo(String name, String year) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public String[] getConstructorInfo(String name) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	
 
 	@Override
 	public Lista<Carrera> getHistoricalSeasonInfo(String initialDate,
@@ -178,7 +158,7 @@ public class F1 implements IF1, Serializable
 
 	public void cargarCarrerasTemporada(int anho) throws Exception
 	{
-		String[]infoCarreras = Query.getCircuitsSeason(""+anho);
+		Lista<String>infoCarreras = Query.getCircuitsSeason(""+anho);
 		temporadas[anho-min].cargarCarreras(infoCarreras);
 	}
 
@@ -215,24 +195,6 @@ public class F1 implements IF1, Serializable
 
 
 
-	@Override
-	public String[] darInfoCarreras(int anho) {
-		return temporadas[anho-min].darInfoCircuitos();
-	}
-
-
-
-	@Override
-	public String[] darInfoPilotos(int anho) {
-		return temporadas[anho-min].darInfoPilotos();
-	}
-
-
-
-	@Override
-	public String[] darInfoEscuderias(int anho) {
-		return temporadas[anho-min].darInfoCircuitos();
-	}
 
 	public static IF1 cargarF1()
 	{
@@ -286,6 +248,29 @@ public class F1 implements IF1, Serializable
 	@Override
 	public Escuderia buscarEscuderia(int anho, String pNombre) {
 		return temporadas[anho-min].buscarEscuderiaBinario(pNombre);
+	}
+	
+	@Override
+	public String[][] darPilotosCarrera(int numCarrera, int anho)
+	{
+		return temporadas[anho-min].darPilotosCarrera(numCarrera);
+	}
+	@Override
+	public Lista<Carrera> darCarrerasTemporada(int anho) {
+		
+		return temporadas[anho-min].getCarreras();
+	}
+	@Override
+	public Lista<Piloto> darPilotosTemporada(int anho) {
+		return temporadas[anho-min].getPilotos();
+	}
+	@Override
+	public Lista<Escuderia> darEscuderiasTemporada(int anho) {
+		return temporadas[anho-min].getEscuderias();
+	}
+	@Override
+	public Carrera darCarreraMayorduracion(int anho) {
+		return temporadas[anho-min].darCarreraMayorDuracion();
 	}
 
 

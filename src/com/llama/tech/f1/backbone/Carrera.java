@@ -75,10 +75,6 @@ public class Carrera implements Comparable<Carrera>, Serializable
      */
     private String pais;
     
-    /**
-     * Este es el atributo que representa la lista de posiciones de los participantes
-     */
-    private String[] posiciones;
     
     /**
      * Este es el atributo que representa la duracion de la carrera
@@ -115,7 +111,7 @@ public class Carrera implements Comparable<Carrera>, Serializable
      * @param pCarreraId;
      * @param pPilotos
      */
-    public Carrera(String pNombre,String[] pPosiciones, int pNumeroCarrera, String pFecha, String pHora, String pCircuito, String pLugar, String pPais, int pDuracion, String pUrlImagen, String pCarreraId, Lista<Piloto> pPilotos )
+    public Carrera(String pNombre, int pNumeroCarrera, String pFecha, String pHora, String pCircuito, String pLugar, String pPais, int pDuracion, String pUrlImagen, String pCarreraId, Lista<Piloto> pPilotos )
     {
     	nombre = pNombre;
     	numeroCarrera = pNumeroCarrera;
@@ -124,7 +120,6 @@ public class Carrera implements Comparable<Carrera>, Serializable
     	circuito = pCircuito;
     	lugar = pLugar;
     	pais = pPais;
-    	posiciones = pPosiciones;
     	urlImagen = pUrlImagen;
     	carreraId = pCarreraId;
     	pilotos = pPilotos;
@@ -213,9 +208,6 @@ public class Carrera implements Comparable<Carrera>, Serializable
 		return pais;
 	}
 
-	public String[] getPosiciones() {
-		return posiciones;
-	}
 
 	public String getDuracion() {
 		return duracion;
@@ -253,7 +245,7 @@ public class Carrera implements Comparable<Carrera>, Serializable
 	
 	public void eliminarPiloto(String apellido)
 	{
-		pilotos.remove(new Piloto("", apellido, "", "", "", 0, 0, "", "", "", 0, "-1"));
+		pilotos.remove(new Piloto("", apellido, "", "", "", 0, 0, "", "", "", 0));
 	}
 
 }

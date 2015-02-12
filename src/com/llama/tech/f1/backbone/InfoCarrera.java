@@ -27,19 +27,57 @@ public class InfoCarrera implements Serializable
 {
      private String id;
      private double points;
-     private String[] timesPerLap;
-     private String[] pitStops;
+     private String posicion;
+     private int vueltasCompletadas;
+     private String bestTime;
+     private String avgSpeed;
+     private String estado;
 
      
-     public InfoCarrera(String id, String[] laps, String[] pPitStops)
-     {
-    	 this.id = id;
-    	 timesPerLap = laps;
-    	 this.pitStops =pPitStops;
-    	 
-    	
+     public String getAvgSpeed() {
+		return avgSpeed;
+	}
 
-     }
+	public void setAvgSpeed(String avgSpeed) {
+		this.avgSpeed = avgSpeed;
+	}
+
+	public String getEstado() {
+		return estado;
+	}
+
+	public void setEstado(String estado) {
+		this.estado = estado;
+	}
+
+	public String getBestTime() {
+		return bestTime;
+	}
+
+	public void setBestTime(String bestTime) {
+		this.bestTime = bestTime;
+	}
+
+	public int getVueltasCompletadas() {
+		return vueltasCompletadas;
+	}
+
+	public void setVueltasCompletadas(int vueltasCompletadas) {
+		this.vueltasCompletadas = vueltasCompletadas;
+	}
+
+	public void setPosicion(String posicion) {
+		this.posicion = posicion;
+	}
+
+//	public InfoCarrera(String id)
+//     {
+//    	 this.id = id;
+//
+//    	 
+//    	
+//
+//     }
      
      public InfoCarrera()
      {
@@ -49,5 +87,20 @@ public class InfoCarrera implements Serializable
      public void setPoints(double points)
      {
     	 this.points = points;
+     }
+     
+     public double getPoints()
+     {
+    	 return points;
+     }
+     
+     public String getPosicion()
+     {
+    	 return posicion;
+     }
+     
+     public void setIdCarrera(String idCarrera)
+     {
+    	 id = idCarrera;
      }
 }
