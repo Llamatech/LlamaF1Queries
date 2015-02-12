@@ -47,15 +47,22 @@ import com.llama.tech.utils.list.Lista;
 import javax.swing.JButton;
 import java.awt.Dimension;
 
-public class F1SearchPanel extends JFrame implements ActionListener {
+public class F1SearchPanel extends JFrame implements ActionListener, ItemListener
+{
+	
+	private final static String ELIMINAR = "Eliminar";
+	private final static String CONSULTAR = "Consultar"; 
+	
+	
 	private JTextField textField_1;
-
-	private JComboBox<String> comboBox_1;
+    private JComboBox<String> comboBox_1;
 	private JComboBox<String> comboBox;
 	private JButton btnNewButton;
 	private F1MainGUI principal;
 	private JDateChooser dateChooser;
 	private JDateChooser dateChooser_1;
+	private JCheckBox chckbxNewCheckBox;
+	private JButton btnNewButton_1;
 
 
 	/**
@@ -97,7 +104,8 @@ public class F1SearchPanel extends JFrame implements ActionListener {
 		lblNewLabel_2.setBounds(31, 102, 158, 15);
 		getContentPane().add(lblNewLabel_2);
 
-		JCheckBox chckbxNewCheckBox = new JCheckBox("¿Búsqueda por periodo?");
+		chckbxNewCheckBox = new JCheckBox("¿Búsqueda por periodo?");
+		chckbxNewCheckBox.addItemListener(this);
 		chckbxNewCheckBox.setBounds(31, 135, 237, 23);
 		getContentPane().add(chckbxNewCheckBox);
 
@@ -126,19 +134,25 @@ public class F1SearchPanel extends JFrame implements ActionListener {
 		panel.add(lblNewLabel_3, "2, 2, left, center");
 
 		dateChooser = new JDateChooser();
+		dateChooser.setEnabled(false);
 		panel.add(dateChooser, "6, 2, fill, top");
 
 		JLabel lblFechaFinal = new JLabel("Fecha Final:");
 		panel.add(lblFechaFinal, "2, 4, left, center");
 
 		dateChooser_1 = new JDateChooser();
+		dateChooser_1.setEnabled(false);
 		panel.add(dateChooser_1, "6, 4, fill, top");
 
 		btnNewButton = new JButton("Consultar");
+		btnNewButton.setActionCommand(CONSULTAR);
+		btnNewButton.addActionListener(this);
 		btnNewButton.setBounds(72, 264, 117, 25);
 		getContentPane().add(btnNewButton);
 
-		JButton btnNewButton_1 = new JButton("Eliminar");
+		btnNewButton_1 = new JButton("Eliminar");
+		btnNewButton_1.setActionCommand(ELIMINAR);
+		btnNewButton_1.addActionListener(this);
 		btnNewButton_1.setBounds(224, 264, 117, 25);
 		getContentPane().add(btnNewButton_1);
 
@@ -146,9 +160,6 @@ public class F1SearchPanel extends JFrame implements ActionListener {
 		comboBox_1 = new JComboBox(tipo);
 		comboBox_1.setBounds(224, 61, 158, 24);
 		getContentPane().add(comboBox_1);
-
-
-
 
 
 	}
@@ -176,8 +187,9 @@ public class F1SearchPanel extends JFrame implements ActionListener {
 		}       
 	}
 	@Override
-	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
+	public void actionPerformed(ActionEvent e) 
+	{
+		
 
 	}
 	
@@ -186,5 +198,29 @@ public class F1SearchPanel extends JFrame implements ActionListener {
 	{
 		principal.setSearchPanel(false);
 		this.setVisible(false);
+	}
+
+	@Override
+	public void itemStateChanged(ItemEvent e) 
+	{
+		if(chckbxNewCheckBox.isSelected())
+		{
+			dateChooser.setEnabled(true);
+			dateChooser_1.setEnabled(true);
+			comboBox.setEnabled(false);
+			comboBox_1.setEnabled(false);
+			textField_1.setEditable(false);
+			btnNewButton_1.setEnabled(false);
+		}
+		else
+		{
+			dateChooser.setEnabled(false);
+			dateChooser_1.setEnabled(false);
+			comboBox.setEnabled(true);
+			comboBox_1.setEnabled(true);
+			textField_1.setEditable(true);
+			btnNewButton_1.setEnabled(true);
+		}
+		
 	}
 }

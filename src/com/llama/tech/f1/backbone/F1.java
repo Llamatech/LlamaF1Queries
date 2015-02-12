@@ -91,8 +91,8 @@ public class F1 implements IF1, Serializable
 			String finalDate) throws Exception {
 		Lista<Carrera> mandar = new LlamaArrayList<Carrera>(60);
 
-		int anho1= Integer.parseInt(initialDate.split("-")[0]);
-		int anho2= Integer.parseInt(finalDate.split("-")[0]);
+		int anho1= Integer.parseInt(initialDate.split("-")[2]);
+		int anho2= Integer.parseInt(finalDate.split("-")[2]);
 
 		boolean vacio= true;
 
